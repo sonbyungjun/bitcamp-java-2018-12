@@ -5,37 +5,60 @@ package bitcamp.lms;
 
 public class App {
   public static void main(String[] args) {
-    java.util.Scanner keyboard = new java.util.Scanner(System.in);
 
-    System.out.print("번호? ");
-    int num = keyboard.nextInt();
-    keyboard.nextLine();
+    int[] num = new int[100];
+    String[] className = new String[100];
+    String[] classContents = new String[100];
+    String[] startDate = new String[100];
+    String[] endDate = new String[100];
+    int[] totalClassTime = new int[100];
+    int[] oneClassHour = new int[100];
 
-    System.out.print("수업명? ");
-    String className = keyboard.nextLine();
+    int i = 0;
+    int end = 0;
     
-    System.out.print("수업내용? ");
-    String classContents = keyboard.nextLine();
+    while (true) {
+      
+      java.util.Scanner keyboard = new java.util.Scanner(System.in);
+      System.out.print("번호? ");
+      num[i] = Integer.parseInt(keyboard.nextLine());
 
-    System.out.print("시작일? ");
-    String startDate = keyboard.nextLine();
-    
-    System.out.print("종료일? ");
-    String endDate = keyboard.nextLine();
-    
-    System.out.print("총수업시간? ");
-    int totalClassTime = keyboard.nextInt();
-    
-    System.out.print("일수업시간? ");
-    int oneClassHour = keyboard.nextInt();
-    
-    System.out.println();
-    System.out.printf("번호: %d\n", num);
-    System.out.printf("수업명: %s\n", className);
-    System.out.printf("수업내용: %s\n", classContents);
-    System.out.printf("기간: %s ~ %s\n", startDate, endDate);
-    System.out.printf("총수업시간: %d 시간\n", totalClassTime);
-    System.out.printf("일수업시간: %d 시간", oneClassHour);
-    
+      System.out.print("수업명? ");
+      className[i] = keyboard.nextLine();
+
+      System.out.print("수업내용? ");
+      classContents[i] = keyboard.nextLine();
+
+      System.out.print("시작일? ");
+      startDate[i] = keyboard.nextLine();
+
+      System.out.print("종료일? ");
+      endDate[i] = keyboard.nextLine();
+
+      System.out.print("총수업시간? ");
+      totalClassTime[i] = Integer.parseInt(keyboard.nextLine());
+
+      System.out.print("일수업시간? ");
+      oneClassHour[i] = Integer.parseInt(keyboard.nextLine());
+      System.out.println(i);
+
+
+      System.out.print("계속 입력하시겠습니까?(Y/n) ");
+      String cont = keyboard.nextLine();
+      end++;
+      i++;
+      
+      if (cont.equalsIgnoreCase("Y") || cont.equalsIgnoreCase("y") || cont.equalsIgnoreCase("\n")) {
+        continue;
+      } else if (!cont.equalsIgnoreCase("Y")) {
+        int start = 0;
+        while (start < end) {
+          System.out.printf("%-15s, %s ~ %s, %s\n", className[start], startDate[start], endDate[start], oneClassHour[start]);
+          start++;
+        }
+        break;
+      }
+      
+    }
   }
 }
