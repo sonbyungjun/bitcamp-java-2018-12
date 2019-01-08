@@ -3,39 +3,84 @@
  */
 package bitcamp.lms;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+class ClassInfomation {
+  public int num;
+  public String name;
+  public String email;
+  public String password;
+  public String photo;
+  public String tel;
+  public Date createdDate = new Date(System.currentTimeMillis()); 
+
+  public ClassInfomation(int num, String name, String email, String password, String photo, String tel) {
+    this.num = num;
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.photo = photo;
+    this.tel = tel;
+  }
+  
+  public void print() {
+    System.out.printf("%d, %-4s, %-20s, %-15s, %s\n", num, name, email, tel, createdDate);
+  }
+  
+}
+
 public class App2 {
   public static void main(String[] args) {
-    java.util.Scanner keyboard = new java.util.Scanner(System.in);
+    
+    ClassInfomation[] ClassInfomations = new ClassInfomation[10];
+    
+    Scanner keyboard = new Scanner(System.in);
+    
+    int i = 0;
+    int e = 0;
+    
+    while (true) {
+      
+      System.out.print("번호? ");
+      int no = Integer.parseInt(keyboard.nextLine());
+      
+      System.out.print("이름? ");
+      String name = keyboard.nextLine();
+      
+      System.out.print("이메일? ");
+      String email = keyboard.nextLine();
+      
+      System.out.print("암호? ");
+      String password = keyboard.nextLine();
 
-    System.out.print("번호? ");
-    int num = keyboard.nextInt();
-    keyboard.nextLine();
+      System.out.print("사진? ");
+      String photo = keyboard.nextLine();
 
-    System.out.print("이름? ");
-    String name = keyboard.nextLine();
-    
-    System.out.print("이메일? ");
-    String email = keyboard.nextLine();
+      System.out.print("전화? ");
+      String tel = keyboard.nextLine();
+      
+      ClassInfomations[i] = new ClassInfomation(no, name, email, password, photo, tel);
+      
+      System.out.print("계속 입력하시겠습니까?(Y/n) ");
+      String cont = keyboard.nextLine();
+      
+      i++;
+      e++;
 
-    System.out.print("암호? ");
-    int password = keyboard.nextInt();
-    keyboard.nextLine();
-    
-    System.out.print("사진? ");
-    String photo = keyboard.nextLine();
-    
-    System.out.print("전화? ");
-    String tel = keyboard.nextLine();
-    
-    java.util.Date joinDate = new java.util.Date();
-    
-    System.out.println();
-    System.out.printf("번호: %d\n", num);
-    System.out.printf("이름: %s\n", name);
-    System.out.printf("이메일: %s\n", email);
-    System.out.printf("암호: %d\n", password);
-    System.out.printf("사진: %s\n", photo);
-    System.out.printf("전화: %s\n", tel);
-    System.out.printf("가입일: %1$tY-%1$tm-%1$td\n", joinDate);
+      if (cont.equalsIgnoreCase("Y") || cont.equalsIgnoreCase("y") || cont.isEmpty()) {
+        continue;
+      } else if (!cont.equalsIgnoreCase("Y")) {
+        int start = 0;
+        while (start < e) {
+          ClassInfomations[start].print();
+          start++;
+        }
+        keyboard.close();
+        break;
+      }
+    }
   }
 }

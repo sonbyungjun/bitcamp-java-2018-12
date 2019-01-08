@@ -40,8 +40,6 @@ public class App {
 
       System.out.print("일수업시간? ");
       oneClassHour[i] = Integer.parseInt(keyboard.nextLine());
-      System.out.println(i);
-
 
       System.out.print("계속 입력하시겠습니까?(Y/n) ");
       String cont = keyboard.nextLine();
@@ -56,6 +54,7 @@ public class App {
           System.out.printf("%-15s, %s ~ %s, %s\n", className[start], startDate[start], endDate[start], oneClassHour[start]);
           start++;
         }
+        keyboard.close();
         break;
       }
       
