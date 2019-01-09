@@ -4,8 +4,6 @@
 package bitcamp.lms;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 class ClassInfomation {

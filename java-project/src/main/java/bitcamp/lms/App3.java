@@ -29,8 +29,7 @@ public class App3 {
     
     while (true) {
       System.out.print("번호? ");
-      int a = keyboard.nextInt();
-      keyboard.nextLine();
+      int a = Integer.parseInt(keyboard.nextLine());
       System.out.print("내용? ");
       String b = keyboard.nextLine();
       Ci ci = new Ci(a, b);
