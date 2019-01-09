@@ -3,25 +3,48 @@
  */
 package bitcamp.lms;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
+
+class Ci {
+  public int num;
+  public String content;
+  public int no;
+  public Date createdDate = new Date(); 
+  public Ci(int num, String content) {
+    this.num = num;
+    this.content = content;
+  }
+  public void print() {
+    System.out.printf("%d, %-15s, %3$tY-%3$tm-%3$td, %4$d\n", num, content, createdDate, no);
+  }
+}
+
 public class App3 {
   public static void main(String[] args) {
-    java.util.Scanner keyboard = new java.util.Scanner(System.in);
-
-    System.out.print("번호? ");
-    int num = keyboard.nextInt();
-    keyboard.nextLine();
-
-    System.out.print("내용? ");
-    String content = keyboard.nextLine();
+    Scanner keyboard = new Scanner(System.in);
+    List<Ci> ClassInfomations = new ArrayList<Ci>();
     
-    java.util.Date dateCreated = new java.util.Date();
-    
-    int views = 0;
-    
-    System.out.println();
-    System.out.printf("번호: %d\n", num);
-    System.out.printf("내용: %s\n", content);
-    System.out.printf("작성일: %1$tY-%1$tm-%1$td\n", dateCreated);
-    System.out.printf("조회수: %d\n", views);
+    while (true) {
+      System.out.print("번호? ");
+      int a = keyboard.nextInt();
+      keyboard.nextLine();
+      System.out.print("내용? ");
+      String b = keyboard.nextLine();
+      Ci ci = new Ci(a, b);
+      ClassInfomations.add(ci);
+      System.out.print("\n계속 입력하시겠습니까?(Y/n) ");
+      String cont = keyboard.nextLine();
+      System.out.println();
+      if (!cont.equalsIgnoreCase("y") && !cont.equals("")) {
+        break;
+      }
+    }
+    keyboard.close();
+    for (int i = 0; i < ClassInfomations.size(); i++) {
+      ClassInfomations.get(i).print();
+    }
   }
 }

@@ -40,7 +40,6 @@ public class App2 {
     Scanner keyboard = new Scanner(System.in);
     
     int i = 0;
-    int e = 0;
     
     while (true) {
       
@@ -68,13 +67,10 @@ public class App2 {
       String cont = keyboard.nextLine();
       
       i++;
-      e++;
 
-      if (cont.equalsIgnoreCase("Y") || cont.equalsIgnoreCase("y") || cont.isEmpty()) {
-        continue;
-      } else if (!cont.equalsIgnoreCase("Y")) {
+      if (!cont.equalsIgnoreCase("Y")) {
         int start = 0;
-        while (start < e) {
+        while (start < i) {
           ClassInfomations[start].print();
           start++;
         }

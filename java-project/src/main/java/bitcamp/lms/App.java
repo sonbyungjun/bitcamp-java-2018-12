@@ -15,11 +15,11 @@ public class App {
     int[] oneClassHour = new int[100];
 
     int i = 0;
-    int end = 0;
+    
+    java.util.Scanner keyboard = new java.util.Scanner(System.in);
     
     while (true) {
       
-      java.util.Scanner keyboard = new java.util.Scanner(System.in);
       System.out.print("번호? ");
       num[i] = Integer.parseInt(keyboard.nextLine());
 
@@ -43,14 +43,12 @@ public class App {
 
       System.out.print("계속 입력하시겠습니까?(Y/n) ");
       String cont = keyboard.nextLine();
-      end++;
-      i++;
+     
+      i++; 
       
-      if (cont.equalsIgnoreCase("Y") || cont.equalsIgnoreCase("y") || cont.equalsIgnoreCase("\n")) {
-        continue;
-      } else if (!cont.equalsIgnoreCase("Y")) {
+      if (!cont.equalsIgnoreCase("Y")) {
         int start = 0;
-        while (start < end) {
+        while (start < i) {
           System.out.printf("%-15s, %s ~ %s, %s\n", className[start], startDate[start], endDate[start], oneClassHour[start]);
           start++;
         }
