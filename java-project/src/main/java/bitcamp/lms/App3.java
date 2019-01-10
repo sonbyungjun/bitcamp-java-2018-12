@@ -4,36 +4,25 @@
 package bitcamp.lms;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-class Ci {
-  public int num;
-  public String content;
-  public int no;
-  public Date createdDate = new Date(); 
-  public Ci(int num, String content) {
-    this.num = num;
-    this.content = content;
-  }
-  public void print() {
-    System.out.printf("%d, %-15s, %3$tY-%3$tm-%3$td, %4$d\n", num, content, createdDate, no);
-  }
-}
-
 public class App3 {
   public static void main(String[] args) {
+    
     Scanner keyboard = new Scanner(System.in);
-    List<Ci> ClassInfomations = new ArrayList<Ci>();
+    List<Board> boards = new ArrayList<Board>();
     
     while (true) {
+      
       System.out.print("번호? ");
-      int a = Integer.parseInt(keyboard.nextLine());
+      int no = Integer.parseInt(keyboard.nextLine());
       System.out.print("내용? ");
-      String b = keyboard.nextLine();
-      Ci ci = new Ci(a, b);
-      ClassInfomations.add(ci);
+      String content = keyboard.nextLine();
+      Board board = new Board(no, content);
+      
+      boards.add(board);
+      
       System.out.print("\n계속 입력하시겠습니까?(Y/n) ");
       String cont = keyboard.nextLine();
       System.out.println();
@@ -41,9 +30,10 @@ public class App3 {
         break;
       }
     }
+    
     keyboard.close();
-    for (int i = 0; i < ClassInfomations.size(); i++) {
-      ClassInfomations.get(i).print();
+    for (int i = 0; i < boards.size(); i++) {
+      boards.get(i).print();
     }
   }
 }

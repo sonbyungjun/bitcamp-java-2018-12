@@ -9,6 +9,6 @@ public class Test02 {
     // 30억을 8바이트 리터럴로 출력
     System.out.println(3000000000L);
     // 30억을 4바이트 리터럴로 출력
-    System.out.println(3000000000);
+//    System.out.println(3000000000);
   }
 }

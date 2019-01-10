@@ -6,38 +6,70 @@ package bitcamp.lms;
 import java.util.Date;
 import java.util.Scanner;
 
+class ClassInfomation {
+  public int num;
+  public String name;
+  public String email;
+  public String password;
+  public String photo;
+  public String tel;
+  public Date createdDate = new Date(System.currentTimeMillis()); 
+
+  public ClassInfomation(int num, String name, String email, String password, String photo, String tel) {
+    this.num = num;
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.photo = photo;
+    this.tel = tel;
+  }
+  
+  public void print() {
+    System.out.printf("%d, %-4s, %-20s, %-15s, %s\n", num, name, email, tel, createdDate);
+  }
+  
+}
+
 public class App2 {
   public static void main(String[] args) {
-    Member[] Members = new Member[10];
+    
+    ClassInfomation[] ClassInfomations = new ClassInfomation[10];
+    
     Scanner keyboard = new Scanner(System.in);
+    
     int i = 0;
+    
     while (true) {
+      
       System.out.print("번호? ");
       int no = Integer.parseInt(keyboard.nextLine());
+      
       System.out.print("이름? ");
       String name = keyboard.nextLine();
+      
       System.out.print("이메일? ");
       String email = keyboard.nextLine();
+      
       System.out.print("암호? ");
       String password = keyboard.nextLine();
+
       System.out.print("사진? ");
       String photo = keyboard.nextLine();
+
       System.out.print("전화? ");
       String tel = keyboard.nextLine();
       
-      Member member = new Member(no, name, email, password, photo, tel);
-      member.createdDate = new Date(System.currentTimeMillis());
-      Members[i] = member;
-
-      System.out.println();
+      ClassInfomations[i] = new ClassInfomation(no, name, email, password, photo, tel);
+      
       System.out.print("계속 입력하시겠습니까?(Y/n) ");
       String cont = keyboard.nextLine();
+      
       i++;
-      System.out.println();
+
       if (!cont.equalsIgnoreCase("Y")) {
         int start = 0;
         while (start < i) {
-          Members[start].print();
+          ClassInfomations[start].print();
           start++;
         }
         keyboard.close();
