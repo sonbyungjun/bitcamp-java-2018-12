@@ -19,6 +19,7 @@ public class App3 {
       int no = Integer.parseInt(keyboard.nextLine());
       System.out.print("내용? ");
       String content = keyboard.nextLine();
+      
       Board board = new Board(no, content);
       
       boards.add(board);
@@ -30,8 +31,8 @@ public class App3 {
         break;
       }
     }
-    
     keyboard.close();
+    
     for (int i = 0; i < boards.size(); i++) {
       boards.get(i).print();
     }

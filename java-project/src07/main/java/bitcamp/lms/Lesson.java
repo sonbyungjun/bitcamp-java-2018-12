@@ -1,11 +1,13 @@
 package bitcamp.lms;
 
+import java.util.Date;
+
 class Lesson {
   int num;
   String className;
   String classContents;
-  String startDate;
-  String endDate;
+  Date startDate;
+  Date endDate;
   int totalClassTime;
   int oneClassHour;
 }

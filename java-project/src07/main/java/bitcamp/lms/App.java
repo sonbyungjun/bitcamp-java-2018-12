@@ -3,14 +3,22 @@
  */
 package bitcamp.lms;
 
+import java.sql.Date;
+import java.util.Scanner;
+
 public class App {
   public static void main(String[] args) {
-    Lesson[] lessons = new Lesson[10];
-    java.util.Scanner keyboard = new java.util.Scanner(System.in);
-    int i = 0;
-    
-    while (true) {
+
+    final int LENTH = 100;
+
+    Lesson[] lessons = new Lesson[LENTH];
+    Scanner keyboard = new Scanner(System.in);
+
+    int size = 0;
+
+    while (size < LENTH) {
       Lesson lesson = new Lesson();
+
       System.out.print("번호? ");
       lesson.num = Integer.parseInt(keyboard.nextLine());
       System.out.print("수업명? ");
@@ -18,29 +26,32 @@ public class App {
       System.out.print("수업내용? ");
       lesson.classContents = keyboard.nextLine();
       System.out.print("시작일? ");
-      lesson.startDate = keyboard.nextLine();
+      lesson.startDate = Date.valueOf(keyboard.nextLine());
       System.out.print("종료일? ");
-      lesson.endDate = keyboard.nextLine();
+      lesson.endDate = Date.valueOf(keyboard.nextLine());
       System.out.print("총수업시간? ");
       lesson.totalClassTime = Integer.parseInt(keyboard.nextLine());
       System.out.print("일수업시간? ");
       lesson.oneClassHour = Integer.parseInt(keyboard.nextLine());
 
-      lessons[i] = lesson;
+      lessons[size] = lesson;
 
+      size++; 
+      
+      System.out.println();
       System.out.print("계속 입력하시겠습니까?(Y/n) ");
       String cont = keyboard.nextLine();
-      i++; 
-      if (!cont.equalsIgnoreCase("Y")) {
-        int start = 0;
-        while (start < i) {
-          System.out.printf("%-15s, %s ~ %s, %s\n", lessons[start].className, lessons[start].startDate, lessons[start].endDate, lessons[start].oneClassHour);
-          start++;
-        }
-        keyboard.close();
-        break;
-      }
+
+      if (!cont.equalsIgnoreCase("Y") && !cont.equals("")) break;
     }
     
+    keyboard.close();
+    
+    System.out.println();
+    
+    for (int i = 0; i < size; i++) {
+      System.out.printf("%-15s, %s ~ %s, %s\n", 
+          lessons[i].className, lessons[i].startDate, lessons[i].endDate, lessons[i].oneClassHour);
+    }
   }
 }
