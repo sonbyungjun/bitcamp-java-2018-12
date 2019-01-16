@@ -19,10 +19,9 @@ public class LessonList {
   
   
   public Lesson[] toArray() {
-    Lesson[] b1 = this.lessons;
     Lesson[] b2 = new Lesson[this.idx];
     for (int i = 0; i < this.idx; i++) {
-      b2[i] = b1[i];
+      b2[i] = this.lessons[i];
     }
     return b2;
   }

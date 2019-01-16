@@ -19,10 +19,9 @@ public class MemberList {
   
   
   public Member[] toArray() {
-    Member[] b1 = this.members;
     Member[] b2 = new Member[this.idx];
     for (int i = 0; i < this.idx; i++) {
-      b2[i] = b1[i];
+      b2[i] = this.members[i];
     }
     return b2;
   }

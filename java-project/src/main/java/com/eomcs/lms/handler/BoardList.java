@@ -19,10 +19,9 @@ public class BoardList {
   
   
   public Board[] toArray() {
-    Board[] b1 = this.boards;
     Board[] b2 = new Board[this.idx];
     for (int i = 0; i < this.idx; i++) {
-      b2[i] = b1[i];
+      b2[i] = this.boards[i];
     }
     return b2;
   }
