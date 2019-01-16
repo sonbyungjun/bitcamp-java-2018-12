@@ -6,36 +6,39 @@ import com.eomcs.lms.domain.Board;
 
 public class BoardHandler {
   
-  static Scanner keyboard = new Scanner(System.in);
-
-  static final int LENGTH = 10;
   
-  static Board[] boards = new Board[LENGTH];
-  static int boardIdx = 0;
+  Scanner keyboard;
   
-  public static void listBoard() {
-    for (int j = 0; j < boardIdx; j++) {
+  BoardList boardlist = new BoardList(10);
+  
+  public BoardHandler(Scanner keyboard) {
+    this.keyboard = keyboard;
+  }
+  
+  public void listBoard() {
+    boardlist.boards = boardlist.toArray();
+    for (int j = 0; j < boardlist.boards.length; j++) {
       System.out.printf("%3d, %-20s, %s, %d\n", 
-          boards[j].no, boards[j].contents, boards[j].createdDate, boards[j].viewCount);
+          boardlist.boards[j].getNo(), boardlist.boards[j].getContents(), boardlist.boards[j].getCreatedDate(), boardlist.boards[j].getViewCount());
     }
   }
 
-  public static void addBoard() {
+  public void addBoard() {
     Board board = new Board();
     
     System.out.print("번호? ");
-    board.no = Integer.parseInt(keyboard.nextLine());
+    board.setNo(Integer.parseInt(this.keyboard.nextLine()));
     
     System.out.print("내용? ");
-    board.contents = keyboard.nextLine();
+    board.setContents(this.keyboard.nextLine());
     
-    board.createdDate = new Date(System.currentTimeMillis()); 
+    board.setCreatedDate(new Date(System.currentTimeMillis())); 
     
-    board.viewCount = 0;
+    board.setViewCount(0);
     
-    boards[boardIdx] = board;
-    boardIdx++;
+    boardlist.add(board);
     
     System.out.println("저장하였습니다.");
   }
+  
 }
