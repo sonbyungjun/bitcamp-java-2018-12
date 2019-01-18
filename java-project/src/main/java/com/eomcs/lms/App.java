@@ -25,11 +25,29 @@ public class App {
       } else if (command.equals("/lesson/list")) {
         lessonHandler.listLesson();
       
+      } else if (command.equals("/lesson/detail")) {
+        lessonHandler.datailBoard();
+        
+      } else if (command.equals("/lesson/update")) {
+        lessonHandler.updateBoard();
+        
+      } else if (command.equals("/lesson/delete")) {
+        lessonHandler.deleteBoard();
+        
       } else if (command.equals("/member/add")) {
         memberHandler.addMember();
         
       } else if (command.equals("/member/list")) {
         memberHandler.listMember();
+        
+      } else if (command.equals("/member/detail")) {
+        memberHandler.datailBoard();
+        
+      } else if (command.equals("/member/update")) {
+        memberHandler.updateBoard();
+        
+      } else if (command.equals("/member/delete")) {
+        memberHandler.deleteBoard();
         
       } else if (command.equals("/board/add")) {
         boardHandler1.addBoard();
@@ -37,8 +55,16 @@ public class App {
       } else if (command.equals("/board/list")) {
         boardHandler1.listBoard();
         
+      } else if (command.equals("/board/detail")) {
+        boardHandler1.datailBoard();
+        
+      } else if (command.equals("/board/update")) {
+        boardHandler1.updateBoard();
+        
+      } else if (command.equals("/board/delete")) {
+        boardHandler1.deleteBoard();
+        
       } else if (command.equals("/board2/add")) {
-        boardHandler2.addBoard();
         
       } else if (command.equals("/board2/list")) {
         boardHandler2.listBoard();

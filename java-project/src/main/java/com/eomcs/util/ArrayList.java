@@ -4,11 +4,15 @@ import java.util.Arrays;
 
 public class ArrayList<E> {
   static final int DEFAULT_CAPACITY = 10;
-  Object[] list;
-  int size = 0;
+  private Object[] list;
+  private int size = 0;
 
   public ArrayList() {
     list  = new Object[DEFAULT_CAPACITY];
+  }
+  
+  public int getSize() {
+    return size;
   }
 
   public ArrayList(int initialCapacity) {
@@ -32,4 +36,26 @@ public class ArrayList<E> {
 
     list[size++] = obj;
   }
+  
+  @SuppressWarnings("unchecked")
+  public E get(int index) {
+    if (index == -1) 
+      return null;
+    E a = (E) list[index];
+    return a;
+  }
+  
+  public void set(int i, E obj) {
+    list[i] = obj;
+  }
+  
+  public void delete(int index) {
+    Object tmp = null;
+    for (int i = index; i < size; i++) {
+      tmp = list[i+1];
+      list[i] = tmp;
+    }
+    size--;
+  }
+  
 }
