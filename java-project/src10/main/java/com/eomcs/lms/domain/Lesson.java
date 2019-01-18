@@ -1,4 +1,5 @@
 package com.eomcs.lms.domain;
+
 import java.sql.Date;
 
 public class Lesson {
