@@ -26,14 +26,14 @@ public class App {
         lessonHandler.listLesson();
       
       } else if (command.equals("/lesson/detail")) {
-        lessonHandler.detailLesson();
-      
+        lessonHandler.datailBoard();
+        
       } else if (command.equals("/lesson/update")) {
-        lessonHandler.updateLesson();
-      
+        lessonHandler.updateBoard();
+        
       } else if (command.equals("/lesson/delete")) {
-        lessonHandler.deleteLesson();
-      
+        lessonHandler.deleteBoard();
+        
       } else if (command.equals("/member/add")) {
         memberHandler.addMember();
         
@@ -41,13 +41,13 @@ public class App {
         memberHandler.listMember();
         
       } else if (command.equals("/member/detail")) {
-        memberHandler.detailMember();
+        memberHandler.datailBoard();
         
       } else if (command.equals("/member/update")) {
-        memberHandler.updateMember();
+        memberHandler.updateBoard();
         
       } else if (command.equals("/member/delete")) {
-        memberHandler.deleteMember();
+        memberHandler.deleteBoard();
         
       } else if (command.equals("/board/add")) {
         boardHandler1.addBoard();
@@ -56,7 +56,7 @@ public class App {
         boardHandler1.listBoard();
         
       } else if (command.equals("/board/detail")) {
-        boardHandler1.detailBoard();
+        boardHandler1.datailBoard();
         
       } else if (command.equals("/board/update")) {
         boardHandler1.updateBoard();
@@ -65,7 +65,6 @@ public class App {
         boardHandler1.deleteBoard();
         
       } else if (command.equals("/board2/add")) {
-        boardHandler2.addBoard();
         
       } else if (command.equals("/board2/list")) {
         boardHandler2.listBoard();
@@ -73,14 +72,11 @@ public class App {
       } else if (command.equals("quit")) {
         System.out.println("안녕!");
         break;
-        
       } else {
         System.out.println("실행할 수 없는 명령입니다.");
       }
-      
       System.out.println(); // 결과 출력 후 빈 줄 출력
     }
-
     keyboard.close();
   }
 
