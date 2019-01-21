@@ -1,7 +1,6 @@
 package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
-import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.util.ArrayList;
 
@@ -113,7 +112,7 @@ public class MemberHandler {
       System.out.println("해당 회원을 찾을 수 없습니다.");
       return;
     }
-    list.delete(i);
+    list.remove(i);
     System.out.println("회원을 삭제했습니다.");
   }
 

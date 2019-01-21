@@ -82,7 +82,7 @@ public class BoardHandler {
       System.out.println("해당 게시글을 찾을 수 없습니다.");
       return;
     }
-    list.delete(i);
+    list.remove(i);
     System.out.println("게시글을 삭제했습니다.");
   }
   
