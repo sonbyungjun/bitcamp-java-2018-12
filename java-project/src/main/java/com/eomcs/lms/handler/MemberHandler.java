@@ -54,7 +54,7 @@ public class MemberHandler {
   
   private int indexOf(int no) {
     Member[] members = list.toArray(new Member[] {});
-    for (int i = 0; i < members.length; i++) {
+    for (int i = 0; i < list.getSize(); i++) {
       if(members[i].getNo() == no) 
         return i;
     }

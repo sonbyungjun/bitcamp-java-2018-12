@@ -46,13 +46,14 @@ public class ArrayList<E> {
     
     E oldobj = (E) list[index];
     
-    int newSize = size - 1;
-    System.arraycopy(list, index + 1, list, index, newSize - index);
-    list[size = newSize] = null;
-//    for (int i = index; i < size - 1; i++) {
-//      list[index] = list[index + 1];
-//    }
-//    size--;
+//    int newSize = size - 1;
+//    System.arraycopy(list, index + 1, list, index, newSize - index);
+//    list[size = newSize] = null;
+    for (int i = index; i < size - 1; i++) {
+      System.out.println(i);
+      list[index] = list[index + 1];
+    }
+    size--;
     return oldobj;
   }
 

@@ -43,9 +43,9 @@ public class BoardHandler {
   }
 
   private int indexOf(int no) {
-    Board[] boards = list.toArray(new Board[] {});
-    for (int i = 0; i < boards.length; i++) {
-      if(boards[i].getNo() == no) 
+    for (int i = 0; i < list.getSize(); i++) {
+      Board board = list.get(i);
+      if(board.getNo() == no) 
         return i;
     }
     return -1;

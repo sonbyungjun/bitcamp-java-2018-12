@@ -54,7 +54,7 @@ public class LessonHandler {
 
   private int indexOf(int no) {
     Lesson[] lessons = list.toArray(new Lesson[] {});
-    for (int i = 0; i < lessons.length; i++) {
+    for (int i = 0; i < list.getSize(); i++) {
       if(lessons[i].getNo() == no) 
         return i;
     }
