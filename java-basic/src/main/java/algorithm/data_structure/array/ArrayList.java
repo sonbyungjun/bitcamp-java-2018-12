@@ -1,6 +1,5 @@
 package algorithm.data_structure.array;
 
-
 public class ArrayList {
   static final int DEFAULT_SIZE = 5;
   Object[] arr;
