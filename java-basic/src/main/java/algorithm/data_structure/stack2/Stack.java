@@ -1,6 +1,6 @@
-package com.eomcs.util;
+package algorithm.data_structure.stack2;
 
-public class Stack<E> implements Cloneable {
+public class Stack<E> {
   
   public static final int DEFAULT_SIZE = 5;
   Object[] list;
@@ -35,12 +35,4 @@ public class Stack<E> implements Cloneable {
   public int size() {
     return this.size;
   }
-  
-  @SuppressWarnings("unchecked")
-  @Override
-  public Stack<E> clone() throws CloneNotSupportedException {
-    // TODO Auto-generated method stub
-    return (Stack<E>) super.clone();
-  }
-  
 }

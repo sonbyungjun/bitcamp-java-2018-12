@@ -1,4 +1,4 @@
-package com.eomcs.util;
+package ch19.f;
 
 public class Node {
   public Object value;

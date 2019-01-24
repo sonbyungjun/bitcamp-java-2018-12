@@ -1,6 +1,4 @@
-package com.eomcs.util;
-
-import java.lang.reflect.Array;
+package algorithm.data_structure.linkedlist3;
 
 public class LinkedList<E> {
   protected Node<E> head;
@@ -41,22 +39,6 @@ public class LinkedList<E> {
     Node<E> cursor = head;
     for (int i = 0; i < size; i++) {
       arr[i] = cursor.value;
-      cursor = cursor.next;
-    }
-    return arr;
-  }
-  
-  @SuppressWarnings("unchecked")
-  public <T> T[] toArray(T[] a) {
-    T[] arr = null;
-    if (a.length >= size()) {
-      arr = a;
-    } else {
-      arr = (T[]) Array.newInstance(a.getClass().getComponentType(), this.size);
-    }
-    Node<E> cursor = head;
-    for (int i = 0; i < size; i++) {
-      arr[i] = (T) cursor.value;
       cursor = cursor.next;
     }
     return arr;

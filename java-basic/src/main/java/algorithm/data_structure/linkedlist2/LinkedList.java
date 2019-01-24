@@ -1,21 +1,19 @@
-package com.eomcs.util;
+package algorithm.data_structure.linkedlist2;
 
-import java.lang.reflect.Array;
-
-public class LinkedList<E> {
-  protected Node<E> head;
-  protected Node<E> tail;
+public class LinkedList {
+  protected Node head;
+  protected Node tail;
   protected int size;
 
   public LinkedList() {
-    head = new Node<>();
+    head = new Node();
     tail = head;
     size = 0;
   }
 
-  public void add(E value) {
+  public void add(Object value) {
     tail.value = value;
-    Node<E> node = new Node<>();
+    Node node = new Node();
     tail.next = node;
     node.prev = tail;
     tail = node;
@@ -26,10 +24,10 @@ public class LinkedList<E> {
     return size;
   }
 
-  public E get(int index) {
+  public Object get(int index) {
     if (index < 0 || index >= size)
       return null;
-    Node<E> cursor = head;
+    Node cursor = head;
     for (int i = 1; i <= index; i++) {
       cursor = cursor.next;
     }
@@ -38,47 +36,31 @@ public class LinkedList<E> {
 
   public Object[] toArray() {
     Object[] arr = new Object[size];
-    Node<E> cursor = head;
+    Node cursor = head;
     for (int i = 0; i < size; i++) {
       arr[i] = cursor.value;
       cursor = cursor.next;
     }
     return arr;
   }
-  
-  @SuppressWarnings("unchecked")
-  public <T> T[] toArray(T[] a) {
-    T[] arr = null;
-    if (a.length >= size()) {
-      arr = a;
-    } else {
-      arr = (T[]) Array.newInstance(a.getClass().getComponentType(), this.size);
-    }
-    Node<E> cursor = head;
-    for (int i = 0; i < size; i++) {
-      arr[i] = (T) cursor.value;
-      cursor = cursor.next;
-    }
-    return arr;
-  }
 
-  public E set(int index, E value) {
+  public Object set(int index, Object value) {
     if (index < 0 || index >= size)
       return null;
-    Node<E> cursor = head;
+    Node cursor = head;
     for (int i = 1; i <= index; i++) {
       cursor = cursor.next;
     }
-    E old = cursor.value;
+    Object old = cursor.value;
     cursor.value = value;
     return old;
   }
 
-  public int insert(int index, E value) {
+  public int insert(int index, Object value) {
     if (index < 0 || index >= size)
       return -1;
-    Node<E> node = new Node<>(value);
-    Node<E> cursor = head;
+    Node node = new Node(value);
+    Node cursor = head;
     for (int i = 1; i <= index; i++) {
       cursor = cursor.next;
     }
@@ -94,14 +76,14 @@ public class LinkedList<E> {
     return 0;
   }
 
-  public E remove(int index) {
+  public Object remove(int index) {
     if (index < 0 || index >= size)
       return null;
-    Node<E> cursor = head;
+    Node cursor = head;
     for (int i = 1; i <= index; i++) {
       cursor = cursor.next;
     }
-    E old = cursor.value;
+    Object old = cursor.value;
     if (cursor.prev != null) {
       cursor.prev.next = cursor.next;
     } else {
@@ -116,13 +98,13 @@ public class LinkedList<E> {
   }
   
   
-  private static class Node<E> {
-    E value;
-    Node<E> prev;
-    Node<E> next;
+  private static class Node {
+    Object value;
+    Node prev;
+    Node next;
     Node() {
     }
-    Node(E value) {
+    Node(Object value) {
       this.value = value;
     }
   }

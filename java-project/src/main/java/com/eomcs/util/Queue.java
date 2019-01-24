@@ -1,13 +1,26 @@
 package com.eomcs.util;
 
-public class Queue extends LinkedList {
+public class Queue<E> {
+  Object[] list;
+  int size;
   
-  public void offer(Object value) {
-    this.add(value);
+  public Queue() {
+    list = new Object[5];
+    size = 0;
   }
   
-  public Object poll() {
-    return this.remove(0);
+  public void offer(E value) {
+    list[size++] = value;
+  }
+  
+  @SuppressWarnings("unchecked")
+  public E poll() {
+    E value = (E) list[0];
+    for (int i = size-1; i > 0; i--) {
+      list[i-1] = list[i];
+    }
+    size--;
+    return value;
   }
   
   public boolean empty() {
