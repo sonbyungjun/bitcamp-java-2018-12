@@ -1,4 +1,4 @@
-package algorithm.data_structure.array;
+package design_pattern.iterator;
 
 public class ArrayList<E> {
   static final int DEFAULT_SIZE = 5;
@@ -85,4 +85,25 @@ public class ArrayList<E> {
     }
     arr = temp;
   }
+  
+  public Iterator<E> iterator() {
+    
+    return new Iterator<E>() {
+      int index = 0;
+      @Override
+      public boolean hasNext() {
+        return index < size();
+      }
+      @Override
+      public E next() {
+        return get(index++);
+      }
+    };
+    
+  }
+  
+  
+
+  
+  
 }

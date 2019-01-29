@@ -1,15 +1,20 @@
 package com.eomcs.util;
 
-public class Queue<E> {
+import java.util.Arrays;
+
+public class Queue3<E> {
   Object[] list;
   int size;
   
-  public Queue() {
+  public Queue3() {
     list = new Object[5];
     size = 0;
   }
   
   public void offer(E value) {
+    if (list.length == size) {
+      Arrays.copyOf(list, list.length + (list.length >> 1));
+    }
     list[size++] = value;
   }
   

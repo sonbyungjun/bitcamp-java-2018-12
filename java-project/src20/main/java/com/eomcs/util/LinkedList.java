@@ -2,7 +2,7 @@ package com.eomcs.util;
 
 import java.lang.reflect.Array;
 
-public class LinkedList<E> {
+public class LinkedList<E> implements Cloneable {
   protected Node<E> head;
   protected Node<E> tail;
   protected int size;
