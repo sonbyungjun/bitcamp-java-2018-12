@@ -1,3 +1,4 @@
+// hash code 응용 V - 사용자가 만든 클래스를 key로 사용하기 위해 hashCode()와 equals() 오버라이딩 하기
 package ch15;
 
 import java.util.HashMap;
@@ -11,7 +12,7 @@ class Key2 {
 
   @Override
   public String toString() {
-    return "Key [contents=" + contents + "]";
+    return "Key2 [contents=" + contents + "]";
   }
 
   @Override
@@ -21,7 +22,7 @@ class Key2 {
     result = prime * result + ((contents == null) ? 0 : contents.hashCode());
     return result;
   }
-
+  
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -38,9 +39,7 @@ class Key2 {
       return false;
     return true;
   }
-  
 }
-
 
 public class Test11 {
   public static void main(String[] args) {
@@ -52,7 +51,7 @@ public class Test11 {
     Key2 k4 = new Key2("ohora");
     Key2 k5 = new Key2("hul");
     
-    
+    // String을 key로 사용해보자! 
     map.put(k1, new Student("홍길동", 20, false));
     map.put(k2, new Student("임꺽정", 30, true));
     map.put(k3, new Student("유관순", 17, true));
@@ -60,19 +59,30 @@ public class Test11 {
     map.put(k5, new Student("윤봉길", 22, false));
     
     System.out.println(map.get(k3));
-
-    Key2 k6 = new Key2("haha");
     
-    System.out.println(k3 == k6);
-    System.out.println(k3.hashCode());
-    System.out.println(k6.hashCode());
-    System.out.println(k3.equals(k6));
+    // key를 사용하여 값을 꺼내보자.
+    Key2 k6 = new Key2("haha");
+
+    System.out.println(k3 == k6); // 인스턴스는 다르다.  
+    System.out.println(k3.hashCode()); // hash code는 같다. 
+    System.out.println(k6.hashCode()); // hash code는 같다.
+    System.out.println(k3.equals(k6)); // equals()의 비교 결과도 같다.
+    
+    // k3와 k6는 
+    // hashCode()의 리턴 값이 같다
+    // equals() 비교 결과도 true 이기 때문에 
+    // HashMap 클래스에서는 서로 같은 key라고 간주한다.
     
     System.out.println(map.get(k6));
     
-    Key2 k7 = new Key2("Haha");
+    Key2 k7 = new Key2("Haha"); 
     System.out.println(map.get(k7));
-    
-    
   }
 }
+
+
+
+
+
+
+

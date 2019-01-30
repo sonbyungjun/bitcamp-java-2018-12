@@ -1,11 +1,7 @@
-package ch12.b;
+package ch12.a;
 
-public class Calculrator {
-  private int result;
-  
-  public int getResult() { 
-    return this.result;
-  }
+public class Calculator {
+  int result;
   
   public void plus(int value) {
     this.result += value;

@@ -1,12 +1,13 @@
+// super 키워드 
 package ch14.b;
 
 public class C extends A {
-
-  @Override 
-  public void m1(int a) {
-    super.m1(a);
+  
+  @Override public void m1(int a) {
+    // 오버라이딩 전의 메서드를 호출하고 싶다면 super 레퍼런스를 사용하라!
     
-  }
+    super.m1(a); 
+  } 
   
   public void m4() {
     this.m1(100);
@@ -20,3 +21,11 @@ public class C extends A {
   }
   
 }
+
+
+
+
+
+
+
+

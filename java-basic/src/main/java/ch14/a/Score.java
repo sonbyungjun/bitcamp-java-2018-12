@@ -1,15 +1,12 @@
 package ch14.a;
 
 public class Score {
-  
   protected String name;
   protected int kor;
   protected int eng;
   protected int math;
   protected int sum;
   protected float aver;
-  
-  
   
   public int getSum() {
     return this.sum;
@@ -24,3 +21,10 @@ public class Score {
     this.aver = this.sum / 3f;
   }
 }
+
+
+
+
+
+
+

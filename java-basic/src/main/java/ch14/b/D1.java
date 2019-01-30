@@ -17,5 +17,4 @@ public class D1 {
   void m4() {
     System.out.println("D1.m4()");
   }
-  
 }

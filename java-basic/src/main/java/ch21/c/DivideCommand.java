@@ -2,7 +2,7 @@ package ch21.c;
 
 import java.util.Scanner;
 
-public class DivideCommand implements Command{
+public class DivideCommand implements Command {
 
   Scanner keyboard;
   
@@ -22,3 +22,7 @@ public class DivideCommand implements Command{
   }
 
 }
+
+
+
+

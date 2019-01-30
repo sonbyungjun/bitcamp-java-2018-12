@@ -1,9 +1,13 @@
 package ch13.a;
 
-public class Calculrator2 {
+// 기존의 클래스에 기능 추가하기
+// 방법1) 기존 클래스의 코드를 복/붙해서 처리한다.
+public class Calculator2 {
+  
+  // Calculator 코드를 그대로 복사해 온다.
   private int result;
   
-  public int getResult() { 
+  public int getResult() {
     return this.result;
   }
   
@@ -15,6 +19,7 @@ public class Calculrator2 {
     this.result -= value;
   }
   
+  // 기능을 추가한다.
   public void multiple(int value) {
     this.result *= value;
   }
@@ -23,3 +28,11 @@ public class Calculrator2 {
     this.result /= value;
   }
 }
+
+
+
+
+
+
+
+

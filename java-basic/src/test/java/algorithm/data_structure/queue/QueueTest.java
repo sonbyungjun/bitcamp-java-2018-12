@@ -2,7 +2,6 @@ package algorithm.data_structure.queue;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import algorithm.data_structure.queue.Queue;
 
 public class QueueTest {
 
@@ -41,10 +40,12 @@ public class QueueTest {
     
     assertEquals(100, q.poll());
     assertFalse(q.empty());
+    
     assertEquals(200, q.poll());
     assertFalse(q.empty());
+    
     assertEquals(300, q.poll());
     assertTrue(q.empty());
-    
   }
+
 }

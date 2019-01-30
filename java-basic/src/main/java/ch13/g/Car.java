@@ -1,7 +1,8 @@
+// 상속: specialization
 package ch13.g;
 
 public class Car {
-  String model;;
+  String model;
   int cc;
   
   public void run() {

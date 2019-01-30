@@ -3,6 +3,7 @@ package algorithm.data_structure.stack;
 public class Stack {
   
   public static final int DEFAULT_SIZE = 5;
+  
   Object[] list;
   int size;
   
@@ -11,19 +12,21 @@ public class Stack {
   }
   
   public void push(Object value) {
-    if (list.length == size) {
+    if (size == list.length) {
       Object[] arr = new Object[list.length + (list.length >> 1)];
-      for (int i = 0; i < size; i++) {
+      for (int i = 0; i < list.length; i++) {
         arr[i] = list[i];
       }
       list = arr;
     }
+    
     list[size++] = value;
   }
   
   public Object pop() {
     if (size == 0)
       return null;
+    
     return list[--size];
   }
   

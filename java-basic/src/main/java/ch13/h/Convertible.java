@@ -1,5 +1,7 @@
+// 상속 : generalization(일반화) 수행 전
 package ch13.h;
 
+// 프로그래밍을 하면서 필요한 클래스가 있으면 다음과 같이 만들어 사용한다.
 public class Convertible {
   String model;
   int cc;
@@ -21,3 +23,9 @@ public class Convertible {
     open = false;
   }
 }
+
+
+
+
+
+

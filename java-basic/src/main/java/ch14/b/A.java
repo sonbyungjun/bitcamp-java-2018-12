@@ -13,5 +13,4 @@ public class A {
   public void m3() {
     System.out.println("A.m3()");
   }
-  
 }

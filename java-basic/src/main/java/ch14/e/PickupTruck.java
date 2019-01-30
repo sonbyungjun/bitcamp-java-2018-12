@@ -1,13 +1,12 @@
 package ch14.e;
 
 public class PickupTruck extends Truck {
-
-  int capavity;
-
+  
+  boolean dump; 
+  
   @Override
   public void run() {
-    System.out.println("털털털~~ 달린다!");
+    System.out.println("꽈당당~ 달린다!");
   }
-  
-  
+
 }

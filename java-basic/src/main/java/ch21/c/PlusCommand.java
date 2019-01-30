@@ -2,7 +2,7 @@ package ch21.c;
 
 import java.util.Scanner;
 
-public class PlusCommand implements Command{
+public class PlusCommand implements Command {
 
   Scanner keyboard;
   
@@ -22,3 +22,7 @@ public class PlusCommand implements Command{
   }
 
 }
+
+
+
+

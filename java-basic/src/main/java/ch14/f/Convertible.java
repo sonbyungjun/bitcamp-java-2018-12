@@ -1,13 +1,12 @@
 package ch14.f;
 
 public class Convertible extends Sedan {
-
-  boolean Open;
+  
+  boolean open;
   
   @Override
   public void run() {
-    System.out.println("쌩쌩~~ 달린다!");
+    System.out.println("쎙쎙~~ 달린다!");
   }
-  
-  
+
 }

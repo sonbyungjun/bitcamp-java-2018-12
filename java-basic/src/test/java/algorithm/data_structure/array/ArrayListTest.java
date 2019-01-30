@@ -7,10 +7,10 @@ import org.junit.Test;
 
 public class ArrayListTest {
   
-  @Test
-  public void testadd() {
+  @Test // 테스트를 수행할 때 이 메서드를 호출하라는 뜻이다.
+  public void testAdd() {
     ArrayList list = new ArrayList();
-    list.add(100);
+    list.add(100); // => list.add(Integer.valueOf(100)) : auto-boxing
     list.add(200);
     list.add(300);
     list.add(400);
@@ -18,25 +18,26 @@ public class ArrayListTest {
     list.add(600);
     
     assertEquals(6, list.size());
+    
   }
   
-  @Test
+  @Test // 테스트를 수행할 때 이 메서드를 호출하라는 뜻이다.
   public void testList() {
     ArrayList list = new ArrayList();
-    list.add(100);
+    list.add(100); // => list.add(Integer.valueOf(100)) : auto-boxing
     list.add(200);
     list.add(300);
     list.add(400);
     list.add(500);
     list.add(600);
     
-    assertArrayEquals(new Object[] {100, 200, 300, 400, 500, 600}, list.toArray());
+    assertArrayEquals(new Object[] {100,200,300,400,500,600}, list.toArray());
   }
   
-  @Test
+  @Test // 테스트를 수행할 때 이 메서드를 호출하라는 뜻이다.
   public void testInsert() {
     ArrayList list = new ArrayList();
-    list.add(100);
+    list.add(100); // => list.add(Integer.valueOf(100)) : auto-boxing
     list.add(200);
     list.add(300);
     list.add(400);
@@ -45,13 +46,13 @@ public class ArrayListTest {
     
     list.insert(2, 55);
     
-    assertArrayEquals(new Object[] {100, 200, 55, 300, 400, 500, 600}, list.toArray());
+    assertArrayEquals(new Object[] {100,200,55,300,400,500,600}, list.toArray());
   }
   
-  @Test
-  public void testget() {
+  @Test // 테스트를 수행할 때 이 메서드를 호출하라는 뜻이다.
+  public void testGet() {
     ArrayList list = new ArrayList();
-    list.add(100);
+    list.add(100); // => list.add(Integer.valueOf(100)) : auto-boxing
     list.add(200);
     list.add(300);
     list.add(400);
@@ -65,10 +66,10 @@ public class ArrayListTest {
     assertNull(list.get(6));
   }
   
-  @Test
+  @Test // 테스트를 수행할 때 이 메서드를 호출하라는 뜻이다.
   public void testSet() {
     ArrayList list = new ArrayList();
-    list.add(100);
+    list.add(100); // => list.add(Integer.valueOf(100)) : auto-boxing
     list.add(200);
     list.add(300);
     list.add(400);
@@ -77,12 +78,13 @@ public class ArrayListTest {
     
     assertEquals(300, list.set(2, 55));
     assertEquals(55, list.get(2));
+
   }
   
-  @Test
+  @Test // 테스트를 수행할 때 이 메서드를 호출하라는 뜻이다.
   public void testRemove() {
     ArrayList list = new ArrayList();
-    list.add(100);
+    list.add(100); // => list.add(Integer.valueOf(100)) : auto-boxing
     list.add(200);
     list.add(300);
     list.add(400);
@@ -92,10 +94,16 @@ public class ArrayListTest {
     assertEquals(300, list.remove(2));
     assertEquals(4, list.size());
     assertArrayEquals(new Object[] {100,200,400,500}, list.toArray());
+
     assertEquals(500, list.remove(3));
     assertEquals(3, list.size());
     assertArrayEquals(new Object[] {100,200,400}, list.toArray());
   }
-  
-  
 }
+
+
+
+
+
+
+

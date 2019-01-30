@@ -1,6 +1,6 @@
 package ch14.b;
 
-public class D2 extends D1{
+public class D2 extends D1 {
   
   @Override
   void m1() {

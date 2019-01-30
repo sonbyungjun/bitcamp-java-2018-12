@@ -11,5 +11,4 @@ public class Car {
   public void stop() {
     System.out.println("멈춘다!");
   }
-  
 }

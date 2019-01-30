@@ -13,9 +13,8 @@ public class StackTest {
     stack.push(300);
     stack.push(400);
     stack.push(500);
-    stack.push(600);
+    stack.push(600); // 배열이 50% 확장될 것이다.
     stack.push(700);
-    
     
     assertEquals(7, stack.size());
   }

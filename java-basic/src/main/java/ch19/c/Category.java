@@ -1,6 +1,8 @@
 package ch19.c;
 
 public class Category {
+  //제품 분류 데이터로 사용할 값을 상수로 정의하였다.
+  //
   public static final int COMPUTER_MOUSE = 101;
   public static final int COMPUTER_KEYBOARD = 102;
   public static final int COMPUTER_MONITOR = 103;
@@ -17,5 +19,5 @@ public class Category {
   public static final int BOOK_NOVEL = 302;
   public static final int BOOK_ESSAY = 303;
   public static final int BOOK_IT = 304;
-  public static final int BOOK_LANG = 305;
+  public static final int BOOK_LANG = 305;  
 }

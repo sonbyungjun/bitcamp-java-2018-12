@@ -1,6 +1,6 @@
 package design_pattern.template_method;
 
-public class TrainingCenter extends Unit{
+public class TrainingCenter extends Unit {
 
   @Override
   public void prepare() {
@@ -15,11 +15,12 @@ public class TrainingCenter extends Unit{
   @Override
   public void install() {
     System.out.println("운동장에 연설대를 설치하고 숙소의 내부 배선과 창을 붙인다.");
+    
   }
 
   @Override
   public void interio() {
-    System.out.println("숙소 내부 침실을 꾸민다.");
+    System.out.println("숙서 내부 침실을 꾸민다.");
   }
-
+  
 }
