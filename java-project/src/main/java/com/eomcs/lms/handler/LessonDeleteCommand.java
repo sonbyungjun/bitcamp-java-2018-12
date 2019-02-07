@@ -13,6 +13,7 @@ public class LessonDeleteCommand implements Command {
     this.list = list;
   }
 
+  @Override
   public void execute() {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());

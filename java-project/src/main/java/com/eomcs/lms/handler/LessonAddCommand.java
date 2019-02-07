@@ -13,7 +13,8 @@ public class LessonAddCommand implements Command {
     this.keyboard = keyboard;
     this.list = list;
   }
-  
+
+  @Override
   public void execute() {
     Lesson lesson = new Lesson();
 
@@ -42,4 +43,5 @@ public class LessonAddCommand implements Command {
 
     System.out.println("저장하였습니다.");
   }
+  
 }

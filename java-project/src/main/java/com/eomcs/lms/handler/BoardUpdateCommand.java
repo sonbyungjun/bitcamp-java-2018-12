@@ -44,7 +44,6 @@ public class BoardUpdateCommand implements Command {
     }
   }
   
-  
   private int indexOfBoard(int no) {
     for (int i = 0; i < list.size(); i++) {
       Board b = list.get(i);

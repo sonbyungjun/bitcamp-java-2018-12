@@ -13,7 +13,7 @@ public class BoardAddCommand implements Command {
     this.keyboard = keyboard;
     this.list = list;
   }
-
+  
   @Override
   public void execute() {
     Board board = new Board();
@@ -32,5 +32,4 @@ public class BoardAddCommand implements Command {
     
     System.out.println("저장하였습니다.");
   }
-  
 }

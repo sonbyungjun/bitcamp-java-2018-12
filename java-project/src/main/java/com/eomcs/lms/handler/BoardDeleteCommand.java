@@ -12,7 +12,7 @@ public class BoardDeleteCommand implements Command {
     this.keyboard = keyboard;
     this.list = list;
   }
-  
+
   @Override
   public void execute() {
     System.out.print("번호? ");

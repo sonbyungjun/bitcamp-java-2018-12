@@ -13,6 +13,7 @@ public class MemberDeleteCommand implements Command {
     this.list = list;
   }
   
+  @Override
   public void execute() {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
@@ -22,7 +23,9 @@ public class MemberDeleteCommand implements Command {
       System.out.println("해당 회원을 찾을 수 없습니다.");
       return;
     }
+    
     list.remove(index);
+    
     System.out.println("회원을 삭제했습니다.");
   }
   
