@@ -19,7 +19,7 @@ public class CalculatorServer {
         out.flush();
         
         int result = 0;
-        String output = "";
+        String output;
 
         while (true) {
           String input = in.readUTF();

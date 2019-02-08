@@ -1,6 +1,5 @@
 package ch23.c;
 
-import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
@@ -29,8 +28,7 @@ public class CalculatorClient {
 
     try (Scanner keyboard = new Scanner(System.in);
         Socket socket = new Socket("localhost", 8888);
-        DataOutputStream out = new DataOutputStream(
-            new BufferedOutputStream(socket.getOutputStream()));
+        DataOutputStream out = new DataOutputStream(socket.getOutputStream());
         DataInputStream in = new DataInputStream(socket.getInputStream())) {
       
       System.out.println(in.readUTF());
