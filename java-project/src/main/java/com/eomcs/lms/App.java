@@ -1,17 +1,4 @@
 package com.eomcs.lms;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -19,6 +6,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
+import com.eomcs.lms.context.ApplicationListener;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.Member;
@@ -38,41 +26,69 @@ import com.eomcs.lms.handler.MemberDeleteCommand;
 import com.eomcs.lms.handler.MemberDetailCommand;
 import com.eomcs.lms.handler.MemberListCommand;
 import com.eomcs.lms.handler.MemberUpdateCommand;
+import com.eomcs.lms.listner.BoardDataLoderListener;
+import com.eomcs.lms.listner.LessonDataLoderListener;
+import com.eomcs.lms.listner.MemberDataLoderListener;
 
 public class App {
 
-  static Scanner keyboard = new Scanner(System.in);
-  static Stack<String> commandHistory = new Stack<>();
-  static Queue<String> commandHistory2 = new LinkedList<>();
-  static ArrayList<Lesson> lessonList = new ArrayList<>();
-  static LinkedList<Member> memberList = new LinkedList<>();
-  static ArrayList<Board> boardList = new ArrayList<>();
-
+  static ArrayList<ApplicationListener> observers = new ArrayList<>();
+  static HashMap<String, Object> context = new HashMap<>();
+  
+  static {
+    context.put("keyboard", new Scanner(System.in));
+    context.put("commandHistory", new Stack<String>());
+    context.put("commandHistory2", new LinkedList<String>());
+    context.put("lessonList", new ArrayList<Lesson>());
+    context.put("memberList", new LinkedList<Member>());
+    context.put("boardList", new ArrayList<Board>());
+  }
+  
+  static void addApplicationListener(ApplicationListener listener) {
+    observers.add(listener);
+  }
+  
+  @SuppressWarnings("unchecked")
   public static void main(String[] args) {
-
-    loadLessonData();
-    loadMemberData();
-    loadBoardData();
-
+    
+    addApplicationListener(new BoardDataLoderListener());
+    addApplicationListener(new MemberDataLoderListener());
+    addApplicationListener(new LessonDataLoderListener());
+    
+    for (ApplicationListener observer : observers) {
+      try {
+        observer.startApplication(context);
+      } catch (Exception e) {}
+    }
+    
     Map<String,Command> commandMap = new HashMap<>();
+
+    Scanner keyboard = (Scanner) context.get("keyboard");
+    ArrayList<Lesson> lessonList = (ArrayList<Lesson>) context.get("lessonList");
     commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonList));
     commandMap.put("/lesson/list", new LessonListCommand(keyboard, lessonList));
     commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard, lessonList));
     commandMap.put("/lesson/update", new LessonUpdateCommand(keyboard, lessonList));
     commandMap.put("/lesson/delete", new LessonDeleteCommand(keyboard, lessonList));
 
+    LinkedList<Member> memberList = (LinkedList<Member>) context.get("memberList");
     commandMap.put("/member/add", new MemberAddCommand(keyboard, memberList));
     commandMap.put("/member/list", new MemberListCommand(keyboard, memberList));
     commandMap.put("/member/detail", new MemberDetailCommand(keyboard, memberList));
     commandMap.put("/member/update", new MemberUpdateCommand(keyboard, memberList));
     commandMap.put("/member/delete", new MemberDeleteCommand(keyboard, memberList));
 
+    ArrayList<Board> boardList = (ArrayList<Board>) context.get("boardList");
     commandMap.put("/board/add", new BoardAddCommand(keyboard, boardList));
     commandMap.put("/board/list", new BoardListCommand(keyboard, boardList));
     commandMap.put("/board/detail", new BoardDetailCommand(keyboard, boardList));
     commandMap.put("/board/update", new BoardUpdateCommand(keyboard, boardList));
     commandMap.put("/board/delete", new BoardDeleteCommand(keyboard, boardList));
 
+    
+    Stack<String> commandHistory = (Stack<String>) context.get("commandHistory");
+    Queue<String> commandHistory2 = (Queue<String>) context.get("commandHistory2");
+    
     while (true) {
       String command = prompt();
 
@@ -109,14 +125,18 @@ public class App {
     }
 
     keyboard.close();
-
-    saveLessonData();
-    saveMemberData();
-    saveBoardData();
+  
+    for (ApplicationListener observer : observers) {
+      try {
+        observer.endApplication(context);
+      } catch (Exception e) {}
+    }
+    
   }
 
   @SuppressWarnings("unchecked")
   private static void printCommandHistory() {
+    Stack<String> commandHistory = (Stack<String>) context.get("commandHistory");
     Stack<String> temp = (Stack<String>) commandHistory.clone();
 
     while (temp.size() > 0) {
@@ -126,6 +146,7 @@ public class App {
 
   @SuppressWarnings("unchecked")
   private static void printCommandHistory2() {
+    Queue<String> commandHistory2 = (Queue<String>) context.get("commandHistory2");
     Queue<String> temp = (Queue<String>) ((LinkedList<String>) commandHistory2).clone();
 
     while (temp.size() > 0) {
@@ -134,143 +155,9 @@ public class App {
   }
 
   private static String prompt() {
+    Scanner keyboard = (Scanner) context.get("keyboard");
     System.out.print("명령> ");
     return keyboard.nextLine().toLowerCase();
   }
-
-  private static void loadLessonData() {
-    try (DataInputStream in = new DataInputStream(
-        new BufferedInputStream(
-            new FileInputStream("lesson.data")))) {
-
-      int len = in.readInt();
-
-      for (int i = 0; i < len; i++) {
-        Lesson lesson = new Lesson();
-        lesson.setNo(in.readInt());
-        lesson.setTitle(in.readUTF());
-        lesson.setContents(in.readUTF());
-        lesson.setStartDate(Date.valueOf(in.readUTF()));
-        lesson.setEndDate(Date.valueOf(in.readUTF()));
-        lesson.setTotalHours(in.readInt());
-        lesson.setDayHours(in.readInt());
-        lessonList.add(lesson);
-      }
-
-    } catch (Exception e) {
-      System.out.println("수업 데이터를 읽는 중 오류 발생: " + e.toString());
-
-    } 
-  }
-
-
-  private static void saveLessonData() {
-    try (DataOutputStream out = new DataOutputStream(
-        new BufferedOutputStream(
-            new FileOutputStream("lesson.data")))) {
-
-      out.writeInt(lessonList.size());
-
-      for (Lesson l : lessonList) {
-        out.writeInt(l.getNo());
-        out.writeUTF(l.getTitle());
-        out.writeUTF(l.getContents());
-        out.writeUTF(l.getStartDate().toString());
-        out.writeUTF(l.getEndDate().toString());
-        out.writeInt(l.getTotalHours());
-        out.writeInt(l.getDayHours());
-      }
-
-    } catch (Exception e) {
-      System.out.println("수업 데이터를 쓰는 중 오류 발생: " + e.toString());
-    }
-  }
-
-  private static void loadMemberData() {
-    try (DataInputStream in = new DataInputStream(
-        new BufferedInputStream(
-            new FileInputStream("member.data")))) {
-      
-      int len = in.readInt();
-      
-      for (int i = 0; i < len; i++) {
-        Member member = new Member();
-        member.setNo(in.readInt());
-        member.setName(in.readUTF());
-        member.setEmail(in.readUTF());
-        member.setPassword(in.readUTF());
-        member.setPhoto(in.readUTF());
-        member.setTel(in.readUTF());
-        member.setRegisteredDate(Date.valueOf(in.readUTF()));
-        memberList.add(member);
-      }
-
-    } catch (Exception e) {
-      System.out.println("회원 데이터를 읽는 중 오류 발생: " + e.toString());
-
-    } 
-  }
-
-  private static void saveMemberData() {
-    try (DataOutputStream out = new DataOutputStream(
-        new BufferedOutputStream(
-            new FileOutputStream("member.data")))) {
-      
-      out.writeInt(memberList.size());
-      
-      for (Member m : memberList) {
-        out.writeInt(m.getNo());
-        out.writeUTF(m.getName());
-        out.writeUTF(m.getEmail());
-        out.writeUTF(m.getPassword());
-        out.writeUTF(m.getPhoto());
-        out.writeUTF(m.getTel());
-        out.writeUTF(m.getRegisteredDate().toString());
-      }
-      
-    } catch (Exception e) {
-      System.out.println("회원 데이터를 쓰는 중 오류 발생: " + e.toString());
-    }
-  }
-
-  private static void loadBoardData() {
-    try (DataInputStream in = new DataInputStream(
-        new BufferedInputStream(
-            new FileInputStream("board.data")))) {
-
-      int len = in.readInt();
-      
-      for (int i = 0; i < len; i++) {
-        Board board = new Board();
-        board.setNo(in.readInt());
-        board.setContents(in.readUTF());
-        board.setCreatedDate(Date.valueOf(in.readUTF()));
-        board.setViewCount(in.readInt());
-        boardList.add(board);
-      }
-
-    } catch (Exception e) {
-      System.out.println("게시글 데이터를 읽는 중 오류 발생: " + e.toString());
-
-    } 
-  }
-
-  private static void saveBoardData() {
-    try (DataOutputStream out = new DataOutputStream(
-        new BufferedOutputStream(
-            new FileOutputStream("board.data")))) {
-      
-      out.writeInt(boardList.size());
-      
-      for (Board b : boardList) {
-        out.writeInt(b.getNo());
-        out.writeUTF(b.getContents());
-        out.writeUTF(b.getCreatedDate().toString());
-        out.writeInt(b.getViewCount());
-      }
-      
-    } catch (Exception e) {
-      System.out.println("게시글 데이터를 쓰는 중 오류 발생: " + e.toString());
-    }
-  }
+  
 }

@@ -6,6 +6,7 @@ node_modules/
 bin/
 build/
 temp/
+temp2/
 Debug/
 Release/
 
