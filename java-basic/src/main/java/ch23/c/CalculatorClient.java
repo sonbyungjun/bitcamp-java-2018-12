@@ -24,7 +24,6 @@ public class CalculatorClient {
 
    */
   public static void main(String[] args) {
-    
 
     try (Scanner keyboard = new Scanner(System.in);
         Socket socket = new Socket("localhost", 8888);
@@ -47,7 +46,6 @@ public class CalculatorClient {
       e.printStackTrace();
       
     }
-
   }
   
 }
