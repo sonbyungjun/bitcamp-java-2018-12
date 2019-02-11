@@ -14,6 +14,8 @@ public class CalculatorServer {
 
     try (ServerSocket serverSocket = new ServerSocket(8888)) {
       System.out.println("서버 실행 중...");
+      
+      
 
       while (true) {
 
@@ -22,23 +24,33 @@ public class CalculatorServer {
                 new InputStreamReader(socket.getInputStream()));
             PrintStream out = new PrintStream(socket.getOutputStream());) {
           
-          int id = 0;
+          int id = Integer.parseInt(in.readLine());
           int result = 0;
-
-          if (id == 0 || ids.get(id) != null) {
-            id = (int) (Math.random() * 100) + 1;
+          
+          if (id == 0) {
+            id = (int) (Math.random() * 100000) + 1;
             out.println(id);
+            out.flush();
+            System.out.printf("아이디 생성됨 id : %d\n", id, result);
             ids.put(id, result);
+            
+          } else if (ids.get(id) != null) {
             result = ids.get(id);
+            System.out.printf("값 꺼내옴 result : %d\n", result);
+            
           }
-
-          System.out.println("클라이언트와 연결됨! 요청처리 중...");
-
+          
           String request = in.readLine();
 
-          if (request.equalsIgnoreCase("quit")) {
+          if (request.equalsIgnoreCase("reset")) {
             ids.put(id, 0);
             continue;
+            
+          } else if (request.equalsIgnoreCase("quit")) {
+            out.printf("최종 결과 %d 입니다.\n", result);
+            ids.remove(id);
+            continue;
+            
           }
           
           String[] input = request.split(" ");
@@ -70,13 +82,12 @@ public class CalculatorServer {
           out.printf("현재까지 결과는 %d 입니다.\n", result);
           out.flush();
           ids.put(id, result);
+          System.out.println("저장된 유저 저장소의 사이즈는 현재 "+ids.size());
           
-
         } catch (Exception e) {
           System.out.println("클라이언트와 통신 중 오류 발생!");
         }
 
-        System.out.println("클라이언트와 연결 끊음!");
       }
 
     } catch (Exception e) {
