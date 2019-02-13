@@ -39,7 +39,6 @@ public class BoardService extends AbstractService<Board> {
 
   private void list() throws Exception {
     out.writeUTF("OK");
-    out.flush();
     out.writeUTF("OK");
     out.writeObject(list);
   }

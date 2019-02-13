@@ -8,7 +8,7 @@ import com.eomcs.lms.domain.Board;
 public class BoardListCommand implements Command {
 
   Scanner keyboard;
-
+  
   public BoardListCommand(Scanner keyboard) {
     this.keyboard = keyboard;
   }
@@ -29,6 +29,7 @@ public class BoardListCommand implements Command {
 
       @SuppressWarnings("unchecked")
       List<Board> boards = (List<Board>) in.readObject();
+      
       for (Board board : boards) {
         System.out.printf("%3d, %-20s, %s, %d\n", 
             board.getNo(), board.getContents(), 

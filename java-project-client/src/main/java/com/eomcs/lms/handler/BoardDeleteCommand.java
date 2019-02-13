@@ -29,7 +29,7 @@ public class BoardDeleteCommand implements Command {
     String status = in.readUTF();
     
     if (!status.equals("OK"))
-      throw new Exception("서버에서 게시글 삭제 실패!");
+      throw new Exception("서버에서 삭제 실패!");
     
     
     System.out.println("게시글을 삭제했습니다.");
