@@ -10,45 +10,38 @@ import java.util.HashMap;
 public class CalculatorServer {
   public static void main(String[] args) {
 
-    HashMap<Integer, Integer> ids = new HashMap<>();
+    HashMap<Long, Integer> resultMap = new HashMap<>();
 
     try (ServerSocket serverSocket = new ServerSocket(8888)) {
       System.out.println("서버 실행 중...");
-      
-      
 
       while (true) {
-
         try (Socket socket = serverSocket.accept();
             BufferedReader in = new BufferedReader(
                 new InputStreamReader(socket.getInputStream()));
             PrintStream out = new PrintStream(socket.getOutputStream());) {
           
-          int id = Integer.parseInt(in.readLine());
+          long sessionId = Long.parseLong(in.readLine());
+          System.out.printf("세션 id : %d\n", sessionId);
           int result = 0;
+          boolean isNewSessionId = false;
           
-          if (id == 0) {
-            id = (int) (Math.random() * 100000) + 1;
-            out.println(id);
-            out.flush();
-            System.out.printf("아이디 생성됨 id : %d\n", id, result);
-            ids.put(id, result);
-            
-          } else if (ids.get(id) != null) {
-            result = ids.get(id);
-            System.out.printf("값 꺼내옴 result : %d\n", result);
-            
+          if (sessionId == 0) {
+            sessionId = System.currentTimeMillis();
+            isNewSessionId = true;
+          } else {
+            result = resultMap.get(sessionId);
           }
           
           String request = in.readLine();
 
           if (request.equalsIgnoreCase("reset")) {
-            ids.put(id, 0);
+            resultMap.put(sessionId, 0);
             continue;
             
           } else if (request.equalsIgnoreCase("quit")) {
             out.printf("최종 결과 %d 입니다.\n", result);
-            ids.remove(id);
+            resultMap.remove(sessionId);
             continue;
             
           }
@@ -79,10 +72,16 @@ public class CalculatorServer {
               continue;
           }
 
+          resultMap.put(sessionId, result);
+          
+          if (isNewSessionId) {
+            out.println(sessionId);
+            out.flush();
+          }
+          
           out.printf("현재까지 결과는 %d 입니다.\n", result);
           out.flush();
-          ids.put(id, result);
-          System.out.println("저장된 유저 저장소의 사이즈는 현재 "+ids.size());
+          System.out.println("저장된 유저 저장소의 사이즈는 현재 "+resultMap.size());
           
         } catch (Exception e) {
           System.out.println("클라이언트와 통신 중 오류 발생!");

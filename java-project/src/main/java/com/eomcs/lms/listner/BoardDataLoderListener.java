@@ -12,6 +12,7 @@ import com.eomcs.lms.context.ApplicationListener;
 import com.eomcs.lms.domain.Board;
 
 public class BoardDataLoderListener implements ApplicationListener{
+  
   @Override
   public void startApplication(Map<String, Object> context) {
     System.out.println("애플리케이션이 시작될 때 준비 작업을 수행한다.");
