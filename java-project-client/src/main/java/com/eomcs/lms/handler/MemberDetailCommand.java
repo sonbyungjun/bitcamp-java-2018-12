@@ -1,39 +1,25 @@
 package com.eomcs.lms.handler;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Scanner;
+import com.eomcs.lms.agent.MemberAgent;
 import com.eomcs.lms.domain.Member;
 
 public class MemberDetailCommand implements Command {
 
   Scanner keyboard;
+  MemberAgent memberAgent;
 
-  public MemberDetailCommand(Scanner keyboard) {
+  public MemberDetailCommand(Scanner keyboard, MemberAgent memberAgent) {
     this.keyboard = keyboard;
+    this.memberAgent = memberAgent;
   }
 
   @Override
-  public void execute(ObjectInputStream in, ObjectOutputStream out) {
+  public void execute() {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
 
     try {
-      out.writeUTF("/member/detail");
-      out.flush();
-
-      if (!in.readUTF().equals("OK"))
-        throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
-
-      out.writeInt(no);
-      out.flush();
-
-      String status = in.readUTF();
-
-      if (!status.equals("OK"))
-        throw new Exception("서버에서 수업정보 가져오기 실패!");
-
-      Member member = (Member) in.readObject();
-
+      Member member = memberAgent.get(no);
       System.out.printf("이름: %s\n", member.getName());
       System.out.printf("이메일: %s\n", member.getEmail());
       System.out.printf("암호: %s\n", member.getPassword());

@@ -4,80 +4,87 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Set;
+import com.eomcs.lms.dao.BoardDao;
+import com.eomcs.lms.dao.LessonDao;
+import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.service.BoardService;
 import com.eomcs.lms.service.LessonService;
 import com.eomcs.lms.service.MemberService;
+import com.eomcs.lms.service.Service;
 
 public class ServerApp {
 
-  static ObjectInputStream in;
-  static ObjectOutputStream out;
-
-  static MemberService memberService = null;
-  static LessonService lessonService = null;
-  static BoardService boardService = null;
+  static BoardDao boardDao = null;
+  static MemberDao memberDao = null;
+  static LessonDao lessonDao = null;
 
   public static void main(String[] args) {
 
+    try {
+      boardDao = new BoardDao("board.bin");
+      boardDao.loadData();
+    } catch (Exception e) {
+      System.out.println("데이터 로딩 중 오류 발생!");
+    }
+
+    try {
+      memberDao = new MemberDao("member.bin");
+      memberDao.loadData();
+    } catch (Exception e) {
+      System.out.println("데이터 로딩 중 오류 발생!");
+    }
+
+    try {
+      lessonDao = new LessonDao("lesson.bin");
+      lessonDao.loadData();
+    } catch (Exception e) {
+      System.out.println("데이터 로딩 중 오류 발생!");
+    }
+
+    HashMap<String, Service> serviceMap = new HashMap<>();
+    serviceMap.put("/board/", new BoardService(boardDao));
+    serviceMap.put("/member/", new MemberService(memberDao));
+    serviceMap.put("/lesson/", new LessonService(lessonDao));
+
+    Set<String> keySet = serviceMap.keySet();
+
     try (ServerSocket serverSocket = new ServerSocket(8888);) {
       System.out.println("서버 시작!");
-
-      try {
-        memberService = new MemberService();
-        memberService.loadData("member.bin");
-      } catch(Exception e) {
-        System.out.println("데이터 로딩 중 오류 발생!");
-      }
-      try {
-        lessonService = new LessonService();
-        lessonService.loadData("lesson.bin");
-      } catch(Exception e) {
-        System.out.println("데이터 로딩 중 오류 발생!");
-      }
-      try {
-        boardService = new BoardService();
-        boardService.loadData("board.bin");
-      } catch (Exception e) {
-        System.out.println("데이터 로딩 중 오류 발생!");
-      }
 
       while (true) {
         try (Socket socket = serverSocket.accept();
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
-          
-          boardService.init(in, out);
-          memberService.init(in, out);
-          lessonService.init(in, out);
-          
+
           System.out.println("클라이언트와 연결되었음!");
 
-          ServerApp.in = in;
-          ServerApp.out = out;
+          String request = in.readUTF();
+          System.out.println(request);
 
-          loop: while (true) {
-            String request = in.readUTF();
-            System.out.println(request);
-
-            if (request.startsWith("/member/")) {
-              memberService.execute(request);
-
-            } else if (request.startsWith("/lesson/")) {
-              lessonService.execute(request);
-
-            } else if (request.startsWith("/board/")) {
-              boardService.execute(request);
-
-            } else if (request.equals("quit")) {
-              quit();
-              break loop;
-
-            } else {
-              out.writeUTF("FAIL");
-            }
+          if (request.equals("quit")) {
+            quit(in, out);
             out.flush();
+            continue;
+           }
 
-          } // while (roop)
+          String serviceName = null;
+          for (String key : keySet) {
+            if (request.startsWith(key)) {
+              serviceName = key;
+              break;
+              }
+           }
+
+          if (serviceName == null) {
+            out.writeUTF("FAIL");
+
+          } else {
+            serviceMap.get(serviceName).execute(request, in, out);
+           }
+          
+          out.flush();
 
         } catch (Exception e) {
           e.printStackTrace();
@@ -92,24 +99,26 @@ public class ServerApp {
 
   }
 
-  static void quit() throws Exception {
+  static void quit(ObjectInputStream in, ObjectOutputStream out) throws Exception {
+
     try {
-      boardService.saveData();
+      boardDao.saveData();
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
+
     try {
-      memberService.saveData();
+      memberDao.saveData();
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
+
     try {
-      lessonService.saveData();
+      lessonDao.saveData();
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
     out.writeUTF("종료함!");
-    out.flush();
   }
 
 }

@@ -1,37 +1,25 @@
 package com.eomcs.lms.handler;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.List;
 import java.util.Scanner;
+import com.eomcs.lms.agent.LessonAgent;
 import com.eomcs.lms.domain.Lesson;
 
 public class LessonListCommand implements Command {
   
   Scanner keyboard;
+  LessonAgent lessonAgent;
 
-  public LessonListCommand(Scanner keyboard) {
+  public LessonListCommand(Scanner keyboard, LessonAgent lessonAgent) {
     this.keyboard = keyboard;
+    this.lessonAgent = lessonAgent;
   }
   
   @Override
-  public void execute(ObjectInputStream in, ObjectOutputStream out) {
+  public void execute() {
     
     try {
-    out.writeUTF("/lesson/list");
-    out.flush();
-    
-    if (!in.readUTF().equals("OK"))
-      throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
-    
-    String status = in.readUTF();
-    
-    if (!status.equals("OK")) 
-      throw new Exception("서버에서 수업 목록 가져오기 실패!");
-    
-    @SuppressWarnings("unchecked")
-    List<Lesson> lessons = (List<Lesson>) in.readObject();
-    
+    List<Lesson> lessons = lessonAgent.list();
     for (Lesson lesson : lessons) {
       System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
           lesson.getNo(), lesson.getTitle(), 

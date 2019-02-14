@@ -1,27 +1,36 @@
 package com.eomcs.lms.service;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
-public class BoardService extends AbstractService<Board> {
+public class BoardService implements Service {
+
+  BoardDao boardDao;
+
+  public BoardService(BoardDao boardDao) {
+    this.boardDao = boardDao;
+  }
 
   @Override
-  public void execute(String request) throws Exception {
-
+  public void execute(String request, ObjectInputStream in, ObjectOutputStream out) throws Exception {
+    
     switch (request) {
       case "/board/add":
-        add();
+        add(in, out);
         break;
       case "/board/list":
-        list();
+        list(in, out);
         break;
       case "/board/detail":
-        detail();
+        detail(in, out);
         break;
       case "/board/update":
-        update();
+        update(in, out);
         break;
       case "/board/delete":
-        delete();
+        delete(in, out);
         break;
       default:
         out.writeUTF("FAIL");
@@ -30,63 +39,51 @@ public class BoardService extends AbstractService<Board> {
 
   }
 
-  private void add() throws Exception {
+  private void add(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
-    list.add((Board)in.readObject());
+    boardDao.insert((Board)in.readObject());
     out.writeUTF("OK");
   }
 
-  private void list() throws Exception {
+  private void list(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.writeUTF("OK");
-    out.writeObject(list);
+    out.writeUnshared(boardDao.findAll());
   }
 
-  private void detail() throws Exception {
+  private void detail(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     int no = in.readInt();
-    for (Board m : list) {
-      if (m.getNo() == no) {
-        out.writeUTF("OK");
-        out.writeObject(m);
-        return;
-      }
+    Board b = boardDao.findByNo(no);
+    if (b == null) { 
+      out.writeUTF("FAIL");
+      return;
     }
-    out.writeUTF("FAIL");
+    out.writeUTF("OK");
+    out.writeObject(b);
   }
 
-  private void update() throws Exception {
+  private void update(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     Board board = (Board) in.readObject();
-    int index = 0;
-    for (Board m : list) {
-      if (m.getNo() == board.getNo()) {
-        list.set(index, board);
-        out.writeUTF("OK");
-        return;
-      }
-      index++;
+    if (boardDao.update(board) == 0) {
+      out.writeUTF("FAIL");
+      return;
     }
-    out.writeUTF("FAIL");
+    out.writeUTF("OK");
   }
 
-  private void delete() throws Exception {
+  private void delete(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     int no = in.readInt();
-
-    int index = 0;
-    for (Board b : list) {
-      if (b.getNo() == no) {
-        list.remove(index);
-        out.writeUTF("OK");
-        return;
-      }
-      index++;
+    if (boardDao.delete(no) == 0) {
+      out.writeUTF("FAIL");
+      return;
     }
-    out.writeUTF("FAIL");
+    out.writeUTF("OK");
   }
 }

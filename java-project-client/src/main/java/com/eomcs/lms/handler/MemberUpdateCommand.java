@@ -1,40 +1,26 @@
 package com.eomcs.lms.handler;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Scanner;
+import com.eomcs.lms.agent.MemberAgent;
 import com.eomcs.lms.domain.Member;
 
 public class MemberUpdateCommand implements Command {
   
   Scanner keyboard;
-  
-  public MemberUpdateCommand(Scanner keyboard) {
+  MemberAgent memberAgent;
+
+  public MemberUpdateCommand(Scanner keyboard, MemberAgent memberAgent) {
     this.keyboard = keyboard;
+    this.memberAgent = memberAgent;
   }
   
   @Override
-  public void execute(ObjectInputStream in, ObjectOutputStream out) {
+  public void execute() {
     
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
     
     try {
-      out.writeUTF("/member/detail");
-      out.flush();
-
-      if (!in.readUTF().equals("OK"))
-        throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
-
-      out.writeInt(no);
-      out.flush();
-
-      String status = in.readUTF();
-
-      if (!status.equals("OK"))
-        throw new Exception("서버에서 수업정보 가져오기 실패!");
-
-      Member member = (Member) in.readObject();
-      
+      Member member = memberAgent.get(no);
       // 기존 값 복제
       Member temp = member.clone();
       
@@ -59,20 +45,7 @@ public class MemberUpdateCommand implements Command {
       if ((input = keyboard.nextLine()).length() > 0)
         temp.setTel(input);
       
-      out.writeUTF("/member/update");
-      out.flush();
-      
-      if (!in.readUTF().equals("OK"))
-       throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
-      
-      out.writeObject(temp);
-      out.flush();
-      
-      status = in.readUTF();
-      
-      if (!status.equals("OK"))
-        throw new Exception("서버에서 회원 변경 실패!");
-      
+      memberAgent.update(temp);
       System.out.println("회원을 변경했습니다.");
       
     } catch (Exception e) {
