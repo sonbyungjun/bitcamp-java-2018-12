@@ -2,34 +2,33 @@ package com.eomcs.lms.service;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import com.eomcs.lms.dao.BoardDao;
-import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.dao.MemberDao;
+import com.eomcs.lms.domain.Member;
 
-public class BoardService implements Service {
+public class MemberDaoSkel implements Service {
 
-  BoardDao boardDao;
+  MemberDao memberDao;
 
-  public BoardService(BoardDao boardDao) {
-    this.boardDao = boardDao;
+  public MemberDaoSkel(MemberDao memberDao) {
+    this.memberDao = memberDao;
   }
 
   @Override
   public void execute(String request, ObjectInputStream in, ObjectOutputStream out) throws Exception {
-    
     switch (request) {
-      case "/board/add":
+      case "/member/add":
         add(in, out);
         break;
-      case "/board/list":
+      case "/member/list":
         list(in, out);
         break;
-      case "/board/detail":
+      case "/member/detail":
         detail(in, out);
         break;
-      case "/board/update":
+      case "/member/update":
         update(in, out);
         break;
-      case "/board/delete":
+      case "/member/delete":
         delete(in, out);
         break;
       default:
@@ -42,21 +41,21 @@ public class BoardService implements Service {
   private void add(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
-    boardDao.insert((Board)in.readObject());
+    memberDao.insert((Member)in.readObject());
     out.writeUTF("OK");
   }
 
   private void list(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.writeUTF("OK");
-    out.writeUnshared(boardDao.findAll());
+    out.writeUnshared(memberDao.findAll());
   }
 
   private void detail(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     int no = in.readInt();
-    Board b = boardDao.findByNo(no);
+    Member b = memberDao.findByNo(no);
     if (b == null) { 
       out.writeUTF("FAIL");
       return;
@@ -68,8 +67,8 @@ public class BoardService implements Service {
   private void update(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
-    Board board = (Board) in.readObject();
-    if (boardDao.update(board) == 0) {
+    Member member = (Member) in.readObject();
+    if (memberDao.update(member) == 0) {
       out.writeUTF("FAIL");
       return;
     }
@@ -80,7 +79,7 @@ public class BoardService implements Service {
     out.writeUTF("OK");
     out.flush();
     int no = in.readInt();
-    if (boardDao.delete(no) == 0) {
+    if (memberDao.delete(no) == 0) {
       out.writeUTF("FAIL");
       return;
     }

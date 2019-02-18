@@ -1,16 +1,16 @@
 package com.eomcs.lms.handler;
 import java.util.Scanner;
-import com.eomcs.lms.agent.BoardAgent;
+import com.eomcs.lms.Dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
 public class BoardDetailCommand implements Command {
   
   Scanner keyboard;
-  BoardAgent boardAgent;
+  BoardDao boardDao;
 
-  public BoardDetailCommand(Scanner keyboard, BoardAgent boardAgent) {
+  public BoardDetailCommand(Scanner keyboard, BoardDao boardDao) {
     this.keyboard = keyboard;
-    this.boardAgent = boardAgent;
+    this.boardDao = boardDao;
   }
 
   @Override
@@ -19,7 +19,7 @@ public class BoardDetailCommand implements Command {
     int no = Integer.parseInt(keyboard.nextLine());
     
     try {
-    Board board = boardAgent.get(no);
+    Board board = boardDao.findByNo(no);
     System.out.printf("내용: %s\n", board.getContents());
     System.out.printf("작성일: %s\n", board.getCreatedDate());
     

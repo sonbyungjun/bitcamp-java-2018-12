@@ -1,17 +1,17 @@
 package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
-import com.eomcs.lms.agent.MemberAgent;
+import com.eomcs.lms.Dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
 public class MemberAddCommand implements Command {
 
   Scanner keyboard;
-  MemberAgent memberAgent;
+  MemberDao memberDao;
 
-  public MemberAddCommand(Scanner keyboard, MemberAgent memberAgent) {
+  public MemberAddCommand(Scanner keyboard, MemberDao memberDao) {
     this.keyboard = keyboard;
-    this.memberAgent = memberAgent;
+    this.memberDao = memberDao;
   }
 
   @Override
@@ -39,7 +39,7 @@ public class MemberAddCommand implements Command {
     member.setRegisteredDate(new Date(System.currentTimeMillis())); 
 
     try {
-      memberAgent.add(member);
+      memberDao.insert(member);
       System.out.println("저장하였습니다.");
 
     } catch (Exception e) {

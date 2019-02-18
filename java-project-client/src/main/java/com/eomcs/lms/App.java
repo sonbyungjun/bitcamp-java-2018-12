@@ -6,9 +6,6 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
-import com.eomcs.lms.agent.BoardAgent;
-import com.eomcs.lms.agent.LessonAgent;
-import com.eomcs.lms.agent.MemberAgent;
 import com.eomcs.lms.handler.BoardAddCommand;
 import com.eomcs.lms.handler.BoardDeleteCommand;
 import com.eomcs.lms.handler.BoardDetailCommand;
@@ -25,11 +22,14 @@ import com.eomcs.lms.handler.MemberDeleteCommand;
 import com.eomcs.lms.handler.MemberDetailCommand;
 import com.eomcs.lms.handler.MemberListCommand;
 import com.eomcs.lms.handler.MemberUpdateCommand;
+import com.eomcs.lms.proxy.BoardDaoProxy;
+import com.eomcs.lms.proxy.LessonDaoProxy;
+import com.eomcs.lms.proxy.MemberDaoProxy;
 
 public class App {
-  
-  static final String IP = "localhost";
-  static final int PORT = 8888;
+
+  private static final String ADDR = "192.168.0.31";
+  private static final int PORT = 8888;
 
   Scanner keyboard = new Scanner(System.in);
   Stack<String> commandHistory = new Stack<>();
@@ -39,21 +39,21 @@ public class App {
 
     Map<String,Command> commandMap = new HashMap<>();
 
-    LessonAgent lessonAgent = new LessonAgent(IP, PORT, "/lesson");
+    LessonDaoProxy lessonAgent = new LessonDaoProxy(ADDR, PORT, "/lesson");
     commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonAgent));
     commandMap.put("/lesson/list", new LessonListCommand(keyboard, lessonAgent));
     commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard, lessonAgent));
     commandMap.put("/lesson/update", new LessonUpdateCommand(keyboard, lessonAgent));
     commandMap.put("/lesson/delete", new LessonDeleteCommand(keyboard, lessonAgent));
 
-    MemberAgent memberAgent = new MemberAgent(IP, PORT, "/member");
+    MemberDaoProxy memberAgent = new MemberDaoProxy(ADDR, PORT, "/member");
     commandMap.put("/member/add", new MemberAddCommand(keyboard, memberAgent));
     commandMap.put("/member/list", new MemberListCommand(keyboard, memberAgent));
     commandMap.put("/member/detail", new MemberDetailCommand(keyboard, memberAgent));
     commandMap.put("/member/update", new MemberUpdateCommand(keyboard, memberAgent));
     commandMap.put("/member/delete", new MemberDeleteCommand(keyboard, memberAgent));
 
-    BoardAgent boardAgent = new BoardAgent(IP, PORT, "/board");
+    BoardDaoProxy boardAgent = new BoardDaoProxy(ADDR, PORT, "/board");
     commandMap.put("/board/add", new BoardAddCommand(keyboard, boardAgent));
     commandMap.put("/board/list", new BoardListCommand(keyboard, boardAgent));
     commandMap.put("/board/detail", new BoardDetailCommand(keyboard, boardAgent));
@@ -61,6 +61,8 @@ public class App {
     commandMap.put("/board/delete", new BoardDeleteCommand(keyboard, boardAgent));
 
     while (true) {
+
+
       String command = prompt();
 
       commandHistory.push(command);
@@ -89,7 +91,7 @@ public class App {
       try {
         commandHandler.execute();
         System.out.println();
-        
+
       } catch (Exception e) {
         System.out.println("명령어 실행 중 오류 발생 : " + e.toString());
       }

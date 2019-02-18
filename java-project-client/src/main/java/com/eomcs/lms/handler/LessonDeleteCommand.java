@@ -1,15 +1,15 @@
 package com.eomcs.lms.handler;
 import java.util.Scanner;
-import com.eomcs.lms.agent.LessonAgent;
+import com.eomcs.lms.Dao.LessonDao;
 
 public class LessonDeleteCommand implements Command {
 
   Scanner keyboard;
-  LessonAgent lessonAgent;
+  LessonDao lessonDao;
 
-  public LessonDeleteCommand(Scanner keyboard, LessonAgent lessonAgent) {
+  public LessonDeleteCommand(Scanner keyboard, LessonDao lessonDao) {
     this.keyboard = keyboard;
-    this.lessonAgent = lessonAgent;
+    this.lessonDao = lessonDao;
   }
 
   @Override
@@ -18,7 +18,7 @@ public class LessonDeleteCommand implements Command {
     int no = Integer.parseInt(keyboard.nextLine());
     
     try {
-    lessonAgent.delete(no);
+    lessonDao.delete(no);
     System.out.println("수업을 삭제했습니다.");
     
     } catch (Exception e) {

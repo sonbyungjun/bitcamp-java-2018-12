@@ -1,16 +1,16 @@
 package com.eomcs.lms.handler;
 import java.util.Scanner;
-import com.eomcs.lms.agent.MemberAgent;
+import com.eomcs.lms.Dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
 public class MemberUpdateCommand implements Command {
   
   Scanner keyboard;
-  MemberAgent memberAgent;
+  MemberDao memberDao;
 
-  public MemberUpdateCommand(Scanner keyboard, MemberAgent memberAgent) {
+  public MemberUpdateCommand(Scanner keyboard, MemberDao memberDao) {
     this.keyboard = keyboard;
-    this.memberAgent = memberAgent;
+    this.memberDao = memberDao;
   }
   
   @Override
@@ -20,7 +20,7 @@ public class MemberUpdateCommand implements Command {
     int no = Integer.parseInt(keyboard.nextLine());
     
     try {
-      Member member = memberAgent.get(no);
+      Member member = memberDao.findByNo(no);
       // 기존 값 복제
       Member temp = member.clone();
       
@@ -45,7 +45,7 @@ public class MemberUpdateCommand implements Command {
       if ((input = keyboard.nextLine()).length() > 0)
         temp.setTel(input);
       
-      memberAgent.update(temp);
+      memberDao.update(temp);
       System.out.println("회원을 변경했습니다.");
       
     } catch (Exception e) {

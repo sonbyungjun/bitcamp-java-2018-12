@@ -1,4 +1,4 @@
-package com.eomcs.lms.dao;
+package com.eomcs.lms.Dao;
 
 import java.util.List;
 import com.eomcs.lms.domain.Member;
