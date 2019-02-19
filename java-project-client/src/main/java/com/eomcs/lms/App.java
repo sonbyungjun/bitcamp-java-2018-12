@@ -28,7 +28,7 @@ import com.eomcs.lms.proxy.MemberDaoProxy;
 
 public class App {
 
-  private static final String ADDR = "192.168.0.31";
+  private static final String ADDR = "localhost";
   private static final int PORT = 8888;
 
   Scanner keyboard = new Scanner(System.in);

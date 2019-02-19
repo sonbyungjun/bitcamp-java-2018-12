@@ -6,6 +6,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import com.eomcs.lms.dao.BoardDaoImpl;
 import com.eomcs.lms.dao.LessonDaoImpl;
 import com.eomcs.lms.dao.MemberDaoImpl;
@@ -22,6 +24,8 @@ public class ServerApp {
 
   static HashMap<String, Service> serviceMap;
   static Set<String> serviceKeySet;
+  
+  static ExecutorService executorService = Executors.newCachedThreadPool();
 
   public static void main(String[] args) {
 
@@ -57,8 +61,8 @@ public class ServerApp {
       System.out.println("서버 시작!");
 
       while (true) {
-
-        new RequestProcessorThread(serverSocket.accept()).start();
+        
+        executorService.submit(new RequestHandler(serverSocket.accept()));
 
       } // while (server)
 
@@ -66,14 +70,25 @@ public class ServerApp {
       e.printStackTrace();
     }
 
-  }
+  } // main()
   
-  static class RequestProcessorThread extends Thread {
+  static class RequestHandler implements Runnable {
 
+    static int count = 0;
+    
     Socket socket;
+    String name;
 
-    public RequestProcessorThread(Socket socket) {
+    public RequestHandler(Socket socket) {
       this.socket = socket;
+      this.name = "핸들러-" + count++;
+      System.out.printf("[%s : %s] 핸들러가 생성됨\n",
+          Thread.currentThread().getName(), 
+          this.getName());
+    }
+    
+    public String getName() {
+      return this.name;
     }
 
     @Override
@@ -82,10 +97,13 @@ public class ServerApp {
           ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
           ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
 
-        System.out.println("클라이언트와 연결되었음!");
+        System.out.printf("[%s : %s] 클라이언트와 연결되었음.\n",
+            Thread.currentThread().getName(), 
+            this.getName());
 
         String request = in.readUTF();
-        System.out.println(request);
+        System.out.printf("[%s : %s] %s\n", 
+            Thread.currentThread().getName(), this.getName(), request);
 
         Service service = getService(request);
 
@@ -99,11 +117,14 @@ public class ServerApp {
       } catch (Exception e) {
         e.printStackTrace();
       }
-      System.out.println("클라이언트와 연결 끊었음!");
+      
+      System.out.printf("[%s : %s] 클라이언트와 연결 끊었음.\n",
+          Thread.currentThread().getName(), 
+          this.getName());
 
     } // run()
 
-  }
+  } // RequestProcessorThread class
 
   static Service getService(String request) {
     for (String key : serviceKeySet) {
