@@ -1,22 +1,14 @@
-package com.eomcs.lms.proxy;
+package com.eomcs.lms.Dao;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
-import com.eomcs.lms.Dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
-public class LessonDaoProxy implements LessonDao {
+public class LessonDaoImpl implements LessonDao {
 
-  String serverAddr;
-  int port;
-  String rootPath;
-
-  public LessonDaoProxy(String serverAddr, int port, String rootPath) {
-    this.serverAddr = serverAddr;
-    this.port = port;
-    this.rootPath = rootPath;
+  public LessonDaoImpl() {
   }
 
   @SuppressWarnings("unchecked")
