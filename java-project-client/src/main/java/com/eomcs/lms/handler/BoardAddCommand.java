@@ -19,15 +19,8 @@ public class BoardAddCommand implements Command {
 
     Board board = new Board();
 
-    System.out.print("번호? ");
-    board.setNo(Integer.parseInt(keyboard.nextLine()));
-
     System.out.print("내용? ");
     board.setContents(keyboard.nextLine());
-
-    board.setCreatedDate(new Date(System.currentTimeMillis())); 
-
-    board.setViewCount(0);
 
     try {
       boardDao.insert(board);

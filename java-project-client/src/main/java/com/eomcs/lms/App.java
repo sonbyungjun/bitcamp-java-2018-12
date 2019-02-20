@@ -36,19 +36,19 @@ public class App {
 
     Map<String,Command> commandMap = new HashMap<>();
 
-    LessonDaoImpl lessonAgent = new LessonDaoImpl();
-    commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonAgent));
-    commandMap.put("/lesson/list", new LessonListCommand(keyboard, lessonAgent));
-    commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard, lessonAgent));
-    commandMap.put("/lesson/update", new LessonUpdateCommand(keyboard, lessonAgent));
-    commandMap.put("/lesson/delete", new LessonDeleteCommand(keyboard, lessonAgent));
-
-    MemberDaoImpl memberAgent = new MemberDaoImpl();
-    commandMap.put("/member/add", new MemberAddCommand(keyboard, memberAgent));
-    commandMap.put("/member/list", new MemberListCommand(keyboard, memberAgent));
-    commandMap.put("/member/detail", new MemberDetailCommand(keyboard, memberAgent));
-    commandMap.put("/member/update", new MemberUpdateCommand(keyboard, memberAgent));
-    commandMap.put("/member/delete", new MemberDeleteCommand(keyboard, memberAgent));
+//    LessonDaoImpl lessonAgent = new LessonDaoImpl();
+//    commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonAgent));
+//    commandMap.put("/lesson/list", new LessonListCommand(keyboard, lessonAgent));
+//    commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard, lessonAgent));
+//    commandMap.put("/lesson/update", new LessonUpdateCommand(keyboard, lessonAgent));
+//    commandMap.put("/lesson/delete", new LessonDeleteCommand(keyboard, lessonAgent));
+//
+//    MemberDaoImpl memberAgent = new MemberDaoImpl();
+//    commandMap.put("/member/add", new MemberAddCommand(keyboard, memberAgent));
+//    commandMap.put("/member/list", new MemberListCommand(keyboard, memberAgent));
+//    commandMap.put("/member/detail", new MemberDetailCommand(keyboard, memberAgent));
+//    commandMap.put("/member/update", new MemberUpdateCommand(keyboard, memberAgent));
+//    commandMap.put("/member/delete", new MemberDeleteCommand(keyboard, memberAgent));
 
     BoardDaoImpl boardAgent = new BoardDaoImpl();
     commandMap.put("/board/add", new BoardAddCommand(keyboard, boardAgent));
