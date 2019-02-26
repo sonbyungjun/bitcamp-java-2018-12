@@ -1,64 +1,36 @@
 package com.eomcs.lms;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
-import com.eomcs.lms.Dao.BoardDaoImpl;
-import com.eomcs.lms.Dao.LessonDaoImpl;
-import com.eomcs.lms.Dao.MemberDaoImpl;
-import com.eomcs.lms.handler.BoardAddCommand;
-import com.eomcs.lms.handler.BoardDeleteCommand;
-import com.eomcs.lms.handler.BoardDetailCommand;
-import com.eomcs.lms.handler.BoardListCommand;
-import com.eomcs.lms.handler.BoardUpdateCommand;
+import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.handler.Command;
-import com.eomcs.lms.handler.LessonAddCommand;
-import com.eomcs.lms.handler.LessonDeleteCommand;
-import com.eomcs.lms.handler.LessonDetailCommand;
-import com.eomcs.lms.handler.LessonListCommand;
-import com.eomcs.lms.handler.LessonUpdateCommand;
-import com.eomcs.lms.handler.MemberAddCommand;
-import com.eomcs.lms.handler.MemberDeleteCommand;
-import com.eomcs.lms.handler.MemberDetailCommand;
-import com.eomcs.lms.handler.MemberListCommand;
-import com.eomcs.lms.handler.MemberUpdateCommand;
 
 public class App {
 
   Scanner keyboard = new Scanner(System.in);
   Stack<String> commandHistory = new Stack<>();
   Queue<String> commandHistory2 = new LinkedList<>();
+  
+  ArrayList<ApplicationContextListener> listeners = new ArrayList<>();
+  
+  public void addApplicationContextListener(ApplicationContextListener listener) {
+    listeners.add(listener);
+  }
 
-  public void service() {
-
-    Map<String,Command> commandMap = new HashMap<>();
-
-//    LessonDaoImpl lessonAgent = new LessonDaoImpl();
-//    commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonAgent));
-//    commandMap.put("/lesson/list", new LessonListCommand(keyboard, lessonAgent));
-//    commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard, lessonAgent));
-//    commandMap.put("/lesson/update", new LessonUpdateCommand(keyboard, lessonAgent));
-//    commandMap.put("/lesson/delete", new LessonDeleteCommand(keyboard, lessonAgent));
-//
-//    MemberDaoImpl memberAgent = new MemberDaoImpl();
-//    commandMap.put("/member/add", new MemberAddCommand(keyboard, memberAgent));
-//    commandMap.put("/member/list", new MemberListCommand(keyboard, memberAgent));
-//    commandMap.put("/member/detail", new MemberDetailCommand(keyboard, memberAgent));
-//    commandMap.put("/member/update", new MemberUpdateCommand(keyboard, memberAgent));
-//    commandMap.put("/member/delete", new MemberDeleteCommand(keyboard, memberAgent));
-
-    BoardDaoImpl boardAgent = new BoardDaoImpl();
-    commandMap.put("/board/add", new BoardAddCommand(keyboard, boardAgent));
-    commandMap.put("/board/list", new BoardListCommand(keyboard, boardAgent));
-    commandMap.put("/board/detail", new BoardDetailCommand(keyboard, boardAgent));
-    commandMap.put("/board/update", new BoardUpdateCommand(keyboard, boardAgent));
-    commandMap.put("/board/delete", new BoardDeleteCommand(keyboard, boardAgent));
-
+  public void service() throws Exception {
+    
+    HashMap<String, Object> context = new HashMap<>();
+    context.put("keyboard", keyboard);
+    
+    for (ApplicationContextListener listener : listeners) {
+      listener.contextInitialized(context);
+    }
+    
     while (true) {
-
 
       String command = prompt();
 
@@ -76,14 +48,16 @@ public class App {
       } else if (command.equals("history2")) {
         printCommandHistory2();
         continue;
-      } 
-
-      Command commandHandler = commandMap.get(command);
-
-      if (commandHandler == null) {
+      }
+      
+      Command commandHandler = null;
+      
+      if (!command.startsWith("/")) {
         System.out.println("실행할 수 없는 명령입니다.");
         continue;
-      } 
+      }
+
+      commandHandler = (Command) context.get(command);
 
       try {
         commandHandler.execute();
@@ -96,6 +70,10 @@ public class App {
     } // while
 
     keyboard.close();
+    
+    for (ApplicationContextListener listener : listeners) {
+      listener.contextDestroyed(context);
+    }
   }
 
   @SuppressWarnings("unchecked")
@@ -122,9 +100,10 @@ public class App {
   }
 
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     App app = new App();
-
+    
+    app.addApplicationContextListener(new ApplicationInitializer());
     // App 을 실행한다.
     app.service();
   }
