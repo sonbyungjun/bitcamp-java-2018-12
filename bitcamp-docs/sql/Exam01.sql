@@ -208,7 +208,8 @@ DBMS 중에는 고정 크기인 컬럼의 값을 비교할 때 빈자리까지 �
 
 > create table test1(
   c1 char(1),
-  c2 int
+  c2 int,
+  c3 boolean
   );
 
 
@@ -220,6 +221,14 @@ DBMS 중에는 고정 크기인 컬럼의 값을 비교할 때 빈자리까지 �
 > insert into test1(c1) values('0'); /* false */
 > insert into test1(c2) values(1); /* true */
 > insert into test1(c2) values(0); /* false */
+> insert into test1(c3) values('Y'); /* yes */
+> insert into test1(c3) values('N'); /* no */
+> insert into test1(c3) values('T'); /* true */
+> insert into test1(c3) values('F'); /* false */
+> insert into test1(c3) values('1'); /* true */
+> insert into test1(c3) values('0'); /* false */
+> insert into test1(c3) values(1); /* true */
+> insert into test1(c3) values(0); /* false */
 
 
 ### 키 컬럼 지정 
@@ -395,6 +404,10 @@ alter table test1
 
 alter table test1
   add column age int;  
+  
+alter table test1
+  add column no2 int,
+  add column age2 int;  
 ```
 
 - PK 컬럼 지정, UNIQUE 컬럼 지정, INDEX 컬럼 지정

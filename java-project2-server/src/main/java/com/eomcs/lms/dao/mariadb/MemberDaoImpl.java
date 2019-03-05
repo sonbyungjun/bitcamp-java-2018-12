@@ -7,17 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
+import com.eomcs.lms.util.ConnectionFactory;
 
 public class MemberDaoImpl implements MemberDao {
 
-  Connection con;
-
-  public MemberDaoImpl(Connection con) {
-    this.con = con;
-  }
 
   public List<Member> findAll() {
-
+    Connection con = ConnectionFactory.create();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "select member_id,name,email,cdt,tel from lms_member"
             + " order by member_id desc");
@@ -43,7 +40,8 @@ public class MemberDaoImpl implements MemberDao {
   }
 
   public void insert(Member member) {
-
+    Connection con = ConnectionFactory.create();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "insert into lms_member(name,email,pwd,tel,photo)" + 
         " values(?,?,password(?),?,?)")) {
@@ -62,7 +60,8 @@ public class MemberDaoImpl implements MemberDao {
   }
 
   public Member findByNo(int no) {
-
+    Connection con = ConnectionFactory.create();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "select member_id,name,email,cdt,tel,photo"
             + " from lms_member where member_id=?")) {
@@ -91,7 +90,8 @@ public class MemberDaoImpl implements MemberDao {
   }
 
   public int update(Member member) {
-
+    Connection con = ConnectionFactory.create();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "update lms_member set name=?,email=?,pwd=password(?),"
             + "tel=?,photo=? where member_id=?")) {
@@ -111,7 +111,8 @@ public class MemberDaoImpl implements MemberDao {
   }
 
   public int delete(int no) {
-
+    Connection con = ConnectionFactory.create();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "delete from lms_member where member_id=?")) {
 
@@ -128,7 +129,8 @@ public class MemberDaoImpl implements MemberDao {
 
   @Override
   public List<Member> findByKeyword(String keyword) {
-
+    Connection con = ConnectionFactory.create();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "select member_id,name,email,cdt,tel from lms_member"
             + " where name like concat('%',?,'%')"

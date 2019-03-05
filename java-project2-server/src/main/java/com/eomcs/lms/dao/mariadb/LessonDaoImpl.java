@@ -7,17 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.util.ConnectionFactory;
 
 public class LessonDaoImpl implements LessonDao {
 
-  Connection con;
-
-  public LessonDaoImpl(Connection con) {
-    this.con = con;
-  }
-
   public List<Lesson> findAll() {
-
+    Connection con = ConnectionFactory.create();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "select lesson_id,titl,sdt,edt,tot_hr from lms_lesson"
             + " order by lesson_id desc");
@@ -43,7 +39,8 @@ public class LessonDaoImpl implements LessonDao {
   }
 
   public void insert(Lesson lesson) {
-
+    Connection con = ConnectionFactory.create();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "insert into lms_lesson(titl,conts,sdt,edt,tot_hr,day_hr)"
             + " values(?,?,?,?,?,?)")) {
@@ -63,7 +60,8 @@ public class LessonDaoImpl implements LessonDao {
   }
 
   public Lesson findByNo(int no) {
-
+    Connection con = ConnectionFactory.create();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "select lesson_id,sdt,edt,tot_hr,titl,conts,day_hr"
             + " from lms_lesson where lesson_id = ?")) {
@@ -92,8 +90,9 @@ public class LessonDaoImpl implements LessonDao {
   }
 
   public int update(Lesson lesson) {
-
-    try (PreparedStatement stmt = con.prepareStatement(
+    Connection con = ConnectionFactory.create();
+    
+    try ( PreparedStatement stmt = con.prepareStatement(
         "update lms_lesson set sdt=?,edt=?,tot_hr=?,titl=?,"
             + "conts=?,day_hr=? where lesson_id=?")) {
 
@@ -113,7 +112,8 @@ public class LessonDaoImpl implements LessonDao {
   }
 
   public int delete(int no) {
-
+    Connection con = ConnectionFactory.create();
+    
     try (PreparedStatement stmt = con.prepareStatement(
         "delete from lms_lesson where lesson_id=?")) {
 

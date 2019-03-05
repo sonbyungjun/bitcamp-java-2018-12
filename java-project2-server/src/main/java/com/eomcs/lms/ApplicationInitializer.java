@@ -1,14 +1,13 @@
 package com.eomcs.lms;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Map;
 import com.eomcs.lms.context.ApplicationContextException;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.dao.mariadb.BoardDaoImpl;
 import com.eomcs.lms.dao.mariadb.LessonDaoImpl;
 import com.eomcs.lms.dao.mariadb.MemberDaoImpl;
+import com.eomcs.lms.dao.mariadb.PhotoBoardDaoImpl;
+import com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl;
 import com.eomcs.lms.handler.BoardAddCommand;
 import com.eomcs.lms.handler.BoardDeleteCommand;
 import com.eomcs.lms.handler.BoardDetailCommand;
@@ -25,21 +24,23 @@ import com.eomcs.lms.handler.MemberDetailCommand;
 import com.eomcs.lms.handler.MemberListCommand;
 import com.eomcs.lms.handler.MemberSearchCommand;
 import com.eomcs.lms.handler.MemberUpdateCommand;
+import com.eomcs.lms.handler.PhotoBoardAddCommand;
+import com.eomcs.lms.handler.PhotoBoardDeleteCommand;
+import com.eomcs.lms.handler.PhotoBoardDetailCommand;
+import com.eomcs.lms.handler.PhotoBoardListCommand;
+import com.eomcs.lms.handler.PhotoBoardUpdateCommand;
 
 public class ApplicationInitializer implements ApplicationContextListener {
   
-  Connection con;
-
   @Override
   public void contextInitialized(Map<String, Object> context) {
     
     try {
-      con = DriverManager.getConnection(
-          "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111");
-
-      LessonDaoImpl lessonDao = new LessonDaoImpl(con);
-      MemberDaoImpl memberDao = new MemberDaoImpl(con);
-      BoardDaoImpl boardDao = new BoardDaoImpl(con);
+      LessonDaoImpl lessonDao = new LessonDaoImpl();
+      MemberDaoImpl memberDao = new MemberDaoImpl();
+      BoardDaoImpl boardDao = new BoardDaoImpl();
+      PhotoBoardDaoImpl photoboardDao = new PhotoBoardDaoImpl();
+      PhotoFileDaoImpl photoFileDao = new PhotoFileDaoImpl();
       
       context.put("/lesson/add", new LessonAddCommand(lessonDao));
       context.put("/lesson/list", new LessonListCommand(lessonDao));
@@ -59,6 +60,12 @@ public class ApplicationInitializer implements ApplicationContextListener {
       context.put("/board/detail", new BoardDetailCommand(boardDao));
       context.put("/board/update", new BoardUpdateCommand(boardDao));
       context.put("/board/delete", new BoardDeleteCommand(boardDao));
+      
+      context.put("/photoboard/add", new PhotoBoardAddCommand(photoboardDao, photoFileDao));
+      context.put("/photoboard/list", new PhotoBoardListCommand(photoboardDao));
+      context.put("/photoboard/detail", new PhotoBoardDetailCommand(photoboardDao, photoFileDao));
+      context.put("/photoboard/update", new PhotoBoardUpdateCommand(photoboardDao, photoFileDao));
+      context.put("/photoboard/delete", new PhotoBoardDeleteCommand(photoboardDao, photoFileDao));
 
     } catch (Exception e) {
       throw new ApplicationContextException(e);
@@ -67,11 +74,6 @@ public class ApplicationInitializer implements ApplicationContextListener {
 
   @Override
   public void contextDestroyed(Map<String, Object> context) {
-    try {
-      con.close();
-    } catch (SQLException e) {
-      throw new ApplicationContextException(e);
-    }
 
   }
 
