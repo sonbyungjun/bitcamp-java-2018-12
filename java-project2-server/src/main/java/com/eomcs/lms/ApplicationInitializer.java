@@ -29,19 +29,28 @@ import com.eomcs.lms.handler.PhotoBoardDeleteCommand;
 import com.eomcs.lms.handler.PhotoBoardDetailCommand;
 import com.eomcs.lms.handler.PhotoBoardListCommand;
 import com.eomcs.lms.handler.PhotoBoardUpdateCommand;
+import com.eomcs.lms.util.DataSource;
 
 public class ApplicationInitializer implements ApplicationContextListener {
-  
+
   @Override
   public void contextInitialized(Map<String, Object> context) {
-    
     try {
-      LessonDaoImpl lessonDao = new LessonDaoImpl();
-      MemberDaoImpl memberDao = new MemberDaoImpl();
-      BoardDaoImpl boardDao = new BoardDaoImpl();
-      PhotoBoardDaoImpl photoboardDao = new PhotoBoardDaoImpl();
-      PhotoFileDaoImpl photoFileDao = new PhotoFileDaoImpl();
-      
+
+      DataSource dataSource = new DataSource(
+          "org.mariadb.jdbc.Driver",
+          "jdbc:mariadb://localhost/bitcampdb",
+          "bitcamp",
+            "1111");
+
+      context.put("dataSource", dataSource);
+
+      LessonDaoImpl lessonDao = new LessonDaoImpl(dataSource);
+      MemberDaoImpl memberDao = new MemberDaoImpl(dataSource);
+      BoardDaoImpl boardDao = new BoardDaoImpl(dataSource);
+      PhotoBoardDaoImpl photoboardDao = new PhotoBoardDaoImpl(dataSource);
+      PhotoFileDaoImpl photoFileDao = new PhotoFileDaoImpl(dataSource);
+
       context.put("/lesson/add", new LessonAddCommand(lessonDao));
       context.put("/lesson/list", new LessonListCommand(lessonDao));
       context.put("/lesson/detail", new LessonDetailCommand(lessonDao));
@@ -60,7 +69,7 @@ public class ApplicationInitializer implements ApplicationContextListener {
       context.put("/board/detail", new BoardDetailCommand(boardDao));
       context.put("/board/update", new BoardUpdateCommand(boardDao));
       context.put("/board/delete", new BoardDeleteCommand(boardDao));
-      
+
       context.put("/photoboard/add", new PhotoBoardAddCommand(photoboardDao, photoFileDao));
       context.put("/photoboard/list", new PhotoBoardListCommand(photoboardDao));
       context.put("/photoboard/detail", new PhotoBoardDetailCommand(photoboardDao, photoFileDao));

@@ -5,10 +5,13 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.handler.Command;
+import com.eomcs.lms.util.DataSource;
 
 public class ServerApp {
 
@@ -30,17 +33,17 @@ public class ServerApp {
       System.out.println("서버 실행 중...");
 
       while (true) {
-        
+
         new RequestHandlerThread(ss.accept()).start();
-        
+
       } // while
-      
+
       /*
       for (ApplicationContextListener listener : listeners) {
         listener.contextDestroyed(context);
       }
-      */
-      
+       */
+
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -54,25 +57,29 @@ public class ServerApp {
     // App 을 실행한다.
     app.service();
   }
-  
+
   class RequestHandlerThread extends Thread {
-    
+
     Socket socket;
-    
+
     public RequestHandlerThread(Socket socket) {
       this.socket = socket;
     }
-    
+
     @Override
     public void run() {
-      
+
+      DataSource dataSource = (DataSource) context.get("dataSource");
+
+      Connection con = dataSource.getConnection();
+
       try (Socket socket = this.socket;
           BufferedReader in = new BufferedReader(
               new InputStreamReader(socket.getInputStream()));
           PrintWriter out = new PrintWriter(socket.getOutputStream())) {
 
         String request = in.readLine();
-        
+
         Command commandHandler = (Command) context.get(request);
 
         if (commandHandler == null) {
@@ -82,18 +89,33 @@ public class ServerApp {
           return;
         }
         
-        commandHandler.execute(in, out);
-        
+        try {
+          commandHandler.execute(in, out);
+          con.commit();
+          System.out.println("DB 커넥션에 대해 commit 수행");
+        } catch (Exception e) {
+          try {
+            System.out.println("DB 커넥션에 대해 rollback 수행");
+            con.rollback();
+          } catch (SQLException e1) {}
+          out.printf("실행 오류! : %s\n", e.getMessage());
+        }
+
         out.println("!end!");
         out.flush();
+
 
       } catch (Exception e) {
         System.out.println("명령어 실행 중 오류 발생 : " + e.toString());
         e.printStackTrace();
-      } // try(Socket)
-      
+        
+      } finally {
+        dataSource.returnConnection(con);
+        System.out.println("DB 커넥션에 커넥션풀에 반납!");
+      }
+
     }
   }
-  
-  
+
+
 }
