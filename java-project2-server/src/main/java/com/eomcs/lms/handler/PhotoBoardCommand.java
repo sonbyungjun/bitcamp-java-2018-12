@@ -2,25 +2,28 @@ package com.eomcs.lms.handler;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import com.eomcs.lms.context.Component;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
-import com.eomcs.mybatis.TransactionManager;
 
 @Component
 public class PhotoBoardCommand {
 
-  TransactionManager txManager;
+  PlatformTransactionManager txManager;
   PhotoBoardDao photoBoardDao; 
   PhotoFileDao photoFileDao;
   
   public PhotoBoardCommand(
       PhotoBoardDao photoBoardDao,
       PhotoFileDao photoFileDao,
-      TransactionManager txManager) {
+      PlatformTransactionManager txManager) {
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
     this.txManager = txManager;
@@ -43,7 +46,13 @@ public class PhotoBoardCommand {
   
   @RequestMapping("/photoboard/add")
   public void add(Response response) throws Exception {
-    txManager.beginTransaction();
+    
+    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+    def.setName("tx1");
+    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+    
+    TransactionStatus status = txManager.getTransaction(def);
+    
     try {
       PhotoBoard board = new PhotoBoard();
       board.setTitle(response.requestString("사진 제목?"));
@@ -69,11 +78,11 @@ public class PhotoBoardCommand {
       }
       photoFileDao.insert(files);
       response.println("저장하였습니다.");
-      txManager.commit();
+      txManager.commit(status);
     } catch (Exception e) {
       e.printStackTrace();
       response.println("저장 중 오류가 발생.");
-      txManager.rollback();
+      txManager.rollback(status);
     }
   }
   
@@ -102,7 +111,13 @@ public class PhotoBoardCommand {
   
   @RequestMapping("/photoboard/update")
   public void update(Response response) throws Exception {
-    txManager.beginTransaction();
+    
+    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+    def.setName("tx1");
+    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+    
+    TransactionStatus status = txManager.getTransaction(def);
+    
     try {
       PhotoBoard board = new PhotoBoard();
       board.setNo(response.requestInt("번호?"));
@@ -163,17 +178,23 @@ public class PhotoBoardCommand {
       }
       
       response.println("변경했습니다.");
-      txManager.commit();
+      txManager.commit(status);
       
     } catch (Exception e) {
-      txManager.rollback();
+      txManager.rollback(status);
       response.println("변경 중 오류 발생.");
     }
   }
   
   @RequestMapping("/photoboard/delete")
   public void delete(Response response) throws Exception {
-    txManager.beginTransaction();
+    
+    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+    def.setName("tx1");
+    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+    
+    TransactionStatus status = txManager.getTransaction(def);
+    
     try {
       int no = response.requestInt("번호?");
   
@@ -185,10 +206,10 @@ public class PhotoBoardCommand {
         return;
       }
       response.println("삭제했습니다.");
-      txManager.commit();
+      txManager.commit(status);
       
     } catch (Exception e) {
-      txManager.rollback();
+      txManager.rollback(status);
       response.println("삭제 중 오류 발생.");
     }
   }

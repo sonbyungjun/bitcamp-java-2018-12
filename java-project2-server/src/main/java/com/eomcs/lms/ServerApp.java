@@ -20,22 +20,21 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.eomcs.lms.context.ApplicationContext;
+import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.context.RequestMappingHandlerMapping;
 import com.eomcs.lms.context.RequestMappingHandlerMapping.RequestMappingHandler;
 import com.eomcs.lms.handler.Response;
 
 public class ServerApp {
-
+  
   // ApplicationContextListener(옵저버) 목록을 보관할 객체
   ArrayList<ApplicationContextListener> listeners = new ArrayList<>();
-  
 
   // 공용 객체를 보관하는 저장소
   HashMap<String,Object> context = new HashMap<>();
   
-  ApplicationContext beanContainer;
+  //ApplicationContext icoContainer;
   
   RequestMappingHandlerMapping handlerMapping;
 
@@ -52,9 +51,9 @@ public class ServerApp {
         listener.contextInitialized(context);
       }
       
-      beanContainer = (ApplicationContext) context.get("applicationContext");
+      //icoContainer = (ApplicationContext) context.get("applicationContext");
       
-      handlerMapping = (RequestMappingHandlerMapping) beanContainer.getBean("handlerMapping");
+      handlerMapping = (RequestMappingHandlerMapping) context.get("handlerMapping");
       
       System.out.println("서버 실행 중...");
       
@@ -110,7 +109,6 @@ public class ServerApp {
         String request = in.readLine();
         
         // 클라이언트에게 응답하기
-        
         RequestMappingHandler requestHandler = handlerMapping.get(request);
         
         if (requestHandler == null) {

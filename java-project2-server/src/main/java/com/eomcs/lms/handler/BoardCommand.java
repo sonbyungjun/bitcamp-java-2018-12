@@ -1,6 +1,6 @@
 package com.eomcs.lms.handler;
 import java.util.List;
-import com.eomcs.lms.context.Component;
+import org.springframework.stereotype.Component;
 import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
