@@ -9,6 +9,10 @@ repositories {
 }
 
 dependencies {
+  // https://mvnrepository.com/artifact/org.mybatis/mybatis
+    compile group: 'org.mybatis', name: 'mybatis', version: '3.5.0'
+  
+
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.7'
     
     // MariaDB JDBC Driver

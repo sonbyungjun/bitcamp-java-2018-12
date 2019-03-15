@@ -10,8 +10,8 @@ public class Response {
   PrintWriter out;
   
   public Response(BufferedReader in, PrintWriter out) {
-    this.out = out;
     this.in = in;
+    this.out = out;
   }
   
   public void println(String message) {
@@ -32,6 +32,17 @@ public class Response {
   
   public Date requestDate(String title) throws Exception {
     return Date.valueOf(this.requestString(title));
-  }
-  
+  }  
 }
+
+
+
+
+
+
+
+
+
+
+
+

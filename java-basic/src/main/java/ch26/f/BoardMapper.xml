@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<resultMap type="board" id="boardMap">
+		<id column="board_id" property="no" />
+		<result column="created_date" property="createdDate" />
+		<result column="view_count" property="viewCount" />
+	</resultMap>
+
+	<select id="select1" resultMap="boardMap" parameterType="int">
+		select *
+		from x_board
+		<if test="value != null">
+			where
+			board_id = #{value}
+		</if>
+	</select>
+
+	<select id="select2" resultMap="boardMap" parameterType="map">
+		select *
+		from x_board
+		<if test="no != null">
+			where
+			board_id = #{no}
+		</if>
+	</select>
+
+	<select id="select3" resultMap="boardMap" parameterType="map">
+		select *
+		from x_board
+		where 1=0
+		<if test="no != null">
+			or board_id = #{no}
+		</if>
+		<if test="title != null">
+			or title like concat('%', #{title}, '%')
+		</if>
+		<if test="contents != null">
+			or contents like concat('%', #{contents}, '%')
+		</if>
+	</select>
+
+	<select id="select4" resultMap="boardMap" parameterType="map">
+		select *
+		from x_board
+		<where>
+			<if test="no != null">
+				or board_id = #{no}
+			</if>
+			<if test="title != null">
+				or title like concat('%', #{title}, '%')
+			</if>
+			<if test="contents != null">
+				or contents like concat('%', #{contents}, '%')
+			</if>
+		</where>
+	</select>
+
+	<select id="select5" resultMap="boardMap" parameterType="map">
+		select *
+		from x_board
+		where
+		<choose>
+			<when test="no != null">
+				board_id = #{no}
+			</when>
+			<when test="title != null">
+				title like concat('%', #{title}, '%')
+			</when>
+			<when test="contents != null">
+				contents like concat('%', #{contents}, '%')
+			</when>
+			<otherwise>
+				1=1
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="select6" resultMap="boardMap" parameterType="map">
+		select *
+		from x_board
+		<trim prefix="where" prefixOverrides="OR |AND">
+			<if test="no != null">
+				board_id = #{no}
+			</if>
+			<if test="title != null">
+				or title like concat('%', #{title}, '%')
+			</if>
+			<if test="contents != null">
+				or contents like concat('%', #{contents}, '%')
+			</if>
+		</trim>
+	</select>
+
+	<select id="select7_error" resultMap="boardMap"
+		parameterType="map">
+		select *
+		from x_board
+		<if test="column != null">
+			order by
+			#{column} #{sort}
+		</if>
+	</select>
+
+	<select id="select7_ok" resultMap="boardMap" parameterType="map">
+		select *
+		from x_board
+		order by
+		<if test="column != null">
+			${column} ${sort}
+		</if>
+	</select>
+
+	<update id="update1" parameterType="map">
+		update x_board
+			<set>
+				<if test="title != null">title = #{title},</if>
+				<if test="contents != null">contents = #{contents}</if>
+			</set>
+		where
+		  board_id = #{no}
+	</update>
+	
+	<select id="select9" resultMap="boardMap" parameterType="list">
+	 select *
+	 from x_board
+	 where
+	   board_id in /*(10, 12, 15, 29, 30)*/
+	   <foreach collection="noList" item="value" open="(" close=")" separator=",">
+	     #{value}
+	   </foreach>
+	</select>
+
+</mapper>

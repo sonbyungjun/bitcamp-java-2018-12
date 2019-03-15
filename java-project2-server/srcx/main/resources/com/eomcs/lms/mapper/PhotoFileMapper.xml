@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.eomcs.lms.dao.PhotoFileDao">
+
+<resultMap id="PhotoFileMap" type="PhotoFile">
+  <id property="no" column="photo_file_id" />
+  <result property="photoBoardNo" column="photo_id" />
+  <result property="filePath" column="file_path" />
+</resultMap>
+
+<select id="findByPhotoBoardNo" resultMap="PhotoFileMap" parameterType="int">
+  select 
+    photo_file_id,
+    photo_id,
+    file_path
+  from 
+    lms_photo_file
+  where 
+    Photo_id = #{value}
+  order by 
+    photo_file_id
+  asc
+</select>
+
+<insert id="insert" parameterType="list">
+  insert into lms_photo_file(
+      file_path,
+      photo_id) 
+  values
+    <foreach collection="list" item="photoFile" separator=",">
+    (#{photoFile.filePath}, #{photoFile.photoBoardNo})
+    </foreach>
+</insert>
+
+<delete id="deleteByPhotoBoardNo" parameterType="int">
+  delete from lms_photo_file 
+  where photo_id = #{value}
+</delete>
+
+</mapper>

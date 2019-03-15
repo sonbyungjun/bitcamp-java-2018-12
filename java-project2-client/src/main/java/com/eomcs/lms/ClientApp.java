@@ -26,7 +26,7 @@ public class ClientApp {
       }
       commandHistory.push(input);
       commandHistory2.offer(input);
-      
+
       if (input.equals("history")) {
         printCommandHistory();
         continue;
@@ -34,16 +34,22 @@ public class ClientApp {
         printCommandHistory2();
         continue;
       }
-      
+
       int index = input.indexOf("/");
-      String[] values = input.substring(0, index).split(":");
+      String[] values = null;
+      try {
+        values = input.substring(0, index).split(":");
+      } catch(Exception e) {
+        System.out.println("실행할 수 없는 명령입니다.");
+        continue;
+      }
       String host = values[0];
       int port = 8888;
       if (values.length > 1) {
         port = Integer.parseInt(values[1]);
       }
       String command = input.substring(index);
-      
+
 
       try (Socket socket = new Socket(host, port);
           PrintWriter out = new PrintWriter(socket.getOutputStream());
@@ -59,21 +65,21 @@ public class ClientApp {
         }
 
         while (true) {
-          
+
           String response = in.readLine();
-          
+
           if (response.equalsIgnoreCase("!end!")) {
             break;
-            
+
           } else if (response.equals("!{}!")) {
             String value = keyboard.nextLine();
             out.println(value);
             out.flush();
-            
+
           }else {
             System.out.println(response);
           }
-          
+
         } // while (규칙)
 
       } catch (Exception e) {

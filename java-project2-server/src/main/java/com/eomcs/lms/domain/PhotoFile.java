@@ -3,7 +3,6 @@ package com.eomcs.lms.domain;
 import java.io.Serializable;
 
 public class PhotoFile implements Serializable {
-  
   private static final long serialVersionUID = 1L;
   
   private int no;
@@ -28,5 +27,7 @@ public class PhotoFile implements Serializable {
   public void setPhotoBoardNo(int photoBoardNo) {
     this.photoBoardNo = photoBoardNo;
   }
+  
+  
 
 }

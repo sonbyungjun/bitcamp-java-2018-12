@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.eomcs.lms.dao.PhotoBoardDao">
+
+<resultMap id="PhotoBoardMap" type="PhotoBoard">
+  <id property="no" column="photo_id" />
+  <result property="lessonNo" column="lesson_id" />
+  <result property="title" column="titl" />
+  <result property="createdDate" column="cdt" />
+  <result property="viewCount" column="vw_cnt" />
+</resultMap>
+
+<resultMap id="PhotoBoardFileMap" type="PhotoBoard">
+
+  <id property="no" column="photo_id" />
+  <result property="lessonNo" column="lesson_id" />
+  <result property="title" column="titl" />
+  <result property="createdDate" column="cdt" />
+  <result property="viewCount" column="vw_cnt" />
+  
+  <association property="lesson" javaType="lesson">
+    <id property="no" column="lesson_id"/>
+    <result property="title" column="lessonTitle"/>
+    <result property="startDate" column="sdt"/>
+    <result property="endDate" column="edt"/>
+  </association>
+  
+  <collection property="files" ofType="photoFile">
+    <id property="no" column="photo_file_id" />
+    <result property="photoBoardNo" column="photoBoardNo" />
+    <result property="filePath" column="file_path" />
+  </collection>
+  
+</resultMap>
+
+<sql id="select1">
+  select 
+    photo_id,
+    titl,
+    cdt,
+    vw_cnt,
+    lesson_id 
+  from 
+    lms_photo
+</sql>
+
+<select id="findAll" resultMap="PhotoBoardMap" parameterType="map">
+  <if test="keyword != null">
+    <bind name="pattern1" value="'%' + keyword + '%'"/>
+  </if>
+  <include refid="select1"/>
+  <where>
+    <if test="lessonNo != null">or lesson_id = #{lessonNo}</if>  
+    <if test="keyword != null">or titl like #{pattern1}</if>
+  </where>
+  order by 
+    photo_id
+  desc
+</select>
+
+<select id="findByNo" resultMap="PhotoBoardMap" parameterType="int">
+  <include refid="select1"/>
+  where
+    photo_id = #{value}
+</select>
+
+<select id="findByNoWithFile" resultMap="PhotoBoardFileMap" parameterType="int">
+  select
+    p.photo_id,
+    p.titl,
+    p.cdt,
+    p.vw_cnt,
+    l.lesson_id,
+    l.titl as lessonTitle,
+    l.sdt,
+    l.edt,
+    f.photo_file_id,
+    f.photo_id as photoBoardNo,
+    f.file_path
+  from 
+    lms_photo p
+    left outer join lms_lesson l on p.lesson_id = l.lesson_id
+    left outer join lms_photo_file f on p.photo_id = f.photo_id
+  where
+    p.photo_id = #{value}
+</select>
+
+<update id="increaseCount" parameterType="int">
+  update lms_photo
+  set 
+    vw_cnt = vw_cnt + 1
+  where 
+    photo_id = #{value}
+</update>
+
+<insert id="insert" parameterType="PhotoBoard"
+          useGeneratedKeys="true" keyColumn="photo_id" keyProperty="no">
+  insert into lms_photo(
+    titl,
+    lesson_id)
+  values(
+    #{title},
+    #{lessonNo})
+</insert>
+
+<update id="update" parameterType="PhotoBoard">
+  update lms_photo
+  set
+    titl = #{title}
+  where
+    photo_id = #{no}
+</update>
+
+<delete id="delete" parameterType="int">
+  delete from lms_photo
+  where
+    photo_id = #{value}
+</delete>
+
+</mapper>

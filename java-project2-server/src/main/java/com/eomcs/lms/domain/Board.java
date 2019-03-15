@@ -15,15 +15,11 @@ public class Board implements Cloneable, Serializable {
     return (Board) super.clone();
   }
   
-  
-  
   @Override
   public String toString() {
     return "Board [no=" + no + ", contents=" + contents + ", createdDate=" + createdDate
         + ", viewCount=" + viewCount + "]";
   }
-
-
 
   public int getNo() {
     return no;

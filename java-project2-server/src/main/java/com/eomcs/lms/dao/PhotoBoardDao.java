@@ -1,12 +1,15 @@
 package com.eomcs.lms.dao;
 
 import java.util.List;
+import java.util.Map;
 import com.eomcs.lms.domain.PhotoBoard;
 
 public interface PhotoBoardDao {
-  void insert(PhotoBoard photoboard);
-  List<PhotoBoard> findAll();
+  int insert(PhotoBoard photoBoard);
+  List<PhotoBoard> findAll(Map<String,Object> params);
   PhotoBoard findByNo(int no);
-  int update(PhotoBoard photoboard);
+  PhotoBoard findByNoWithFile(int no);
+  int increaseCount(int no);
+  int update(PhotoBoard photoBoard);
   int delete(int no);
 }
