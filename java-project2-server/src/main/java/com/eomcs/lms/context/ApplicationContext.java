@@ -30,7 +30,6 @@ public class ApplicationContext {
     findClasses(packageDir, packageName);
     prepareComponent();
     postProcess();
-
     //    System.out.println("----------------------------------------");
     //    Set<String> names = beanContainer.keySet();
     //    for (String name : names) {
