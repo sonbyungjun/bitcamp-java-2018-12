@@ -19,5 +19,6 @@ public class Test03 {
     System.out.println(c3);
     
     System.out.println(c1.getBlackBox() == c3.getBlackBox());
+    
   }
 }
