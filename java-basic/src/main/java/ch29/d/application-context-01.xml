@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="c1" class="ch29.d.Car">
+    <property name="maker"><value>비트자동차</value></property>
+    <property name="model"><value>모델1</value></property>
+    <property name="cc"><value>1980</value></property>
+    <property name="valve"><value>16</value></property>
+    <property name="auto"><value>true</value></property>
+  </bean>
+  
+  <bean id="c2" class="ch29.d.Car">
+    <property name="maker"><value type="java.lang.String">비트자동차</value></property>
+    <property name="model"><value type="java.lang.String">모델1</value></property>
+    <property name="cc"><value type="int">1980</value></property>
+    <property name="valve"><value type="int">16</value></property>
+    <property name="auto"><value type="boolean">true</value></property>
+    <!--  <property name="createdDate"><value type="java.util.Date">2019-1-1</value></property> -->
+  </bean>
+  
+  <bean id="c3" class="ch29.d.Car">
+    <property name="maker" value="비트자동차"/>
+    <property name="model" value="모델1"/>
+    <property name="cc" value="1980"/>
+    <property name="valve" value="16"/>
+    <property name="auto" value="true"/>
+  </bean>
+  
+   <bean id="c4" class="ch29.d.Car"
+         p:maker="비트자동차" p:model="모델3" p:cc="2500" p:valve="16" p:auto="true"/>
+</beans>

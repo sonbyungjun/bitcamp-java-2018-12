@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="c1" class="ch29.b.Car"/>
+  <bean name="c2" class="ch29.b.Car"/>
+  
+  <bean id="c3 c4 c5" class="ch29.b.Car"/>
+  <bean name="c6 c7 c8" class="ch29.b.Car"/>
+  
+  <bean name="c9,c10,c11" class="ch29.b.Car"/>
+  <bean name="c12;c13;c14" class="ch29.b.Car"/>
+  <bean name="c15:c16:c17" class="ch29.b.Car"/>
+  
+ <bean id="c20" name="c21 c22 c23" class="ch29.b.Car"/>
+  
+</beans>

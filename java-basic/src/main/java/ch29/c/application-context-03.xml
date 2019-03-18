@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="c1" class="ch29.c.Car">
+    <constructor-arg value="비트자동차"/>
+    <constructor-arg value="비트모델1"/>
+  </bean>
+
+  <bean id="c2" class="ch29.c.Car">
+    <constructor-arg type="int" value="16" index="0"/>
+    <constructor-arg value="비트자동차" type="java.lang.String" index="1"/>
+  </bean>
+
+</beans>

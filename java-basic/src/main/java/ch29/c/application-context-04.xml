@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:c="http://www.springframework.org/schema/c"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="c1" class="ch29.c.Car"
+        c:model="비트모델2" c:maker="비트자동차"/>
+        
+  <bean id="c2" class="ch29.c.Car"
+        c:model="비트모델2" c:cc="1980"/>
+        
+  <bean id="c3" class="ch29.c.Car"
+        c:maker="비트자동차" c:valve="16"/>
+        
+  <bean id="c4" class="ch29.c.Car"
+        c:_0="비트자동차" c:_1="모델3" c:_2="1980" c:_3="16" c:_4="true"/>
+        
+        
+</beans>

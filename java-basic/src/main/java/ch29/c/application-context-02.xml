@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="c1" class="ch29.c.Car">
+    <constructor-arg><value>비트자동차</value></constructor-arg>
+    <constructor-arg><value>비트모델1</value></constructor-arg>
+  </bean>
+  
+  <bean id="c2" class="ch29.c.Car"> 
+  <constructor-arg><value>비트모델1</value></constructor-arg>
+   <constructor-arg><value>1980</value></constructor-arg>
+  </bean>
+  
+  <bean id="c3" class="ch29.c.Car">
+    <constructor-arg><value>1980</value></constructor-arg>
+    <constructor-arg><value>비트모델1</value></constructor-arg>
+  </bean>
+  
+   <bean id="c4" class="ch29.c.Car">
+    <constructor-arg type="int"><value>16</value></constructor-arg>
+    <constructor-arg type="String"><value>비트자동차</value></constructor-arg>
+  </bean>
+  
+    <bean id="c5" class="ch29.c.Car">
+    <constructor-arg type="int" index="0"><value>16</value></constructor-arg>
+    <constructor-arg type="String" index="1"><value>비트자동차</value></constructor-arg>
+  </bean>
+  
+
+</beans>

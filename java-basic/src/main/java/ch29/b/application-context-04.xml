@@ -4,6 +4,8 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean id="b1" class="ch29.a.Student"/>
-
+  <bean class="ch29.b.Car"/>
+  <bean class="ch29.b.Car"/>
+  <bean class="ch29.b.Car"/>
+  
 </beans>
