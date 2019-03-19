@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="c1" factory-bean="carFactory" factory-method="create">
+    <constructor-arg value="equus"/>
+  </bean>
+  
+  <bean id="carFactory" class="ch29.f.CarFactory2">
+    <constructor-arg ref="blackBox"/>
+  </bean>
+  
+  <bean id="blackBox" class="ch29.f.BlackBox">
+    <property name="maker" value="비트오토"/>
+    <property name="model" value="daynight"/>
+  </bean>
+</beans>

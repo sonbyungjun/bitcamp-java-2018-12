@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="c1" class="ch29.f.CarFactory" factory-method="create">
+    <constructor-arg value="equus"/>
+  </bean>
+  
+  <bean id="d1" class="java.sql.Date" factory-method="valueOf">
+    <constructor-arg value="2019-3-19"/>
+  </bean>
+  
+</beans>
