@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+  
+  <context:component-scan base-package="ch29.i,ch29.i2">
+    <context:include-filter type="regex"
+                            expression="ch29.i.sub2.Sub2OkTruck"/>
+    <context:include-filter type="annotation"
+                            expression="org.springframework.stereotype.Controller"/>
+    <context:exclude-filter type="regex"
+                            expression="ch29.i.sub2.*Truck"/>
+    <context:exclude-filter type="regex"
+                            expression="ch29.i.sub1.*"/>
+  </context:component-scan>
+  
+</beans>
