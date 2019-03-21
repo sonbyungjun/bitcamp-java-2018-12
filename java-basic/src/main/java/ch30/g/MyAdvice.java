@@ -1,4 +1,4 @@
-package ch30.f;
+package ch30.g;
 
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class MyAdvice {
   
-  @Pointcut("execution(* ch30.f.X.*(..))")
+  @Pointcut("execution(* ch30.g.X.*(..))")
   public void calculatorOperation() {}
   
   @Before("calculatorOperation() and args(p2, p3, p1)")

@@ -2,7 +2,9 @@ package com.eomcs.lms.context;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RequestMappingHandlerMapping {
   
   HashMap<String, RequestMappingHandler> handlerMappings = new HashMap<>();
