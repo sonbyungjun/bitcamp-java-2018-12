@@ -1,4 +1,4 @@
-package ch30.a;
+package ch30.b;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Test01 {
   public static void main(String[] args) {
     ApplicationContext iocContainer = 
-        new ClassPathXmlApplicationContext("ch30/a/application-context-01.xml");
+        new ClassPathXmlApplicationContext("ch30/b/application-context-01.xml");
     
     System.out.println("------------------------------------------");
     

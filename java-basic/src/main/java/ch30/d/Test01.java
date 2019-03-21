@@ -1,4 +1,4 @@
-package ch30.a;
+package ch30.d;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Test01 {
   public static void main(String[] args) {
     ApplicationContext iocContainer = 
-        new ClassPathXmlApplicationContext("ch30/a/application-context-01.xml");
+        new ClassPathXmlApplicationContext("ch30/d/application-context-01.xml");
     
     System.out.println("------------------------------------------");
     
@@ -19,6 +19,8 @@ public class Test01 {
     
     X x = (X) iocContainer.getBean("x");
     
-    x.m1();
+    System.out.println(x.calculate(10, 20, "+"));
+    
+    System.out.println(x.calculate(10, 20, "%"));
   }
 }
