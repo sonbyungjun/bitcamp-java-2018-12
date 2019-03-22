@@ -1,6 +1,7 @@
 package com.eomcs.lms;
 
 import javax.sql.DataSource;
+import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -21,6 +22,9 @@ public class MybatisConfig {
     factoryBean.setDataSource(dataSource);
     factoryBean.setTypeAliasesPackage("com.eomcs.lms.domain");
     factoryBean.setMapperLocations(appCtx.getResources("classpath:/com/eomcs/lms/mapper/*.xml"));
+    
+    LogFactory.useLog4JLogging();
+    
     return factoryBean.getObject();
   }
   

@@ -35,6 +35,7 @@ public class ServerApp {
     try (ServerSocket ss = new ServerSocket(8888)) {
 
       icoContainer = new AnnotationConfigApplicationContext(AppConfig.class);
+      printBeans();
 
       handlerMapping = (RequestMappingHandlerMapping) icoContainer.getBean(RequestMappingHandlerMapping.class);
 
@@ -108,7 +109,14 @@ public class ServerApp {
     }
   }
 
-
+  private void printBeans() {
+    String[] names = icoContainer.getBeanDefinitionNames();
+    System.out.println("------------------------------------------------------------------------");
+    for (String name : names) {
+      System.out.printf("%s ===> %s\n", name, icoContainer.getBean(name).getClass().getName());
+    }
+    System.out.println("------------------------------------------------------------------------");
+  }
 
 }
 

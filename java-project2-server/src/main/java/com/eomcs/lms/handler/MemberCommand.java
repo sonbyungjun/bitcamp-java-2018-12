@@ -16,7 +16,7 @@ public class MemberCommand {
   
   @RequestMapping("/member/list")
   public void list(Response response) throws Exception {
-    List<Member> members = memberService.list();
+    List<Member> members = memberService.list(null);
     for (Member member : members) {
       response.println(String.format("%3d, %-4s, %-20s, %-15s, %s", 
           member.getNo(), member.getName(), 
@@ -120,7 +120,7 @@ public class MemberCommand {
   public void search(Response response) throws Exception {
     
     String keyword = response.requestString("검색어?");
-    List<Member> members = memberService.findByKeyword(keyword);
+    List<Member> members = memberService.list(keyword);
 
     for (Member member : members) {
       response.println(String.format("%3d, %-4s, %-20s, %-15s, %s", 
