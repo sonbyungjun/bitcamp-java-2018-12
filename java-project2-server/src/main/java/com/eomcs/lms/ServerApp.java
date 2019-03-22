@@ -16,8 +16,11 @@ package com.eomcs.lms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import com.eomcs.lms.context.RequestMappingHandlerMapping;
@@ -26,20 +29,20 @@ import com.eomcs.lms.handler.Response;
 
 public class ServerApp {
 
+  final static Logger logger = LogManager.getLogger(ServerApp.class);
   ApplicationContext icoContainer;
-
   RequestMappingHandlerMapping handlerMapping;
 
   public void service() throws Exception {
-
     try (ServerSocket ss = new ServerSocket(8888)) {
 
+      logger.info("서버 실행 중...");
+      
       icoContainer = new AnnotationConfigApplicationContext(AppConfig.class);
       printBeans();
 
       handlerMapping = (RequestMappingHandlerMapping) icoContainer.getBean(RequestMappingHandlerMapping.class);
 
-      System.out.println("서버 실행 중...");
 
       while (true) {
         new RequestHandlerThread(ss.accept()).start();
@@ -72,7 +75,8 @@ public class ServerApp {
 
     @Override
     public void run() {
-
+      logger.info("클라이언트 연결 되었음.");
+      
       try (Socket socket = this.socket;
           BufferedReader in = new BufferedReader(
               new InputStreamReader(socket.getInputStream()));
@@ -102,20 +106,24 @@ public class ServerApp {
         out.flush();
 
       } catch (Exception e) {
-        System.out.println("명령어 실행 중 오류 발생 : " + e.toString());
-        e.printStackTrace();
+        logger.error("명령어 실행 중 오류 발생 : " + e.toString());
+        StringWriter strWriter = new StringWriter();
+        PrintWriter out = new PrintWriter(strWriter);
+        e.printStackTrace(out);
+        logger.error(strWriter.toString());
 
       }
+      logger.info("클라이언트와 연결 종료.");
     }
   }
 
   private void printBeans() {
     String[] names = icoContainer.getBeanDefinitionNames();
-    System.out.println("------------------------------------------------------------------------");
+    logger.debug("------------------------------------------------------------------------");
     for (String name : names) {
-      System.out.printf("%s ===> %s\n", name, icoContainer.getBean(name).getClass().getName());
+      logger.debug(String.format("빈 생성 됨 (객체명=%s, 클래스명=%s)", name, icoContainer.getBean(name).getClass().getName()));
     }
-    System.out.println("------------------------------------------------------------------------");
+    logger.debug("------------------------------------------------------------------------");
   }
 
 }
