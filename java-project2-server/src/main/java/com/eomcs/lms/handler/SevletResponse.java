@@ -4,19 +4,22 @@ import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.sql.Date;
 
-public class Response {
+public class SevletResponse {
   
   BufferedReader in;
   PrintWriter out;
   
-  public Response(BufferedReader in, PrintWriter out) {
+  public SevletResponse(BufferedReader in, PrintWriter out) {
     this.in = in;
     this.out = out;
   }
   
+  public PrintWriter getWriter() {
+    return out;
+  }
+  
   public void println(String message) {
     out.println(message);
-    out.flush();
   }
   
   public String requestString(String title) throws Exception {

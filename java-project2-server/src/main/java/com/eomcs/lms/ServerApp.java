@@ -11,7 +11,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import com.eomcs.lms.context.RequestMappingHandlerMapping;
 import com.eomcs.lms.context.RequestMappingHandlerMapping.RequestMappingHandler;
-import com.eomcs.lms.handler.Response;
+import com.eomcs.lms.handler.ServletRequest;
+import com.eomcs.lms.handler.SevletResponse;
 
 public class ServerApp {
 
@@ -78,11 +79,12 @@ public class ServerApp {
            break;
         }
         
-        String commandPath = requestLine.split(" ")[1];
+        String[] requestURI = requestLine.split(" ")[1].split("\\?");
+        String cammandPath = requestURI[0];
         
         // 클라이언트에게 응답하기
         
-        RequestMappingHandler requestHandler = handlerMapping.get(commandPath);
+        RequestMappingHandler requestHandler = handlerMapping.get(cammandPath);
 
         if (requestHandler == null) {
           out.println("HTTP/1.1 404 Not Found");
@@ -95,11 +97,18 @@ public class ServerApp {
         }
 
         try {
+          
+          ServletRequest request = new ServletRequest();
+          if (requestURI.length > 1) {
+            request.setQueryString(requestURI[1]);
+          }
+          SevletResponse response = new SevletResponse(in, out);
+          
           out.println("HTTP/1.1 200 OK");
           out.println("Server: bitcamp");
           out.println("Content-Type: text/html; charset=UTF-8");
           out.println();
-          requestHandler.method.invoke(requestHandler.bean, new Response(in, out));
+          requestHandler.method.invoke(requestHandler.bean, request, response);
         } catch (Exception e) {
           out.printf("실행 오류! : %s\n", e.getMessage());
           e.printStackTrace();

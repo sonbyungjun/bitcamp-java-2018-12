@@ -10,7 +10,7 @@ public class HelloCommand {
   }
 
   @RequestMapping("/hello")
-  public void hello(Response response) {
+  public void hello(SevletResponse response) {
       response.println("안녕하세요!");
   }
 

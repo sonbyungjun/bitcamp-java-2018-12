@@ -18,7 +18,7 @@ public class LessonCommand {
   
   
   @RequestMapping("/lesson/list")
-  public void list(Response response) throws Exception {
+  public void list(SevletResponse response) throws Exception {
     List<Lesson> lessons = lessonService.list();
     for (Lesson lesson : lessons) {
       response.println(String.format("%3d, %-15s, %10s ~ %10s, %4d", 
@@ -28,7 +28,7 @@ public class LessonCommand {
   }
   
   @RequestMapping("/lesson/add")
-  public void add(Response response) throws Exception {
+  public void add(SevletResponse response) throws Exception {
     Lesson lesson = new Lesson();
     lesson.setTitle(response.requestString("수업명?"));
     lesson.setContents(response.requestString("설명?"));
@@ -42,7 +42,7 @@ public class LessonCommand {
   }
   
   @RequestMapping("/lesson/detail")
-  public void detail(Response response) throws Exception {
+  public void detail(SevletResponse response) throws Exception {
     int no = response.requestInt("번호?");
 
     Lesson lesson = lessonService.get(no);
@@ -59,7 +59,7 @@ public class LessonCommand {
   }
   
   @RequestMapping("/lesson/update")
-  public void update(Response response) throws Exception {
+  public void update(SevletResponse response) throws Exception {
     int no = response.requestInt("번호?");
     
     Lesson lesson = lessonService.get(no);
@@ -119,7 +119,7 @@ public class LessonCommand {
   }
   
   @RequestMapping("/lesson/delete")
-  public void delete(Response response) throws Exception {
+  public void delete(SevletResponse response) throws Exception {
     
     try {
       int no = response.requestInt("번호?");

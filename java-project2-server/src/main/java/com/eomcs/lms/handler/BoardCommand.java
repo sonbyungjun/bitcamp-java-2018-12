@@ -1,4 +1,5 @@
 package com.eomcs.lms.handler;
+import java.io.PrintWriter;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import com.eomcs.lms.context.RequestMapping;
@@ -15,23 +16,29 @@ public class BoardCommand {
   }
 
   @RequestMapping("/board/list")
-  public void list(Response response) {
+  public void list(ServletRequest request, SevletResponse response) {
+    
     List<Board> boards = boardService.list();
-    response.println("<html><head><title>게시물 목록</title></head>");
-    response.println("<body><h1>게시물 목록</h1>");
-    response.println("<table border='2' bordercolor='red'>");
-    response.println("<tr> <th>번호</th><th>제목</th><th>등록일</th><th>조회</th></tr>");
+    
+    PrintWriter out = response.getWriter();
+    out.println("<html><head><title>게시물 목록</title></head>");
+    out.println("<body><h1>게시물 목록</h1>");
+    out.println("<p><a href='/board/form'>새글</a></p>");
+    out.println("<table border='2' bordercolor='red'>");
+    out.println("<tr> <th>번호</th><th>제목</th><th>등록일</th><th>조회</th></tr>");
     for (Board board : boards) {
-      response.println(
-          String.format("<tr><td>%3d</td> <td>%-20s</td> <td>%s</td> <td>%d</td></tr>", 
-              board.getNo(), board.getContents(),
-              board.getCreatedDate(), board.getViewCount()));
+      out.println(
+          String.format("<tr><td>%1$d</td> <td><a href='/board/detail?no=%1$d'>%2$s</a></td> <td>%3$s</td> <td>%4$d</td></tr>", 
+              board.getNo(), 
+              board.getContents(),
+              board.getCreatedDate(), 
+              board.getViewCount()));
     }
-    response.println("</table></body></html>");
+    out.println("</table></body></html>");
   }
 
   @RequestMapping("/board/add")
-  public void add(Response response) throws Exception {
+  public void add(SevletResponse response) throws Exception {
     Board board = new Board();
     board.setContents(response.requestString("내용?"));
     boardService.add(board);
@@ -39,20 +46,30 @@ public class BoardCommand {
   }
   
   @RequestMapping("/board/detail")
-  public void detail(Response response) throws Exception {
-    int no = response.requestInt("번호?");
+  public void detail(ServletRequest request, SevletResponse response) throws Exception {
+    int no = Integer.parseInt(request.getParameter("no"));
+    
     Board board = boardService.get(no);
+    
+    PrintWriter out = response.getWriter();
+    out.println("<html><head><title>게시물 조회</title></head>");
+    out.println("<body><h1>게시물 조회</h1>");
+    
     if (board == null) {
-      response.println("해당 번호의 게시물이 없습니다.");
+      out.println("<p>해당 번호의 게시물이 없습니다.</p>");
       return;
     }
-    response.println(String.format("내용: %s", board.getContents()));
-    response.println(String.format("작성일: %s", board.getCreatedDate()));
-    response.println(String.format("조회수: %d", board.getViewCount()));
+    out.println("<table border='1'>");
+    out.println(String.format("<tr><th>내용</th> <td>%s</td> </tr>", board.getContents()));
+    out.println(String.format("<tr><th>작성일</th> <td>%s</td> </tr>", board.getCreatedDate()));
+    out.println(String.format("<tr><th>조회수</th> <td>%d</td> </tr>", board.getViewCount()));
+    out.println("</table>");
+    out.println("<p><a href='/board/list'>목록</a></p>");
+    out.println("</body></html>");
   }
   
   @RequestMapping("/board/update")
-  public void update(Response response) throws Exception {
+  public void update(SevletResponse response) throws Exception {
     Board temp = new Board();
     temp.setNo(response.requestInt("번호?"));
     
@@ -73,7 +90,7 @@ public class BoardCommand {
   }
   
   @RequestMapping("/board/delete")
-  public void delete(Response response) throws Exception {
+  public void delete(SevletResponse response) throws Exception {
     int no = response.requestInt("번호?");
 
     if (boardService.delete(no) == 0) {
@@ -81,6 +98,29 @@ public class BoardCommand {
       return;
     }
     response.println("삭제했습니다.");
+  }
+  
+  @RequestMapping("/board/form")
+  public void form(ServletRequest request, SevletResponse response) throws Exception {
+    PrintWriter out = response.getWriter();
+    out.println("<html>");
+    out.println("<head><title>새 글</title></head>");
+    out.println("<body>");
+    out.println("<h1>새 글</h1>");
+    out.println("<form action='/board/add'>");
+    out.println("<table border='1'>");
+    out.println("<tr>");
+    out.println("<th>내용<th>");
+    out.println("<td><textarea name='contents' rows='5' cols='50'></textarea></td>");
+    out.println("</tr>");
+    out.println("</table>");
+    out.println("<p>");
+    out.println("<button type='submit'>등록</button>");
+    out.println("<a href='/board/list'>목록</a>");
+    out.println("</p>");
+    out.println("</form>");
+    out.println("</body>");
+    out.println("</html>");
   }
   
 }
