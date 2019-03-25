@@ -1,5 +1,6 @@
 package com.eomcs.lms.handler;
 
+import java.net.URLDecoder;
 import java.util.HashMap;
 
 public class ServletRequest {
@@ -10,7 +11,9 @@ public class ServletRequest {
     String[] params = qs.split("&");
     for (String param : params) {
       String[] values = param.split("=");
-      paramMap.put(values[0], values[1]);
+      try {
+      paramMap.put(values[0], URLDecoder.decode(values[1], "UTF-8"));
+      } catch(Exception e) {}
     }
   }
   

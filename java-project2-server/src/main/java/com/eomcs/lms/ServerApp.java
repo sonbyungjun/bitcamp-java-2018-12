@@ -12,7 +12,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.eomcs.lms.context.RequestMappingHandlerMapping;
 import com.eomcs.lms.context.RequestMappingHandlerMapping.RequestMappingHandler;
 import com.eomcs.lms.handler.ServletRequest;
-import com.eomcs.lms.handler.SevletResponse;
+import com.eomcs.lms.handler.ServletResponse;
 
 public class ServerApp {
 
@@ -102,7 +102,7 @@ public class ServerApp {
           if (requestURI.length > 1) {
             request.setQueryString(requestURI[1]);
           }
-          SevletResponse response = new SevletResponse(in, out);
+          ServletResponse response = new ServletResponse(in, out);
           
           out.println("HTTP/1.1 200 OK");
           out.println("Server: bitcamp");
