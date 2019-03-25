@@ -93,9 +93,9 @@ public class LessonCommand {
         + "<td><input type='date' name='startDate' value='%s'>~<input type='date' name='endDate' value='%s'></td>"
         + "</tr>", lesson.getStartDate(), lesson.getEndDate());
     out.printf("<tr><th>총수업시간</th> "
-        + "<td><input type='text' name='totalHours' value='%s'></td>"
+        + "<td><input type='number' name='totalHours' value='%s'></td>"
         + "</tr>", lesson.getTotalHours());
-    out.printf("<tr><th>일수업시간</th> <td><input type='text' name='dayHours' value='%s'></td>"
+    out.printf("<tr><th>일수업시간</th> <td><input type='number' name='dayHours' value='%s'></td>"
         + "</tr>", lesson.getDayHours());
     out.println("</table>");
     out.println("<p><a href='/lesson/list'>강의목록</a>"

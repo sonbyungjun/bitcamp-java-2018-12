@@ -73,7 +73,7 @@ public class PhotoBoardCommand {
     for (int i = 1; i <= 5; i++) {
       String filePath = request.getParameter("photo" + i);
       if (filePath == null)
-        break;
+        continue;
       PhotoFile file = new PhotoFile();
       file.setFilePath(filePath);
       files.add(file);
@@ -81,7 +81,7 @@ public class PhotoBoardCommand {
 
     if (files.size() == 0) {
       out.println("<p>최소 한 개의 사진 파일을 등록해야 합니다.</p>");
-      out.println("<meta http-equiv='Refresh' content='2;url=/photoboard/form'>");
+      out.println("<meta http-equiv='Refresh' content='1;url=/photoboard/form'>");
       return;
     }
 
@@ -244,14 +244,14 @@ public class PhotoBoardCommand {
     out.println("<tr><th>번호</th><th>제목</th><th>등록일</th><th>조회수</th><th>수업</th></tr>");
     
     for (PhotoBoard board : boards) {
-      out.println(String.format(
+      out.printf(
           "<tr><td>%d</td><td><a href='/photoboard/detail?no=%1$d'>%s</a>"
           + "</td><td>%s</td><td>%d</td><td>%d</td></tr>",
             board.getNo(), 
             board.getTitle(), 
             board.getCreatedDate(), 
             board.getViewCount(),
-            board.getLessonNo()));
+            board.getLessonNo());
     }
     out.println("</table>");
     out.println("<p><a href='/photoboard/list'>목록</a></p>");

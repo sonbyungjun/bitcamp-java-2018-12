@@ -29,19 +29,15 @@ public class MemberCommand {
     out.println("<tr> <th>번호</th><th>이름</th><th>이메일</th><th>전화번호</th><th>생성일</th></tr>");
     
     for (Member member : members) {
-      out.println(String.format("<tr><td>%1$d</td> <td><a href='/member/detail?no=%1$d'>%2$s</a></td> <td>%3$s</td> <td>%4$s</td> <td>%5$s</td></tr>", 
+      out.printf("<tr><td>%1$d</td> <td><a href='/member/detail?no=%1$d'>%2$s</a></td> <td>%3$s</td> <td>%4$s</td> <td>%5$s</td></tr>", 
           member.getNo(), member.getName(), 
-          member.getEmail(), member.getTel(), member.getRegisteredDate()));
+          member.getEmail(), member.getTel(), member.getRegisteredDate());
     }
     out.println("</table></body></html>");
     
     out.println("<form action='/member/search'>");
-    out.println("<table border='1'>");
-    out.println("<tr>");
-    out.println("<th>회원검색<th>");
-    out.println("<td><input type='text' name='search'></td>");
-    out.println("<td><button type='submit'>검색</button></td>");
-    out.println("</tr>");
+    out.println("회원검색 : <input type='text' name='search'>");
+    out.println("<button type='submit'>검색</button>");
     out.println("</form>");
     
   }
@@ -89,22 +85,22 @@ public class MemberCommand {
         + "<th>번호</th>"
         + "<td><input type='text' name='no' value='%d' readonly></td>"
         + "</tr>\n", no);
-    out.println(String.format("<tr><th>이름</th> "
+    out.printf("<tr><th>이름</th> "
         + "<td><input type='text' name='name' value='%s'></td>"
-        + "</tr>", member.getName()));
+        + "</tr>", member.getName());
     out.println("<tr><th>암호</th> "
         + "<td><input type='password' name='password'></td>"
         + "</tr>");
-    out.println(String.format("<tr><th>이메일</th> "
+    out.printf("<tr><th>이메일</th> "
         + "<td><input type='text' name='email' value='%s'></td>"
-        + "</tr>", member.getEmail()));
-    out.println(String.format("<tr><th>전화</th> "
+        + "</tr>", member.getEmail());
+    out.printf("<tr><th>전화</th> "
         + "<td><input type='text' name='tel' value='%s'></td>"
-        + "</tr>", member.getTel()));
-    out.println(String.format("<tr><th>사진</th> "
+        + "</tr>", member.getTel());
+    out.printf("<tr><th>사진</th> "
         + "<td><input type='text' name='photo' value='%s'></td>"
-        + "</tr>", member.getPhoto()));
-    out.println(String.format("<tr><th>가입일</th> <td>%s</td> </tr>", member.getRegisteredDate()));
+        + "</tr>", member.getPhoto());
+    out.printf("<tr><th>가입일</th> <td>%s</td> </tr>", member.getRegisteredDate());
     out.println("</table>");
     out.println("<p><a href='/member/list'>목록</a>"
         + "<a href='/member/delete?no=" + member.getNo() + "'>삭제</a>"
