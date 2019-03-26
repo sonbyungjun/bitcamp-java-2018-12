@@ -22,7 +22,6 @@ public class BoardCommand {
 
     List<Board> boards = boardService.list();
     
-    
     PrintWriter out = response.getWriter();
     
     out.println("<html><head><title>게시물 목록</title></head>");
