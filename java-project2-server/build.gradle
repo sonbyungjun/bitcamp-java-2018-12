@@ -7,13 +7,11 @@
  */
 
 plugins {
-    // Apply the java plugin to add support for Java
     id 'java'
-
-    // Apply the application plugin to add support for building an application
-    id 'application'
-
-    id 'eclipse'
+    //id 'application'
+    //id 'eclipse'
+    id 'eclipse-wtp'
+    id 'war'
 }
 
 repositories {
@@ -23,6 +21,8 @@ repositories {
 }
 
 dependencies {
+    // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2'
@@ -56,4 +56,4 @@ dependencies {
 }
 
 // Define the main class for the application
-mainClassName = 'bitcamp.lms.ServerApp'
+//mainClassName = 'bitcamp.lms.ServerApp'

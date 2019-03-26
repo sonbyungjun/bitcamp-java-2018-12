@@ -1,6 +1,8 @@
 package com.eomcs.lms.handler;
 import java.io.PrintWriter;
 import java.util.List;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import org.springframework.stereotype.Component;
 import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.domain.Member;
@@ -22,20 +24,18 @@ public class MemberCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>회원 목록</title></head>");
     out.println("<body><h1>회원 목록</h1>");
-    out.println("<p><a href='/member/form'>회원가입</a>");
-    out.println("<a href='/lesson/list'>강의목록</a>");
-    out.println("<a href='/board/list'>게시판</a></p>");
+    out.println("<p><a href='form'>회원가입</a></p>");
     out.println("<table border='2'>");
     out.println("<tr> <th>번호</th><th>이름</th><th>이메일</th><th>전화번호</th><th>생성일</th></tr>");
     
     for (Member member : members) {
-      out.printf("<tr><td>%1$d</td> <td><a href='/member/detail?no=%1$d'>%2$s</a></td> <td>%3$s</td> <td>%4$s</td> <td>%5$s</td></tr>", 
+      out.printf("<tr><td>%1$d</td> <td><a href='detail?no=%1$d'>%2$s</a></td> <td>%3$s</td> <td>%4$s</td> <td>%5$s</td></tr>", 
           member.getNo(), member.getName(), 
           member.getEmail(), member.getTel(), member.getRegisteredDate());
     }
     out.println("</table></body></html>");
     
-    out.println("<form action='/member/search'>");
+    out.println("<form action='search'>");
     out.println("회원검색 : <input type='text' name='search'>");
     out.println("<button type='submit'>검색</button>");
     out.println("</form>");
@@ -57,7 +57,7 @@ public class MemberCommand {
     
     out.println("<html><head>"
         + "<title>회원가입</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/member/list'>"
+        + "<meta http-equiv='Refresh' content='1;url=list'>"
         + "</head>");
     out.println("<body><h1>회원가입</h1>");
     out.println("<p>회원가입을 완료하였습니다.</p>");
@@ -79,7 +79,7 @@ public class MemberCommand {
       return;
     }
     
-    out.println("<form action='/member/update'>");
+    out.println("<form action='update'>");
     out.println("<table border='1'>");
     out.printf("<tr>"
         + "<th>번호</th>"
@@ -102,8 +102,8 @@ public class MemberCommand {
         + "</tr>", member.getPhoto());
     out.printf("<tr><th>가입일</th> <td>%s</td> </tr>", member.getRegisteredDate());
     out.println("</table>");
-    out.println("<p><a href='/member/list'>목록</a>"
-        + "<a href='/member/delete?no=" + member.getNo() + "'>삭제</a>"
+    out.println("<p><a href='list'>목록</a>"
+        + "<a href='delete?no=" + member.getNo() + "'>삭제</a>"
         + "<button type='submit'>변경</button>"
         + "</p>");
     out.println("</from>");
@@ -127,7 +127,7 @@ public class MemberCommand {
 
     out.println("<html><head>"
         + "<title>회원 정보 변경</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/member/list'>"
+        + "<meta http-equiv='Refresh' content='1;url=list'>"
         + "</head>");
     out.println("<body><h1>회원 정보 변경</h1>");
 
@@ -147,7 +147,7 @@ public class MemberCommand {
 
     out.println("<html><head>"
         + "<title>회원 탈퇴</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/member/list'>"
+        + "<meta http-equiv='Refresh' content='1;url=list'>"
         + "</head>");
     out.println("<body><h1>회원 탈퇴</h1>");
 
@@ -169,14 +169,14 @@ public class MemberCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>회원 목록</title></head>");
     out.println("<body><h1>회원 목록</h1>");
-    out.println("<p><a href='/member/form'>회원가입</a>");
-    out.println("<a href='/member/list'>회원목록</a>");
-    out.println("<a href='/board/list'>게시판</a></p>");
+    out.println("<p><a href='form'>회원가입</a>");
+    out.println("<a href='list'>회원목록</a>");
+    out.println("<a href='java-project2-server/board/list'>게시판</a></p>");
     out.println("<table border='2'>");
     out.println("<tr> <th>번호</th><th>이름</th><th>이메일</th><th>전화번호</th><th>생성일</th></tr>");
     
     for (Member member : members) {
-      out.println(String.format("<tr><td>%1$d</td> <td><a href='/member/detail?no=%1$d'>%2$s</a></td> <td>%3$s</td> <td>%4$s</td> <td>%5$s</td></tr>", 
+      out.println(String.format("<tr><td>%1$d</td> <td><a href='detail?no=%1$d'>%2$s</a></td> <td>%3$s</td> <td>%4$s</td> <td>%5$s</td></tr>", 
           member.getNo(), member.getName(), 
           member.getEmail(), member.getTel(), member.getRegisteredDate()));
     }
@@ -190,7 +190,7 @@ public class MemberCommand {
     out.println("<head><title>회원가입</title></head>");
     out.println("<body>");
     out.println("<h1>회원가입</h1>");
-    out.println("<form action='/member/add'>");
+    out.println("<form action='add'>");
     out.println("<table border='1'>");
     out.println("<tr>");
     out.println("<th>이름<th>");
@@ -215,7 +215,7 @@ public class MemberCommand {
     out.println("</table>");
     out.println("<p>");
     out.println("<button type='submit'>등록</button>");
-    out.println("<a href='/member/list'>목록</a>");
+    out.println("<a href='list'>목록</a>");
     out.println("</p>");
     out.println("</form>");
     out.println("</body>");
