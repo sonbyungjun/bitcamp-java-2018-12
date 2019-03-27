@@ -23,7 +23,6 @@ public class BoardCommand {
     List<Board> boards = boardService.list();
     
     PrintWriter out = response.getWriter();
-    
     out.println("<html><head><title>게시물 목록</title></head>");
     out.println("<body><h1>게시물 목록</h1>");
     out.println("<p><a href='form'>새글</a></p>");
