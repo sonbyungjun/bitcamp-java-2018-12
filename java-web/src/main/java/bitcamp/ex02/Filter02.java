@@ -9,27 +9,27 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 
-public class Filter01 implements Filter {
+public class Filter02 implements Filter {
   
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
-    System.out.println("Filter01.init()");
+    System.out.println("Filter02.init()");
   }
   
   @Override
   public void destroy() {
-    System.out.println("Filter01.destroy()");
+    System.out.println("Filter02.destroy()");
   }
   
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
     
-    System.out.println("Filter01.doFilter() : 시작");
+    System.out.println("Filter02.doFilter() : 시작");
     
    chain.doFilter(request, response);
     
-    System.out.println("Filter01.doFilter() : 종료");
+    System.out.println("Filter02.doFilter() : 종료");
     
   }
 }
