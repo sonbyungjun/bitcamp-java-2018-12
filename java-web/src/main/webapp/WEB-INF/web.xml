@@ -50,11 +50,18 @@
     <servlet-class>bitcamp.ex01.Servlet02</servlet-class>
   </servlet>
   
-    <servlet>
+  <servlet>
     <servlet-name>Servlet03</servlet-name>
     <servlet-class>bitcamp.ex01.Servlet03</servlet-class>
   </servlet>
   
+  <servlet>
+    <servlet-name>bitcamp.ex04.Servlet05</servlet-name>
+    <servlet-class>bitcamp.ex04.Servlet05</servlet-class>
+    <multipart-config>
+      <max-file-size>10000000</max-file-size>
+    </multipart-config>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>Servlet01</servlet-name>
@@ -66,9 +73,14 @@
     <url-pattern>/ex01/s02</url-pattern>
   </servlet-mapping>
   
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>Servlet03</servlet-name>
     <url-pattern>/ex01/s03</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>bitcamp.ex04.Servlet05</servlet-name>
+    <url-pattern>/ex04/s5</url-pattern>
   </servlet-mapping>
     
 </web-app>
