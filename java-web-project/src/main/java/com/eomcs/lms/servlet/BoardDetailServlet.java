@@ -1,16 +1,12 @@
 package com.eomcs.lms.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.eomcs.lms.ServerApp;
-import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
 
@@ -37,7 +33,7 @@ public class BoardDetailServlet extends HttpServlet {
       out.println("<p>해당 번호의 게시물이 없습니다.</p>");
       return;
     }
-    out.println("<form action='update'>");
+    out.println("<form action='update' method='post'>");
     out.println("<table border='1'>");
     out.printf("<tr>"
         + "<th>번호</th>"
