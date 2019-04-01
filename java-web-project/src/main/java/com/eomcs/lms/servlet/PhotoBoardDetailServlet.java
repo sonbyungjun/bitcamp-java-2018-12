@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.eomcs.lms.InitServlet;
+import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
+import com.eomcs.lms.service.LessonService;
 import com.eomcs.lms.service.PhotoBoardService;
 
 @SuppressWarnings("serial")
@@ -21,6 +23,7 @@ public class PhotoBoardDetailServlet extends HttpServlet {
       throws ServletException, IOException {
 
     PhotoBoardService photoBoardService = InitServlet.iocContainer.getBean(PhotoBoardService.class);
+    LessonService lessonService = InitServlet.iocContainer.getBean(LessonService.class);
 
     int no = Integer.parseInt(request.getParameter("no"));
 
@@ -44,24 +47,37 @@ public class PhotoBoardDetailServlet extends HttpServlet {
       out.println("  <th>번호</th>");
       out.printf("  <td><input name='no' value='%d' readonly></td>\n", board.getNo());
       out.println("</tr>");
+      
       out.println("<tr>");
       out.println("  <th>제목</th>");
       out.printf("  <td><input name='title' value='%s'></td>\n", board.getTitle());
       out.println("</tr>");
+      
       out.println("<tr>");
       out.println("  <th>등록일</th>");
       out.printf("  <td>%s</td>\n", board.getCreatedDate());
       out.println("</tr>");
+      
       out.println("<tr>");
       out.println("  <th>조회수</th>");
       out.printf("  <td>%d</td>\n", board.getViewCount());
       out.println("</tr>");
+      
       out.println("<tr>");
       out.println("  <th>수업</th>");
-      out.printf("  <td>%s(%s ~ %s)</td>\n", board.getLesson().getTitle(),
-          board.getLesson().getStartDate(), board.getLesson().getEndDate());
-      out.printf("<input type='hidden' name='lessonNo' value='%d'>", board.getLesson().getNo());
+      out.println("  <td><select name='lessonNo'>");
+      
+      List<Lesson> lessons = lessonService.list();
+      for (Lesson lesson : lessons) {
+        out.printf("    <option value='%d' %s>%s(%s ~ %s)</option>\n", 
+            lesson.getNo(),
+            board.getLessonNo() == lesson.getNo() ? "selected" : "",
+            lesson.getTitle(), lesson.getStartDate(), lesson.getEndDate());
+      }
+      
+      out.println("  </select></td>");
       out.println("</tr>");
+      
       out.println("<tr>");
       out.println("  <td colspan='2'>최소 한 개의 사진 파일을 등록해야 합니다.</td>");
       out.println("</tr>");

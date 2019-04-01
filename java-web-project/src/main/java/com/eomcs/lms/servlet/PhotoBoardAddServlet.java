@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -12,8 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import com.eomcs.lms.InitServlet;
+import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
+import com.eomcs.lms.service.LessonService;
 import com.eomcs.lms.service.PhotoBoardService;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 5)
@@ -31,6 +34,8 @@ public class PhotoBoardAddServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+    
+    LessonService lessonService = InitServlet.iocContainer.getBean(LessonService.class);
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -43,18 +48,27 @@ public class PhotoBoardAddServlet extends HttpServlet {
     out.println("<form action='add' method='post' enctype='multipart/form-data'>");
     out.println("<table border='1'>");
 
+
     out.println("<tr>");
-    out.println("<th>사진 제목<th>");
-    out.println("<td><input type='text' name='title'></td>");
+    out.println("  <th>수업 번호<th>");
+    out.println("  <td><select name='lessonNo'>");
+    out.println("    <option value='0'>수업을 선택하세요</option>");
+    
+    List<Lesson> lessons = lessonService.list();
+    for (Lesson lesson : lessons) {
+      out.printf("    <option value='%d'>%s</option>", lesson.getNo(), lesson.getTitle());
+    }
+    
+    out.println("  </select></td>");
+    out.println("</tr>");
+    
+    out.println("<tr>");
+    out.println("  <th>사진 제목<th>");
+    out.println("  <td><input type='text' name='title'></td>");
     out.println("</tr>");
 
     out.println("<tr>");
-    out.println("<th>수업 번호<th>");
-    out.println("<td><input type='text' name='lessonNo'></td>");
-    out.println("</tr>");
-
-    out.println("<tr>");
-    out.println("최소 한개 이상 사진을 등록해야 합니다.");
+    out.println("<td colspan='3'> 최소 한개 이상 사진을 등록해야 합니다.</td>");
     out.println("</tr>");
 
     out.println("<tr>");
