@@ -17,11 +17,12 @@ public class BoardUpdateServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+    
     BoardService boardService = ServerApp.iocContainer.getBean(BoardService.class);
-    Board board = new Board();
-    board.setNo(Integer.parseInt(request.getParameter("no")));
     
     request.setCharacterEncoding("UTF-8");
+    Board board = new Board();
+    board.setNo(Integer.parseInt(request.getParameter("no")));
     board.setContents(request.getParameter("contents"));
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
