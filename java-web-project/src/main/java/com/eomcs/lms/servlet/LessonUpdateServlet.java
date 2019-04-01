@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.ServerApp;
+import com.eomcs.lms.InitServlet;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.service.LessonService;
 
@@ -20,11 +20,10 @@ public class LessonUpdateServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     
-    LessonService lessonService = ServerApp.iocContainer.getBean(LessonService.class);
+    LessonService lessonService = InitServlet.iocContainer.getBean(LessonService.class);
     
     int no = Integer.parseInt(request.getParameter("no"));
     
-    request.setCharacterEncoding("UTF-8");
     Lesson lesson = lessonService.get(no);
     lesson.setTitle(request.getParameter("title"));
     lesson.setContents(request.getParameter("contents"));

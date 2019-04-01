@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.ServerApp;
+import com.eomcs.lms.InitServlet;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
@@ -18,7 +18,7 @@ public class MemberDetailServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     
-    MemberService memberService = ServerApp.iocContainer.getBean(MemberService.class);
+    MemberService memberService = InitServlet.iocContainer.getBean(MemberService.class);
     
     int no = Integer.parseInt(request.getParameter("no"));
 
@@ -35,7 +35,7 @@ public class MemberDetailServlet extends HttpServlet {
       return;
     }
     
-    out.println("<form action='update' method='post'>");
+    out.println("<form action='update' method='post' enctype='multipart/form-data'>");
     out.println("<table border='1'>");
     out.printf("<tr>"
         + "<th>번호</th>"
@@ -53,9 +53,14 @@ public class MemberDetailServlet extends HttpServlet {
     out.printf("<tr><th>전화</th> "
         + "<td><input type='text' name='tel' value='%s'></td>"
         + "</tr>", member.getTel());
-    out.printf("<tr><th>사진</th> "
-        + "<td><input type='text' name='photo' value='%s'></td>"
-        + "</tr>", member.getPhoto());
+    out.printf("<tr><th>사진</th>");
+    out.println("  <td>");
+    if (member.getPhoto() == null) {
+      out.printf("<img src='../upload/images/default.jpg' style='height:80px'>");
+    } else {
+      out.printf("<img src='../upload/member/%s' style='height:80px'>", member.getPhoto());
+    }
+    out.println("<input type='file' name='photo'></td></tr>");
     out.printf("<tr><th>가입일</th> <td>%s</td> </tr>", member.getRegisteredDate());
     out.println("</table>");
     out.println("<p><a href='list'>목록</a>"

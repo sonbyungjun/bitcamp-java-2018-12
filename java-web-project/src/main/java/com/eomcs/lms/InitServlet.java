@@ -10,9 +10,9 @@ import com.eomcs.lms.context.RequestMappingHandlerMapping;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns="/init", loadOnStartup = 1)
-public class ServerApp extends HttpServlet {
+public class InitServlet extends HttpServlet {
   
-  final static Logger logger = LogManager.getLogger(ServerApp.class);
+  final static Logger logger = LogManager.getLogger(InitServlet.class);
   public static ApplicationContext iocContainer;
   RequestMappingHandlerMapping handlerMapping;
   
