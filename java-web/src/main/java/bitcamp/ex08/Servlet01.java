@@ -21,7 +21,7 @@ public class Servlet01 extends HttpServlet {
     
     out.println("안녕하세요! - /ex08/s1");
     
-    for (int i = 0; i < 200; i++) {
+    for (int i = 0; i < 100; i++) {
       out.println(i + "  ===> 1234567890123456789012345678901234567890");
     }
     

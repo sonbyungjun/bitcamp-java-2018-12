@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.InitServlet;
+import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.service.LessonService;
 
@@ -72,7 +72,8 @@ public class LessonAddServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     
-    LessonService lessonService = InitServlet.iocContainer.getBean(LessonService.class);
+    LessonService lessonService = 
+        ((ApplicationContext) getServletContext().getAttribute("iocContainer")).getBean(LessonService.class);
     
     Lesson lesson = new Lesson();
     lesson.setTitle(request.getParameter("title"));

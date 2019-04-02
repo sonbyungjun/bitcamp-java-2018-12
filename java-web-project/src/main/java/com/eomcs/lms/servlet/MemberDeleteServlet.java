@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.InitServlet;
+import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.service.MemberService;
 
 @SuppressWarnings("serial")
@@ -17,7 +17,8 @@ public class MemberDeleteServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    MemberService memberService = InitServlet.iocContainer.getBean(MemberService.class);
+    MemberService memberService = 
+        ((ApplicationContext) getServletContext().getAttribute("iocContainer")).getBean(MemberService.class);
 
     int no = Integer.parseInt(request.getParameter("no"));
 
