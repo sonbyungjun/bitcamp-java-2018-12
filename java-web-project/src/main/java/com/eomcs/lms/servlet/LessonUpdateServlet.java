@@ -19,11 +19,11 @@ public class LessonUpdateServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    
+
     LessonService lessonService = InitServlet.iocContainer.getBean(LessonService.class);
-    
+
     int no = Integer.parseInt(request.getParameter("no"));
-    
+
     Lesson lesson = lessonService.get(no);
     lesson.setTitle(request.getParameter("title"));
     lesson.setContents(request.getParameter("contents"));
@@ -35,17 +35,18 @@ public class LessonUpdateServlet extends HttpServlet {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
 
+    if (lessonService.update(lesson) > 0) {
+      response.sendRedirect("list");
+      return;
+    }
+    
+    response.setHeader("Refresh", "2;url=list");
+    
     out.println("<html><head>"
         + "<title>강의 정보 변경</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>"
         + "</head>");
     out.println("<body><h1>강의 정보 변경</h1>");
-
-    if (lessonService.update(lesson) == 0) {
-      out.println("<p>해당 강의가 없습니다.</p>");
-    } else {
-      out.println("<p>변경했습니다.</p>");
-    }
+    out.println("<p>해당 강의가 없습니다.</p>");
     out.println("</body></html>");
   }
 }

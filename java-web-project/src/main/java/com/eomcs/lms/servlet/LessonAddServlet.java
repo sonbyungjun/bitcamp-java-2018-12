@@ -83,15 +83,7 @@ public class LessonAddServlet extends HttpServlet {
     lesson.setDayHours(Integer.parseInt(request.getParameter("dayHours")));
 
     lessonService.add(lesson);
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
 
-    out.println("<html><head>"
-        + "<title>강의등록</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>"
-        + "</head>");
-    out.println("<body><h1>강의등록</h1>");
-    out.println("<p>강의등록을 완료하였습니다.</p>");
-    out.println("</body></html>");
+    response.sendRedirect("list");
   }
 }

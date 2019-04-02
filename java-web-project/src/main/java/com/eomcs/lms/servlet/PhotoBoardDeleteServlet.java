@@ -18,8 +18,13 @@ public class PhotoBoardDeleteServlet extends HttpServlet {
       throws ServletException, IOException {
 
     PhotoBoardService photoBoardService = InitServlet.iocContainer.getBean(PhotoBoardService.class);
-    
+
     int no = Integer.parseInt(request.getParameter("no"));
+
+    if (photoBoardService.delete(no) > 0) {
+      response.sendRedirect("list");
+      return;
+    }
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -29,12 +34,7 @@ public class PhotoBoardDeleteServlet extends HttpServlet {
         + "<meta http-equiv='Refresh' content='1;url=list'>"
         + "</head>");
     out.println("<body><h1>사진게시판 삭제</h1>");
-
-    if (photoBoardService.delete(no) == 0) {
-      out.println("<p>해당 사진게시판이 없습니다.</p>");
-    } else {
-      out.println("<p>삭제했습니다.</p>");
-    }
+    out.println("<p>해당 사진게시판이 없습니다.</p>");
     out.println("</body></html>");
   }
 }
