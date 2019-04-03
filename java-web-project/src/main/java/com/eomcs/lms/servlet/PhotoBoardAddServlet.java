@@ -44,6 +44,9 @@ public class PhotoBoardAddServlet extends HttpServlet {
     out.println("<html>");
     out.println("<head><title>사진게시판 등록</title></head>");
     out.println("<body>");
+    
+    request.getRequestDispatcher("/header").include(request, response);
+    
     out.println("<h1>사진게시판 등록</h1>");
 
     out.println("<form action='add' method='post' enctype='multipart/form-data'>");

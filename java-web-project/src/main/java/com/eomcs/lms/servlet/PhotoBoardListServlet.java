@@ -28,7 +28,11 @@ public class PhotoBoardListServlet extends HttpServlet {
     PrintWriter out = response.getWriter();
     
     out.println("<html><head><title>사진 게시판</title></head>");
-    out.println("<body><h1>사진 게시판</h1>");
+    out.println("<body>");
+    
+    request.getRequestDispatcher("/header").include(request, response);
+    
+    out.println("<h1>사진 게시판</h1>");
     out.println("<p><a href='add'>사진게시판등록</a></p>");
     out.println("<table border='1'>");
     out.println("<tr> <th>번호</th><th>제목</th><th>강의제목</th><th>조회수</th><th>생성일</th></tr>");

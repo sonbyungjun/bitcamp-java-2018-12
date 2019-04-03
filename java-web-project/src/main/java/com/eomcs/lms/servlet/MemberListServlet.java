@@ -28,7 +28,11 @@ public class MemberListServlet extends HttpServlet {
     PrintWriter out = response.getWriter();
     
     out.println("<html><head><title>회원 목록</title></head>");
-    out.println("<body><h1>회원 목록</h1>");
+    out.println("<body>");
+    
+    request.getRequestDispatcher("/header").include(request, response);
+    
+    out.println("<h1>회원 목록</h1>");
     out.println("<p><a href='add'>회원가입</a></p>");
     out.println("<table border='2'>");
     out.println("<tr> <th>번호</th><th>이름</th><th>이메일</th><th>전화번호</th><th>생성일</th></tr>");

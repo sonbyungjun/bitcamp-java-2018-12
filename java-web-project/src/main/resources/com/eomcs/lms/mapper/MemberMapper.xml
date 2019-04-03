@@ -93,12 +93,12 @@
   <select id="findByEmailPassword" resultMap="memberMap" parameterType="map">
     select 
       <include refid="default-columns"/>, 
-      cdt, 
       photo
     from 
       lms_member
     where 
-      member_id = #{value}
+      email = #{email}
+      and pwd = password(#{password})
   </select>
 </mapper>
 

@@ -25,6 +25,9 @@ public class LessonAddServlet extends HttpServlet {
     out.println("<html>");
     out.println("<head><title>강의등록</title></head>");
     out.println("<body>");
+    
+    request.getRequestDispatcher("/header").include(request, response);
+    
     out.println("<h1>강의등록</h1>");
 
     out.println("<form action='add' method='post'>");

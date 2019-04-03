@@ -29,7 +29,11 @@ public class MemberDetailServlet extends HttpServlet {
     PrintWriter out = response.getWriter();
     
     out.println("<html><head><title>회원 상세조회</title></head>");
-    out.println("<body><h1>회원 상세조회</h1>");
+    out.println("<body>");
+    
+    request.getRequestDispatcher("/header").include(request, response);
+    
+    out.println("<h1>회원 상세조회</h1>");
     
     if (member == null) {
       out.println("<p>해당 회원이 없습니다.</p>");

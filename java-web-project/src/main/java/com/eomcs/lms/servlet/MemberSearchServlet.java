@@ -29,7 +29,11 @@ public class MemberSearchServlet extends HttpServlet {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>회원 목록</title></head>");
-    out.println("<body><h1>회원 목록</h1>");
+    out.println("<body>");
+    
+    request.getRequestDispatcher("/header").include(request, response);
+    
+    out.println("<h1>회원 목록</h1>");
     out.println("<p><a href='form'>회원가입</a>");
     out.println("<a href='list'>회원목록</a>");
     out.println("<a href='java-project2-server/board/list'>게시판</a></p>");

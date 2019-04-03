@@ -35,7 +35,10 @@ public class LessonDeleteServlet extends HttpServlet {
         + "<title>강의 삭제</title>"
         + "<meta http-equiv='Refresh' content='1;url=list'>"
         + "</head>");
-    out.println("<body><h1>강의 삭제</h1>");
+    out.println("<body>");
+    
+    request.getRequestDispatcher("/header").include(request, response);
+    out.println("<h1>강의 삭제</h1>");
     out.println("<p>해당 강의가 없습니다.</p>");
     out.println("</body></html>");
 
