@@ -12,7 +12,7 @@
   <display-name>java-web-project</display-name>
   
   <listener>
-    <listener-class>com.eomcs.lms.lestener.ContextLoaderListener</listener-class>
+    <listener-class>com.eomcs.lms.listener.ContextLoaderListener</listener-class>
   </listener>
   
   <welcome-file-list>

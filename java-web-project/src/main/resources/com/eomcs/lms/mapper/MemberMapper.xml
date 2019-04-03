@@ -89,6 +89,17 @@
     delete from lms_member 
     where member_id = #{value}
   </delete>
+  
+  <select id="findByEmailPassword" resultMap="memberMap" parameterType="map">
+    select 
+      <include refid="default-columns"/>, 
+      cdt, 
+      photo
+    from 
+      lms_member
+    where 
+      member_id = #{value}
+  </select>
 </mapper>
 
 
