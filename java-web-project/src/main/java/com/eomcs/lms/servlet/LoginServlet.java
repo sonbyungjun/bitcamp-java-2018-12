@@ -78,6 +78,7 @@ public class LoginServlet extends HttpServlet{
         request.getParameter("email"),
         request.getParameter("password"));
     
+    
     if (member == null) {
       response.setHeader("Refresh", "2;url=login");
       response.setContentType("text/html;charset=UTF-8");
@@ -89,9 +90,6 @@ public class LoginServlet extends HttpServlet{
       return;
     }
     
-    HttpSession session = request.getSession();
-    
-    session.setAttribute("loginUser", member);
     
     Cookie cookie;
     if (request.getParameter("saveEmail") != null) {
@@ -102,7 +100,12 @@ public class LoginServlet extends HttpServlet{
       cookie.setMaxAge(0);
     }
     
+    HttpSession session = request.getSession();
+    
+    session.setAttribute("loginUser", member);
+    
     String refereUrl = (String) session.getAttribute(REFERER_URL);
+    
     if (refereUrl == null) {
       response.sendRedirect("../");
     } else {
@@ -110,7 +113,6 @@ public class LoginServlet extends HttpServlet{
     }
     
   }
-  
 }
 
 
