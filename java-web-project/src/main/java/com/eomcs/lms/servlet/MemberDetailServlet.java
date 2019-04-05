@@ -1,6 +1,5 @@
 package com.eomcs.lms.servlet;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,53 +25,9 @@ public class MemberDetailServlet extends HttpServlet {
     Member member = memberService.get(no);
     
     response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
     
-    out.println("<html><head><title>회원 상세조회</title></head>");
-    out.println("<body>");
+    request.setAttribute("member", member);
     
-    request.getRequestDispatcher("/header").include(request, response);
-    
-    out.println("<h1>회원 상세조회</h1>");
-    
-    if (member == null) {
-      out.println("<p>해당 회원이 없습니다.</p>");
-      return;
-    }
-    
-    out.println("<form action='update' method='post' enctype='multipart/form-data'>");
-    out.println("<table border='1'>");
-    out.printf("<tr>"
-        + "<th>번호</th>"
-        + "<td><input type='text' name='no' value='%d' readonly></td>"
-        + "</tr>\n", no);
-    out.printf("<tr><th>이름</th> "
-        + "<td><input type='text' name='name' value='%s'></td>"
-        + "</tr>", member.getName());
-    out.println("<tr><th>암호</th> "
-        + "<td><input type='password' name='password'></td>"
-        + "</tr>");
-    out.printf("<tr><th>이메일</th> "
-        + "<td><input type='text' name='email' value='%s'></td>"
-        + "</tr>", member.getEmail());
-    out.printf("<tr><th>전화</th> "
-        + "<td><input type='text' name='tel' value='%s'></td>"
-        + "</tr>", member.getTel());
-    out.printf("<tr><th>사진</th>");
-    out.println("  <td>");
-    if (member.getPhoto() == null) {
-      out.printf("<img src='../upload/images/default.jpg' style='height:80px'>");
-    } else {
-      out.printf("<img src='../upload/member/%s' style='height:80px'>", member.getPhoto());
-    }
-    out.println("<input type='file' name='photo'></td></tr>");
-    out.printf("<tr><th>가입일</th> <td>%s</td> </tr>", member.getRegisteredDate());
-    out.println("</table>");
-    out.println("<p><a href='list'>목록</a>"
-        + "<a href='delete?no=" + member.getNo() + "'>삭제</a>"
-        + "<button type='submit'>변경</button>"
-        + "</p>");
-    out.println("</from>");
-    out.println("</body></html>");
+    request.getRequestDispatcher("/member/detail.jsp").include(request, response);
   }
 }
