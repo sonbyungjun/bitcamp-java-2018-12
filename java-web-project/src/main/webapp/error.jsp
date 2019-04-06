@@ -9,7 +9,7 @@
 <body>
 <%
 out.flush();
-request.getRequestDispatcher("/header").include(request, response);
+request.getRequestDispatcher("/header.jsp").include(request, response);
 %>
 <h1><%=request.getAttribute("error.title")%></h1>
 <p><%=request.getAttribute("error.content")%></p>
