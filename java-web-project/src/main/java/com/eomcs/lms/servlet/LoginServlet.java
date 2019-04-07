@@ -17,6 +17,7 @@ import com.eomcs.lms.service.MemberService;
 public class LoginServlet extends HttpServlet{
 
   static final String REFERER_URL = "refererUrl";
+  static final String REFERER_URL2 = "refererUrl2";
   
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -25,13 +26,17 @@ public class LoginServlet extends HttpServlet{
     HttpSession session = request.getSession();
     session.setAttribute(REFERER_URL, request.getHeader("Referer"));
     
+    if (!request.getHeader("Referer").equals(request.getRequestURL().toString().replace(request.getRequestURI(),"")
+          + getServletContext().getContextPath() + "/auth/login")) {
+      session.setAttribute(REFERER_URL2, request.getHeader("Referer"));
+    }
+    
     Cookie[] cookies = request.getCookies();
     String email = "";
     if (cookies != null) {
       for (Cookie c : cookies) {
         if (c.getName().equals("email")) {
           email = c.getValue();
-          System.out.println(c.getValue());
           break;
         }
       }
@@ -64,6 +69,7 @@ public class LoginServlet extends HttpServlet{
       cookie.setMaxAge(0);
     }
     response.addCookie(cookie);
+    HttpSession session = request.getSession();
     
     if (member == null) {
       response.setContentType("text/html;charset=UTF-8");
@@ -73,12 +79,16 @@ public class LoginServlet extends HttpServlet{
       return;
     }
     
-    HttpSession session = request.getSession();
     
     session.setAttribute("loginUser", member);
     
     String refereUrl = (String) session.getAttribute(REFERER_URL);
-    if (refereUrl == null || refereUrl.equals("http://localhost:8080/java-web-project/auth/login")) {
+    if (refereUrl.equals(request.getRequestURL().toString().replace(request.getRequestURI(),"")
+        + getServletContext().getContextPath() + "/auth/login")) {
+      refereUrl = (String) session.getAttribute(REFERER_URL2);
+    } 
+    
+    if (refereUrl == null) {
       response.sendRedirect("../");
     } else {
       response.sendRedirect(refereUrl);

@@ -39,7 +39,7 @@
         <th>수업</th>
         <td><select name='lessonNo'>
         <%for (Lesson lesson : lessons) {%>
-            <option value='<%=lesson.getNo()%>' <%=(board.getNo() == lesson.getNo()) ? "selected" : ""%>>
+            <option value='<%=lesson.getNo()%>' <%=(board.getLessonNo() == lesson.getNo()) ? "selected" : ""%>>
             <%=lesson.getTitle()%>(<%=lesson.getStartDate()%> ~ <%=lesson.getEndDate()%>)</option>
         <%}%>
         </select></td>
