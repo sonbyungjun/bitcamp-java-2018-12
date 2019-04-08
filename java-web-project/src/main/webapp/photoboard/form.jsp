@@ -2,9 +2,6 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%
-List<Lesson> list = (List<Lesson>) request.getAttribute("list");
-%>
 <html>
 <head>
 <title>사진게시판 등록</title>
@@ -18,6 +15,7 @@ List<Lesson> list = (List<Lesson>) request.getAttribute("list");
         <th>수업 번호</th>
         <td><select name='lessonNo'>
             <option value='0'>수업을 선택하세요</option>
+<jsp:useBean scope="request" id="list" type="java.util.List<Lesson>"/>
             <%for (Lesson lesson : list) {%>
             <option value='<%=lesson.getNo()%>'><%=lesson.getTitle()%></option>
             <%}%>

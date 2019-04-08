@@ -1,13 +1,9 @@
 <%@page import="com.eomcs.lms.domain.Lesson"%>
-<%@page import="java.util.List"%>
 <%@ page 
     language="java" 
     contentType="text/html; charset=UTF-8" 
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
-<%
-List<Lesson> list = (List<Lesson>) request.getAttribute("list");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +11,7 @@ List<Lesson> list = (List<Lesson>) request.getAttribute("list");
 </head>
 <body>
   <jsp:include page="/header.jsp"/>
-  <h1>강의 목록(JSP)</h1>
+  <h1>강의 목록(JSP2)</h1>
   <p>
     <a href='add'>강의등록</a>
   </p>
@@ -27,6 +23,7 @@ List<Lesson> list = (List<Lesson>) request.getAttribute("list");
       <th>종료일</th>
       <th>총 강의시간</th>
     </tr>
+    <jsp:useBean scope="request" id="list" type="java.util.List<Lesson>"/>
     <%for (Lesson lesson : list) { %>
     <tr>
       <td><%=lesson.getNo()%></td>

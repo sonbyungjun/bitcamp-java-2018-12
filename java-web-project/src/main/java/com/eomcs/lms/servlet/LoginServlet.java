@@ -17,18 +17,16 @@ import com.eomcs.lms.service.MemberService;
 public class LoginServlet extends HttpServlet{
 
   static final String REFERER_URL = "refererUrl";
-  static final String REFERER_URL2 = "refererUrl2";
   
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     
     HttpSession session = request.getSession();
-    session.setAttribute(REFERER_URL, request.getHeader("Referer"));
     
     if (!request.getHeader("Referer").equals(request.getRequestURL().toString().replace(request.getRequestURI(),"")
           + getServletContext().getContextPath() + "/auth/login")) {
-      session.setAttribute(REFERER_URL2, request.getHeader("Referer"));
+      session.setAttribute(REFERER_URL, request.getHeader("Referer"));
     }
     
     Cookie[] cookies = request.getCookies();
@@ -43,7 +41,7 @@ public class LoginServlet extends HttpServlet{
     }
     request.setAttribute("email", email);
     response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("/login.jsp").include(request, response);
+    request.getRequestDispatcher("/auth/form.jsp").include(request, response);
   }
   
   @Override
@@ -73,23 +71,16 @@ public class LoginServlet extends HttpServlet{
     
     if (member == null) {
       response.setContentType("text/html;charset=UTF-8");
-      request.setAttribute("error.title", "로그인 실패");
-      request.setAttribute("error.content", "이메일 또는 암호가 맞지 않습니다.");
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
+      request.getRequestDispatcher("/auth/fail.jsp").include(request, response);
       return;
     }
     
-    
     session.setAttribute("loginUser", member);
+    session.setAttribute("contextRootPath", getServletContext().getContextPath());
     
     String refereUrl = (String) session.getAttribute(REFERER_URL);
-    if (refereUrl.equals(request.getRequestURL().toString().replace(request.getRequestURI(),"")
-        + getServletContext().getContextPath() + "/auth/login")) {
-      refereUrl = (String) session.getAttribute(REFERER_URL2);
-    } 
-    
     if (refereUrl == null) {
-      response.sendRedirect("../");
+      response.sendRedirect(getServletContext().getContextPath());
     } else {
       response.sendRedirect(refereUrl);
     }

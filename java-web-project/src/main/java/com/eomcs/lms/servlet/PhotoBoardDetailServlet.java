@@ -28,7 +28,6 @@ public class PhotoBoardDetailServlet extends HttpServlet {
     int no = Integer.parseInt(request.getParameter("no"));
 
     PhotoBoard board = photoBoardService.get(no);
-    request.setAttribute("board", board);
 
     response.setContentType("text/html;charset=UTF-8");
 
@@ -39,7 +38,10 @@ public class PhotoBoardDetailServlet extends HttpServlet {
     } else {
       
       List<Lesson> lessons = lessonService.list();
+      
+      request.setAttribute("board", board);
       request.setAttribute("lessons", lessons);
+      request.setAttribute("files", board.getFiles());
       request.getRequestDispatcher("/photoboard/detail.jsp").include(request, response);
     }
   }

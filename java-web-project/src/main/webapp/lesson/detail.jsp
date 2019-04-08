@@ -1,9 +1,5 @@
-<%@page import="com.eomcs.lms.domain.Lesson"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
   trimDirectiveWhitespaces="true"%>
-<%
-  Lesson lesson = (Lesson) request.getAttribute("lesson");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +7,8 @@
 </head>
 <body>
 <jsp:include page="/header.jsp"/>
-  <h1>강의 상세조회(JSP)</h1>
+  <h1>강의 상세조회(JSP2)</h1>
+  <jsp:useBean scope="request" id="lesson" type="com.eomcs.lms.domain.Lesson"/>
   <form action='update' method='post'>
     <table border='1'>
       <tr>

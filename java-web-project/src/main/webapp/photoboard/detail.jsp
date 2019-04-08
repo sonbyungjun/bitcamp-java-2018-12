@@ -5,9 +5,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
   trimDirectiveWhitespaces="true"%>
   <%
-  List<Lesson> lessons = (List<Lesson>) request.getAttribute("lessons");
-  PhotoBoard board = (PhotoBoard) request.getAttribute("board");
-  List<PhotoFile> files = (List<PhotoFile>) board.getFiles();
   %>
 <!DOCTYPE html>
 <html>
@@ -16,7 +13,8 @@
 </head>
 <body>
   <jsp:include page="/header.jsp"/>
-  <h1>사진 조회(JSP)</h1>
+  <jsp:useBean scope="request" id="board" type="com.eomcs.lms.domain.PhotoBoard"/>
+  <h1>사진 조회(JSP2)</h1>
   <form action='update' method='post' enctype='multipart/form-data'>
     <table border='1'>
       <tr>
@@ -38,6 +36,7 @@
       <tr>
         <th>수업</th>
         <td><select name='lessonNo'>
+  <jsp:useBean scope="request" id="lessons" type="java.util.List<Lesson>"/>
         <%for (Lesson lesson : lessons) {%>
             <option value='<%=lesson.getNo()%>' <%=(board.getLessonNo() == lesson.getNo()) ? "selected" : ""%>>
             <%=lesson.getTitle()%>(<%=lesson.getStartDate()%> ~ <%=lesson.getEndDate()%>)</option>
@@ -70,6 +69,7 @@
       <tr>
         <th>사진</th>
         <td>
+<jsp:useBean scope="request" id="files" type="java.util.List<PhotoFile>"/>
         <%for (PhotoFile file : files)  {%>
         <img src='../upload/photoboard/<%=file.getFilePath()%>'
           style='height:80px'>

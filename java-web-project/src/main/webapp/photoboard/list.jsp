@@ -1,18 +1,13 @@
-<%@page import="com.eomcs.lms.domain.Lesson"%>
 <%@page import="com.eomcs.lms.domain.PhotoBoard"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
-<%
-List<PhotoBoard> list = (List<PhotoBoard>) request.getAttribute("list");
-%>
 <html>
 <head>
 <title>사진 게시판</title>
 </head>
 <body>
   <jsp:include page="/header.jsp"/>
-  <h1>사진 게시판(JSP)</h1>
+  <h1>사진 게시판(JSP2)</h1>
   <p>
     <a href='add'>사진게시판등록</a>
   </p>
@@ -24,6 +19,7 @@ List<PhotoBoard> list = (List<PhotoBoard>) request.getAttribute("list");
       <th>조회수</th>
       <th>생성일</th>
     </tr>
+    <jsp:useBean scope="request" id="list" type="java.util.List<PhotoBoard>"/>
     <%for (PhotoBoard board : list)  {%>
     <tr>
       <td><%=board.getNo()%></td>
