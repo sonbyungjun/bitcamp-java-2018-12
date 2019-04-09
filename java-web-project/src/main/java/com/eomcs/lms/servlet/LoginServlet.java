@@ -23,23 +23,11 @@ public class LoginServlet extends HttpServlet{
       throws ServletException, IOException {
     
     HttpSession session = request.getSession();
-    
     if (!request.getHeader("Referer").equals(request.getRequestURL().toString().replace(request.getRequestURI(),"")
           + getServletContext().getContextPath() + "/auth/login")) {
       session.setAttribute(REFERER_URL, request.getHeader("Referer"));
     }
     
-    Cookie[] cookies = request.getCookies();
-    String email = "";
-    if (cookies != null) {
-      for (Cookie c : cookies) {
-        if (c.getName().equals("email")) {
-          email = c.getValue();
-          break;
-        }
-      }
-    }
-    request.setAttribute("email", email);
     response.setContentType("text/html;charset=UTF-8");
     request.getRequestDispatcher("/auth/form.jsp").include(request, response);
   }

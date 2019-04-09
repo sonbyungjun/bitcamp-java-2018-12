@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page 
+    language="java" 
+    contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"
     errorPage="ex20_error.jsp"%>
@@ -11,7 +13,6 @@
 </head>
 <body>
 <h1>pageError, isPageError</h1>
-10 / 0 = <%10 / 0%>
-
+10 / 0 = <%=10 / 0%>
 </body>
 </html>

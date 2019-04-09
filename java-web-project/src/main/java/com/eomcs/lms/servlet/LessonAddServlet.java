@@ -37,6 +37,12 @@ public class LessonAddServlet extends HttpServlet {
     lesson.setTotalHours(Integer.parseInt(request.getParameter("totalHours")));
     lesson.setDayHours(Integer.parseInt(request.getParameter("dayHours")));
 
+    if (request.getParameter("title").length() == 0) {
+      request.setAttribute("error.title", "수업정보 입력 오류");
+      request.setAttribute("error.content", "수업 제목을 입력해주세요.");
+      request.getRequestDispatcher("/error.jsp").forward(request, response);
+    }
+    
     lessonService.add(lesson);
 
     response.sendRedirect("list");

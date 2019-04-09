@@ -30,7 +30,14 @@ public class BoardAddServlet extends HttpServlet{
 
     Board board = new Board();
     board.setContents(request.getParameter("contents")
-        + ":" + request.getRemoteAddr());
+        + " : " + request.getRemoteAddr());
+    
+    if (request.getParameter("contents").length() == 0) {
+      request.setAttribute("error.title", "게시글 입력 오류");
+      request.setAttribute("error.content", "게시글을 입력해주세요.");
+      request.getRequestDispatcher("/error.jsp").forward(request, response);
+      return;
+    }
 
     boardService.add(board);
 

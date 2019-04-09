@@ -1,9 +1,9 @@
-<%@page import="com.eomcs.lms.domain.Lesson"%>
 <%@ page 
     language="java" 
     contentType="text/html; charset=UTF-8" 
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +11,7 @@
 </head>
 <body>
   <jsp:include page="/header.jsp"/>
-  <h1>강의 목록(JSP2)</h1>
+  <h1>강의 목록(JSP2 + EL + JSTL)</h1>
   <p>
     <a href='add'>강의등록</a>
   </p>
@@ -23,16 +23,15 @@
       <th>종료일</th>
       <th>총 강의시간</th>
     </tr>
-    <jsp:useBean scope="request" id="list" type="java.util.List<Lesson>"/>
-    <%for (Lesson lesson : list) { %>
+    <c:forEach items="${list}" var="lesson">
     <tr>
-      <td><%=lesson.getNo()%></td>
-      <td><a href='detail?no=<%=lesson.getNo()%>'><%=lesson.getTitle()%></a></td>
-      <td><%=lesson.getStartDate()%></td>
-      <td><%=lesson.getEndDate()%></td>
-      <td><%=lesson.getTotalHours()%></td>
+      <td>${lesson.no}</td>
+      <td><a href='detail?no=${lesson.no}'>${lesson.title}</a></td>
+      <td>${lesson.startDate}</td>
+      <td>${lesson.endDate}</td>
+      <td>${lesson.totalHours}</td>
     </tr>
-    <%}%>
+    </c:forEach>
   </table>
 </body>
 </html>
