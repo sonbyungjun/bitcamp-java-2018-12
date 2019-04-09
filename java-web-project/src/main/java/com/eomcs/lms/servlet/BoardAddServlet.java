@@ -40,7 +40,6 @@ public class BoardAddServlet extends HttpServlet{
     boardService.add(board);
     request.setAttribute("viewUrl", "redirect:list");
   }
-
 }
 
 

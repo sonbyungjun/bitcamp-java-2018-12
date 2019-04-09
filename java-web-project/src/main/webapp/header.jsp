@@ -14,5 +14,6 @@
        <img src='${contextRootPath}/upload/member/${loginUser.photo}' style='height: 50px;'></a>
                 ${loginUser.name}<a href='${contextRootPath}/app/auth/logout'>로그아웃</a>
     </c:otherwise>
-  </c:choose>
+  </c:choose><br><br><br>
+  <a href='${contextRootPath}'>메인페이지</a>
 </header>
