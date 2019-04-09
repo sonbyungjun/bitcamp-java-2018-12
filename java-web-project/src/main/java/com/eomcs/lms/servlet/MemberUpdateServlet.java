@@ -44,13 +44,10 @@ public class MemberUpdateServlet extends HttpServlet {
       member.setPassword(request.getParameter("password"));
 
     if (memberService.update(member) > 0) {
-      response.sendRedirect("list");
-      return;
+      request.setAttribute("viewUrl", "redirect:list");
+    } else {
+      request.setAttribute("error.title", "회원 변경");
+      request.setAttribute("error.content", "해당 번호의 회원이 없습니다.");
     }
-
-    request.setAttribute("error.title", "회원 변경");
-    request.setAttribute("error.content", "해당 번호의 회원이 없습니다.");
-    
-    request.getRequestDispatcher("/error.jsp").forward(request, response);
   }
 }

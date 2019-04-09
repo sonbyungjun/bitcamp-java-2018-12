@@ -59,13 +59,10 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
 
     if (files.size() > 0) {
       photoBoardService.update(board);
-      response.sendRedirect("list");
-      return;
+      request.setAttribute("viewUrl", "redirect:list");
+    } else {
+      request.setAttribute("error.title", "사진게시판 변경");
+      request.setAttribute("error.content", "해당 번호의 사진게시판이 없습니다.");
     }
-    
-    request.setAttribute("error.title", "사진게시판 변경");
-    request.setAttribute("error.content", "해당 번호의 사진게시판이 없습니다.");
-    
-    request.getRequestDispatcher("/error.jsp").forward(request, response);
   }
 }

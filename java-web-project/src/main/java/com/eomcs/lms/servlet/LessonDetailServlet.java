@@ -21,11 +21,8 @@ public class LessonDetailServlet extends HttpServlet {
     LessonService lessonService = 
         ((ApplicationContext) getServletContext().getAttribute("iocContainer")).getBean(LessonService.class);
     int no = Integer.parseInt(request.getParameter("no"));
-
     Lesson lesson = lessonService.get(no);
-    response.setContentType("text/html;charset=UTF-8");
     request.setAttribute("lesson", lesson);
-    request.getRequestDispatcher("/lesson/detail.jsp").include(request, response);
-    
+    request.setAttribute("viewUrl", "/lesson/detail.jsp");
   }
 }

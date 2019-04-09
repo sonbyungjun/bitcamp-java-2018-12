@@ -19,15 +19,9 @@ public class MemberDetailServlet extends HttpServlet {
     
     MemberService memberService = 
         ((ApplicationContext) getServletContext().getAttribute("iocContainer")).getBean(MemberService.class);
-    
     int no = Integer.parseInt(request.getParameter("no"));
-
     Member member = memberService.get(no);
-    
-    response.setContentType("text/html;charset=UTF-8");
-    
     request.setAttribute("member", member);
-    
-    request.getRequestDispatcher("/member/detail.jsp").include(request, response);
+    request.setAttribute("viewUrl", "/member/detail.jsp");
   }
 }

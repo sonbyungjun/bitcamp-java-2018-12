@@ -24,8 +24,7 @@ public class BoardDetailServlet extends HttpServlet {
     
     request.setAttribute("board", board);
     
-    response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("/board/detail.jsp").include(request, response);
+    request.setAttribute("viewUrl", "/board/detail.jsp");
   }
 }
 

@@ -1,5 +1,6 @@
 package com.eomcs.lms.servlet;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,13 +24,12 @@ public class LoginServlet extends HttpServlet{
       throws ServletException, IOException {
     
     HttpSession session = request.getSession();
+    // http://localhost:8080/java-web-project/auth/login
     if (!request.getHeader("Referer").equals(request.getRequestURL().toString().replace(request.getRequestURI(),"")
-          + getServletContext().getContextPath() + "/auth/login")) {
+          + request.getContextPath() + "/app/auth/login")) {
       session.setAttribute(REFERER_URL, request.getHeader("Referer"));
     }
-    
-    response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("/auth/form.jsp").include(request, response);
+    request.setAttribute("viewUrl", "/auth/form.jsp");
   }
   
   @Override
@@ -54,23 +54,25 @@ public class LoginServlet extends HttpServlet{
       cookie = new Cookie("email", request.getParameter("email"));
       cookie.setMaxAge(0);
     }
-    response.addCookie(cookie);
+    
+    ArrayList<Cookie> cookies = new ArrayList<>();
+    cookies.add(cookie);
+    request.setAttribute("cookies", cookies);
+    
     HttpSession session = request.getSession();
     
     if (member == null) {
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/auth/fail.jsp").include(request, response);
+      request.setAttribute("viewUrl", "/auth/fail.jsp");
       return;
     }
     
     session.setAttribute("loginUser", member);
-    session.setAttribute("contextRootPath", getServletContext().getContextPath());
     
     String refereUrl = (String) session.getAttribute(REFERER_URL);
     if (refereUrl == null) {
-      response.sendRedirect(getServletContext().getContextPath());
+      request.setAttribute("viewUrl", "redirect:" + getServletContext().getContextPath());
     } else {
-      response.sendRedirect(refereUrl);
+      request.setAttribute("viewUrl", "redirect:" + refereUrl);
     }
     
   }

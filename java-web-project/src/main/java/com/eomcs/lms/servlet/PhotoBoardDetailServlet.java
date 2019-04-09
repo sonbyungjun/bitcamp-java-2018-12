@@ -29,19 +29,14 @@ public class PhotoBoardDetailServlet extends HttpServlet {
 
     PhotoBoard board = photoBoardService.get(no);
 
-    response.setContentType("text/html;charset=UTF-8");
-
     if (board == null) {
       request.setAttribute("error.title", "사진 오류");
       request.setAttribute("error.content", "해당 사진을 찾을 수 없습니다.");
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
     } else {
-      
       List<Lesson> lessons = lessonService.list();
-      
       request.setAttribute("board", board);
       request.setAttribute("lessons", lessons);
-      request.getRequestDispatcher("/photoboard/detail.jsp").include(request, response);
+      request.setAttribute("viewUrl", "/photoboard/detail.jsp");
     }
   }
 }

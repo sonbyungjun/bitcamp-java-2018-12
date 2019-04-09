@@ -18,8 +18,7 @@ public class LessonAddServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("/lesson/form.jsp").include(request, response);
+    request.setAttribute("viewUrl", "/lesson/form.jsp");
   }
 
   @Override
@@ -44,7 +43,6 @@ public class LessonAddServlet extends HttpServlet {
     }
     
     lessonService.add(lesson);
-
-    response.sendRedirect("list");
+    request.setAttribute("viewUrl", "redirect:list");
   }
 }

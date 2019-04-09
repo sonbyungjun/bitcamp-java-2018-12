@@ -38,8 +38,9 @@
       </tr>
       <tr>
         <th>사진</th>
+        <c:set var="contextRootPath" value="${pageContext.servletContext.contextPath}"/>s
         <c:set var="photo" value="upload/member/${member.photo}"/>
-        <td><img src='../${member.photo == null ? "images/default.jpg" : photo}'
+        <td><img src='${contextRootPath}/${member.photo == null ? "images/default.jpg" : photo}'
          style='height: 80px'> <input type='file' name='photo'></td>
       </tr>
       <tr>

@@ -33,14 +33,11 @@ public class PhotoBoardAddServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
     LessonService lessonService = 
         ((ApplicationContext) getServletContext().getAttribute("iocContainer")).getBean(LessonService.class);
-
-    response.setContentType("text/html;charset=UTF-8");
     List<Lesson> lessons = lessonService.list();
     request.setAttribute("list", lessons);
-    request.getRequestDispatcher("/photoboard/form.jsp").include(request, response);
+    request.setAttribute("viewUrl", "/photoboard/form.jsp");
   }
 
   @Override
@@ -74,21 +71,18 @@ public class PhotoBoardAddServlet extends HttpServlet {
     if (board.getLessonNo() == 0) {
       request.setAttribute("error.title", "수업 선택 오류");
       request.setAttribute("error.content", "사진 또는 파일을 등록할 수업을 선택하세요.");
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
 
     } else if (files.size() == 0) {
       request.setAttribute("error.title", "사진 파일 선택 오류");
       request.setAttribute("error.content", "최소 한 개의 사진 파일을 등록해야 합니다.");
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
 
     } else if (board.getTitle().equals("")) {
       request.setAttribute("error.title", "제목을 입력하세요.");
       request.setAttribute("error.content", "제목을 입력해야 합니다.");
-      request.getRequestDispatcher("/error.jsp").forward(request, response);
       
     } else {
       photoBoardService.add(board);
-      response.sendRedirect("list");
+      request.setAttribute("viewUrl", "redirect:list");
     }
 
   }

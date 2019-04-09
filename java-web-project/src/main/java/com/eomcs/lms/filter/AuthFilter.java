@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.eomcs.lms.domain.Member;
 
-@WebFilter("/*")
+@WebFilter("/app/*")
 public class AuthFilter implements Filter {
   
   FilterConfig filterConfig;
@@ -27,11 +27,10 @@ public class AuthFilter implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-    
     HttpServletRequest httpReq = (HttpServletRequest) request;
     HttpServletResponse httpResp = (HttpServletResponse) response;
     
-    String servletPath = httpReq.getServletPath();
+    String servletPath = httpReq.getPathInfo();
     
     if (servletPath.endsWith("add")
         || servletPath.endsWith("update")
@@ -40,7 +39,7 @@ public class AuthFilter implements Filter {
       Member loginUser = (Member) httpReq.getSession().getAttribute("loginUser");
       
       if (loginUser == null) {
-        httpResp.sendRedirect(contextRootPath + "/auth/login");
+        httpResp.sendRedirect(contextRootPath + "/app/auth/login");
         return;
       }
       
