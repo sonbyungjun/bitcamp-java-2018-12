@@ -35,15 +35,17 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<h2>오호라!!!</h2>
+
 <%
-out.println("<h2>오호라!!!!</h2>");
+out.println("<h2>오호라!!!</h2>");
 %>
 
-<%="<h2>오호라!!!!</h2>" %>
+<%="<h2>오호라!!!</h2>"%>
 
-${"<h2>오호라!!!!</h2>"}
+${"<h2>오호라!!!</h2>"}
 
-<c:out value="<h2>오호라!!!</h2>"/>
+<c:out value="<h2>오호라!!!<h2>"/>
 
 </body>
 </html>

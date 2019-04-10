@@ -1,38 +1,32 @@
-package com.eomcs.lms.servlet;
-import java.io.IOException;
+package com.eomcs.lms.controller;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import org.springframework.context.ApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
+import com.eomcs.lms.service.LessonService;
 import com.eomcs.lms.service.PhotoBoardService;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 5)
-@SuppressWarnings("serial")
-@WebServlet("/photoboard/update")
-public class PhotoBoardUpdateServlet extends HttpServlet {
+@Controller("/photoboard/update")
+public class PhotoBoardUpdateController implements PageController {
 
-  String uploadDir;
-
+  @Autowired
+  PhotoBoardService photoBoardService;
+  
+  @Autowired
+  LessonService lessonService;
+  
   @Override
-  public void init() throws ServletException {
-    this.uploadDir = this.getServletContext().getRealPath("/upload/photoboard");
-  }
-
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-
-    PhotoBoardService photoBoardService = 
-        ((ApplicationContext) getServletContext().getAttribute("iocContainer")).getBean(PhotoBoardService.class);
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    
+    String uploadDir = request.getServletContext().getRealPath("/upload/photoboard");
 
     PhotoBoard board = new PhotoBoard();
 
@@ -59,10 +53,9 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
 
     if (files.size() > 0) {
       photoBoardService.update(board);
-      request.setAttribute("viewUrl", "redirect:list");
+      return "redirect:list";
     } else {
-      request.setAttribute("error.title", "사진게시판 변경");
-      request.setAttribute("error.content", "해당 번호의 사진게시판이 없습니다.");
+      throw new Exception("해당 번호의 사진게시판이 없습니다.");
     }
   }
 }

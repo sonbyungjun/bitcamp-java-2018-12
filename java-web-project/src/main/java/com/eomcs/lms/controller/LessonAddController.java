@@ -1,33 +1,25 @@
-package com.eomcs.lms.servlet;
+package com.eomcs.lms.controller;
 
-import java.io.IOException;
 import java.sql.Date;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.context.ApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.service.LessonService;
 
-@SuppressWarnings("serial")
-@WebServlet("/lesson/add")
-public class LessonAddServlet extends HttpServlet {
+@Controller("/lesson/add")
+public class LessonAddController implements PageController {
+
+  @Autowired
+  LessonService lessonService;
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    request.setAttribute("viewUrl", "/lesson/form.jsp");
-  }
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    
-    LessonService lessonService = 
-        ((ApplicationContext) getServletContext().getAttribute("iocContainer")).getBean(LessonService.class);
-    
+    if (request.getMethod().equals("GET")) {
+      return "/lesson/form.jsp";
+    }
     Lesson lesson = new Lesson();
     lesson.setTitle(request.getParameter("title"));
     lesson.setContents(request.getParameter("contents"));
@@ -41,8 +33,8 @@ public class LessonAddServlet extends HttpServlet {
       request.setAttribute("error.content", "수업 제목을 입력해주세요.");
       request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
-    
+
     lessonService.add(lesson);
-    request.setAttribute("viewUrl", "redirect:list");
+    return "redirect:list";
   }
 }

@@ -1,25 +1,24 @@
-package com.eomcs.lms.servlet;
-import java.io.IOException;
+package com.eomcs.lms.controller;
 import java.util.List;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.context.ApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import com.eomcs.lms.domain.PhotoBoard;
+import com.eomcs.lms.service.LessonService;
 import com.eomcs.lms.service.PhotoBoardService;
 
-@SuppressWarnings("serial")
-@WebServlet("/photoboard/search")
-public class PhotoBoardSearchServlet extends HttpServlet {
+@Controller("/photoboard/search")
+public class PhotoBoardSearchController implements PageController {
+
+  @Autowired
+  PhotoBoardService photoBoardService;
+  
+  @Autowired
+  LessonService lessonService;
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-
-    PhotoBoardService photoBoardService = 
-        ((ApplicationContext) getServletContext().getAttribute("iocContainer")).getBean(PhotoBoardService.class);
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     request.setCharacterEncoding("UTF-8");
 
@@ -39,7 +38,7 @@ public class PhotoBoardSearchServlet extends HttpServlet {
 
     List<PhotoBoard> boards = photoBoardService.list(lessonNo, searchWord);
     request.setAttribute("list", boards);
-    request.setAttribute("viewUrl", "/photoboard/list.jsp");
-
+    
+    return "/photoboard/list.jsp";
   }
 }

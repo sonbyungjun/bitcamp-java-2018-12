@@ -11,6 +11,7 @@
   <h1>회원 상세조회(JSP2 + EL + JSTL)</h1>
 <c:choose>
   <c:when test="${empty member}">
+    <meta http-equiv="Refresh" content="2;url=list">
     <p>해당하는 회원이 없습니다.</p>
   </c:when>
   <c:otherwise>
@@ -38,7 +39,7 @@
       </tr>
       <tr>
         <th>사진</th>
-        <c:set var="contextRootPath" value="${pageContext.servletContext.contextPath}"/>s
+        <c:set var="contextRootPath" value="${pageContext.servletContext.contextPath}"/>
         <c:set var="photo" value="upload/member/${member.photo}"/>
         <td><img src='${contextRootPath}/${member.photo == null ? "images/default.jpg" : photo}'
          style='height: 80px'> <input type='file' name='photo'></td>
