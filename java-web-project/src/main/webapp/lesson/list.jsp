@@ -13,7 +13,7 @@
   <jsp:include page="/header.jsp"/>
   <h1>강의 목록(JSP2 + EL + JSTL)</h1>
   <p>
-    <a href='add'>강의등록</a>
+    <a href='form'>강의등록</a>
   </p>
   <table border='1'>
     <tr>

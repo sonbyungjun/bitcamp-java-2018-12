@@ -39,10 +39,15 @@
       </tr>
       <tr>
         <th>사진</th>
-        <c:set var="contextRootPath" value="${pageContext.servletContext.contextPath}"/>
-        <c:set var="photo" value="upload/member/${member.photo}"/>
-        <td><img src='${contextRootPath}/${member.photo == null ? "images/default.jpg" : photo}'
-         style='height: 80px'> <input type='file' name='photo'></td>
+        <td>
+      <c:set var="contextRootPath" value="${pageContext.servletContext.contextPath}"></c:set>
+      <c:if test="${empty member.photo}">
+          <img src='${contextRootPath}/images/default.jpg' style='height: 80px'><br>
+      </c:if>
+      <c:if test="${not empty member.photo}">
+          <img src='${contextRootPath}/upload/member/${member.photo}' style='height: 80px'><br>
+      </c:if>
+        <input type='file' name='photoFile'></td>
       </tr>
       <tr>
         <th>가입일</th>

@@ -7,7 +7,7 @@
   <img src='http://bitcamp.co.kr/img/logo.jpg' style='height: 50px'>
   <c:choose>
     <c:when test="${empty loginUser}">
-      <a href='${contextRootPath}/app/auth/login'>로그인</a>
+      <a href='${contextRootPath}/app/auth/form'>로그인</a>
     </c:when>
     <c:otherwise>
         <a href='${contextRootPath}/upload/member/${loginUser.photo}' target = "_blank">

@@ -11,7 +11,7 @@
   <jsp:include page="/header.jsp"/>
   <h1>회원 목록(JSP2 + EL + JSTL)</h1>
   <p>
-    <a href='add'>회원가입</a>
+    <a href='form'>회원가입</a>
   </p>
   <table border='1'>
     <tr>

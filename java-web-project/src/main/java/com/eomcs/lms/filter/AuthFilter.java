@@ -31,15 +31,15 @@ public class AuthFilter implements Filter {
     HttpServletResponse httpResp = (HttpServletResponse) response;
     
     String servletPath = httpReq.getPathInfo();
-    
     if (servletPath.endsWith("add")
         || servletPath.endsWith("update")
-        || servletPath.endsWith("delete")) {
+        || servletPath.endsWith("delete")
+        || !(servletPath.endsWith("/auth/form")) && servletPath.endsWith("form")) {
       
       Member loginUser = (Member) httpReq.getSession().getAttribute("loginUser");
       
       if (loginUser == null) {
-        httpResp.sendRedirect(contextRootPath + "/app/auth/login");
+        httpResp.sendRedirect(contextRootPath + "/app/auth/form");
         return;
       }
       

@@ -14,7 +14,7 @@
         <th>수업 번호</th>
         <td><select name='lessonNo'>
             <option value='0'>수업을 선택하세요</option>
-            <c:forEach items="${list}" var="lesson">
+            <c:forEach items="${lessons}" var="lesson">
               <option value='${lesson.no}'>${lesson.title}</option>
             </c:forEach>
         </select></td>

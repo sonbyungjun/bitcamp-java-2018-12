@@ -11,7 +11,7 @@
   <jsp:include page="/header.jsp" />
   <h1>게시물 목록(JSP2 + EL + JSTL)</h1>
   <p>
-    <a href='add'>새글</a>
+    <a href='form'>새글</a>
   </p>
   <table border='1'>
     <tr>

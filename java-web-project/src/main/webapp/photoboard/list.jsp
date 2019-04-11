@@ -10,7 +10,7 @@
   <jsp:include page="/header.jsp"/>
   <h1>사진 게시판(JSP2 + EL + JSTL)</h1>
   <p>
-    <a href='add'>사진게시판등록</a>
+    <a href='form'>사진게시판등록</a>
   </p>
   <table border='1'>
     <tr>
