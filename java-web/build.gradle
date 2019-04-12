@@ -5,10 +5,17 @@ plugins {
 }
 
 repositories {
+    flatDir {
+      dirs 'lib'
+    }
+    
     jcenter()
 }
 
 dependencies {
+
+    compile name: 'java-web-library'
+
     compile group: 'javax.servlet', name: 'jstl', version: '1.2'
 
     compile group: 'net.coobird', name: 'thumbnailator', version: '0.4.8'
