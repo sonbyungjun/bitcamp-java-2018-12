@@ -29,6 +29,7 @@ public class AuthController {
     //    + request.getContextPath() + "/app/auth/login")) {
     session.setAttribute(REFERER_URL, refererUrl);
     //}
+    
     return "/auth/form.jsp";
   }
 
