@@ -57,10 +57,4 @@ public class LessonController {
       throw new Exception("해당 번호의 수업이 없습니다.");
     return "redirect:list";
   }
-  
-  
-  
-  
-  
-  
 }
