@@ -10,37 +10,7 @@
   </description>
 
  <display-name>java-web-project</display-name>
- 
- <context-param>
-  <param-name>contextConfigLocation</param-name>
-  <!-- 
-  <param-value>
-    /WEB-INF/application-context.xml
-    /WEB-INF/application-context-db.xml
-    /WEB-INF/application-context-mybatis.xml
-    /WEB-INF/application-context-tx.xml
-  </param-value>
-  -->
-  <param-value>/WEB-INF/application-context*.xml</param-value>
- </context-param>
 
- <listener>
-  <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
- </listener>
-
- <filter>
-  <filter-name>CharacterEncodingFilter</filter-name>
-  <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-  <init-param>
-   <param-name>encoding</param-name>
-   <param-value>UTF-8</param-value>
-  </init-param>
- </filter>
-
- <filter-mapping>
-  <filter-name>CharacterEncodingFilter</filter-name>
-  <url-pattern>/*</url-pattern>
- </filter-mapping>
 
  <welcome-file-list>
   <welcome-file>index.html</welcome-file>

@@ -1,17 +1,21 @@
 package com.eomcs.lms.conf;
 
+import javax.servlet.Filter;
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration.Dynamic;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
   
   @Override
   protected Class<?>[] getRootConfigClasses() {
-    return null;
+    return new Class[] {AppConfig.class /*DatabaseConfig.class, MybatisConfig.class*/};
   }
   
   @Override
   protected Class<?>[] getServletConfigClasses() {
-    return new Class[] {AppWebConfig.class};
+    return new Class[] {DefaultWebConfig.class};
   }
   
   @Override
@@ -23,4 +27,16 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
   protected String getServletName() {
     return "app";
   }
+  
+  @Override
+  protected Filter[] getServletFilters() {
+    return new Filter[] {new CharacterEncodingFilter("UTF-8")};
+  }
+  
+  @Override
+  protected void customizeRegistration(Dynamic registration) {
+    MultipartConfigElement multipartConfig = new MultipartConfigElement("/tmp", 5000000, 20000000, 1000000);
+    registration.setMultipartConfig(multipartConfig);
+  }
+ 
 }

@@ -12,7 +12,7 @@ import org.springframework.web.util.UrlPathHelper;
 
 @ComponentScan("com.eomcs.lms.web")
 @EnableWebMvc
-public class AppWebConfig implements WebMvcConfigurer {
+public class DefaultWebConfig implements WebMvcConfigurer {
   
   @Override
   public void configurePathMatch(PathMatchConfigurer configurer) {
