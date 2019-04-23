@@ -1,21 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:aop="http://www.springframework.org/schema/aop"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
+ xmlns:context="http://www.springframework.org/schema/context"
+ xmlns:aop="http://www.springframework.org/schema/aop"
+ xmlns:mvc="http://www.springframework.org/schema/mvc"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop.xsd">
-  
-  <context:component-scan base-package="bitcamp.app2"/>
-  
-  <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-    <property name="prefix" value="/WEB-INF/jsp2/"/>
-    <property name="suffix" value=".jsp"/>
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+  <context:component-scan base-package="bitcamp.app2" />
+
+  <mvc:annotation-driven enable-matrix-variables="true"/>
+
+  <bean id="viewResolver"
+   class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+   <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+   <property name="prefix" value="/WEB-INF/jsp2/" />
+   <property name="suffix" value=".jsp" />
   </bean>
+
+ <mvc:interceptors>
+ 
+  <bean class="bitcamp.app2.Controller04_1_Interceptor3" />
   
+  <mvc:interceptor>
+   <mvc:mapping path="/c04_1/**" />
+   <bean class="bitcamp.app2.Controller04_1_Interceptor1" />
+  </mvc:interceptor>
+  
+  <mvc:interceptor>
+   <mvc:mapping path="/c04_1/a/*" />
+   <bean class="bitcamp.app2.Controller04_1_Interceptor2" />
+  </mvc:interceptor>
+  
+  <mvc:interceptor>
+   <mvc:mapping path="/c04_1/**" />
+   <mvc:exclude-mapping path="/c04_1/a/**"/>
+   <bean class="bitcamp.app2.Controller04_1_Interceptor4" />
+  </mvc:interceptor>
+ </mvc:interceptors>
+
 </beans>
