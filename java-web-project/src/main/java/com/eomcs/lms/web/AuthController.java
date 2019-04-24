@@ -28,7 +28,6 @@ public class AuthController {
   
   static final String REFERER_URL = "refererUrl";
   
-  
   @GetMapping("form")
   public void form(@RequestHeader(value="Referer",required=false) String refererUrl, HttpSession session) throws Exception {
     logger.debug("refererUrl: " + refererUrl);

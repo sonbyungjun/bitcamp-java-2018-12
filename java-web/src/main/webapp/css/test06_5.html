@@ -13,6 +13,9 @@
     font-size: medium;
   }
 
+  div {
+  }
+
   address {
     display: inline;
     font-style: normal;
@@ -33,15 +36,9 @@
     background-color: lightgray;
     font-size: 1.2em;
     width: 180px;
+    box-sizing: border-box;
+    padding: 10px;
     float: left;
-  }
-
-  #menu ul > li {
-    font-weight: bold;
-  }
-
-  #menu ol {
-    font-weight: normal;
   }
 
   #content {
@@ -49,11 +46,28 @@
     margin-left: 210px;
   }
 
+  #menu ul > li {
+    font-weight: bold;
+    
+  }
+
+  #menu ul > li:hover {
+    text-decoration: underline;
+  }
+
+  #menu ol {
+    font-weight: normal;
+  }
+
   #footer {
-    font-size: 80%; /* = 0.8em */
-    clear: left; /* 왼쪽에 이 태그의 내용을 가리는 것이 있다면
-                    그 아래로 위치하도록 이동시킨다.*/
+    font-size: 80%; 
+    /* 0.8em */
+     /* 왼쪽에 이 태그의 내용을 가리는 것이 있다면
+      그 아래로 위치하도록 이동시킨다.*/
+    clear: left;
+    /* margin-left: 210px; */
     text-align: center;
+    padding-top: 5px;
   }
 
   #footer > p {
