@@ -7,31 +7,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>강의 목록</title>
+  <title>강의 목록</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="${contextRootPath}/css/common.css">
 </head>
 <body>
-  <jsp:include page="../header.jsp"/>
-  <h1>강의 목록</h1>
-  <p>
-    <a href='form'>강의등록</a>
-  </p>
-  <table border='1'>
-    <tr>
-      <th>번호</th>
-      <th>제목</th>
-      <th>시작일</th>
-      <th>종료일</th>
-      <th>총 강의시간</th>
-    </tr>
-    <c:forEach items="${list}" var="lesson">
-    <tr>
-      <td>${lesson.no}</td>
-      <td><a href='${lesson.no}'>${lesson.title}</a></td>
-      <td>${lesson.startDate}</td>
-      <td>${lesson.endDate}</td>
-      <td>${lesson.totalHours}</td>
-    </tr>
-    </c:forEach>
-  </table>
+  <jsp:include page="../header.jsp" />
+  
+  <div class="container">
+    <h1>강의 목록</h1>
+    <p>
+      <a href='form' class="btn btn-primary btn-sm">강의등록</a>
+    </p>
+    
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">번호</th>
+          <th scope="col">제목</th>
+          <th scope="col">시작일</th>
+          <th scope="col">종료일</th>
+          <th scope="col">총 강의시간</th>
+        </tr>
+       </thead>
+       <tbody>
+         <c:forEach items="${list}" var="lesson">
+         <tr>
+           <th scope="row">${lesson.no}</th>
+           <td><a href='${lesson.no}' class="alert-link">${lesson.title}</a></td>
+           <td>${lesson.startDate}</td>
+           <td>${lesson.endDate}</td>
+           <td>${lesson.totalHours}</td>
+         </tr>
+         </c:forEach>
+       </tbody>
+    </table>
+  </div> <!-- .container -->
+  
+  <jsp:include page="../javascript.jsp"/>
 </body>
 </html>

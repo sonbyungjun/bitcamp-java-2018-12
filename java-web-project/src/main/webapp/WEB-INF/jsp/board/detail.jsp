@@ -20,7 +20,6 @@
           <p>해당 게시물이 없습니다</p>
         </c:when>
       <c:otherwise>
-      
         <form action='update' method='post'>
         
             <div class="form-group row">

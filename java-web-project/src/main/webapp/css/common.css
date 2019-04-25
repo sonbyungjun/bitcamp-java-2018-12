@@ -1,7 +1,11 @@
 @charset "UTF-8";
 
 body {
-	font-size: small;
+	font-size: medium;
+}
+
+div.bit-list {
+	min-height: 200px;
 }
 
 div.containe {
@@ -16,3 +20,4 @@ h1 {
 #bit-login-state {
 	margin: 0px 10px;
 }
+
