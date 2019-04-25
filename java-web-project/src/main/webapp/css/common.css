@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+body {
+	font-size: small;
+}
+
+div.containe {
+	width: 600px;
+}
+
+h1 {
+	/* border: 1px solid red; */
+	/* text-align: center; */
+}
+
+#bit-login-state {
+	margin: 0px 10px;
+}

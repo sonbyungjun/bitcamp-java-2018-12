@@ -1,5 +1,6 @@
 package com.eomcs.lms.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.eomcs.lms.dao.BoardDao;
@@ -16,10 +17,13 @@ public class BoardServiceImpl implements BoardService {
   }
 
   @Override
-  public List<Board> list() {
-    return boardDao.findAll();
+  public List<Board> list(int pageNo, int pageSize) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    return boardDao.findAll(params);
   }
-
+  
   @Override
   public int add(Board board) {
     return boardDao.insert(board);
@@ -42,5 +46,10 @@ public class BoardServiceImpl implements BoardService {
   @Override
   public int delete(int no) {
     return boardDao.delete(no);
+  }
+  
+  @Override
+  public int size() {
+    return boardDao.countAll();
   }
 }
