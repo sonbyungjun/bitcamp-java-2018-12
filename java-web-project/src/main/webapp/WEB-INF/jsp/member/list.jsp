@@ -5,35 +5,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>회원 목록</title>
+  <title>회원 목록</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="${contextRootPath}/css/common.css">
 </head>
 <body>
-  <jsp:include page="../header.jsp"/>
-  <h1>회원 목록</h1>
-  <p>
-    <a href='form'>회원가입</a>
-  </p>
-  <table border='1'>
-    <tr>
-      <th>번호</th>
-      <th>이름</th>
-      <th>이메일</th>
-      <th>전화번호</th>
-      <th>생성일</th>
-    </tr>
-    <c:forEach items="${list}" var="member">
-    <tr>
-      <td>${member.no}</td>
-      <td><a href='${member.no}'>${member.name}</a></td>
-      <td>${member.email}</td>
-      <td>${member.tel}</td>
-      <td>${member.registeredDate}</td>
-    </tr>
-    </c:forEach>
-  </table>
+  <jsp:include page="../header.jsp" />
+  
+  <div class="container">
+  
+    <h1>회원 목록</h1>
+    
+    <p>
+      <a href='form' class="btn btn-primary btn-sm">회원가입</a>
+    </p>
+    
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">번호</th>
+          <th scope="col">이름</th>
+          <th scope="col">이메일</th>
+          <th scope="col">전화번호</th>
+          <th scope="col">생성일</th>
+        </tr>
+      </thead>
+      <c:forEach items="${list}" var="member">
+      <tr>
+        <th scope="row">${member.no}</th>
+        <td><a href='${member.no}' class="alert-link">${member.name}</a></td>
+        <td>${member.email}</td>
+        <td>${member.tel}</td>
+        <td>${member.registeredDate}</td>
+      </tr>
+      </c:forEach>
+    </table>
+  
+    <form action='search' class="form-inline my-2 my-lg-0 justify-content-center">
+      <input name='search' class="form-control mr-sm-2" type="search" placeholder="검색" aria-label="검색">
+      <button class="btn btn-outline-success my-2 my-sm-0">검색</button>
+    </form>
+
+  </div> <!-- .container -->
+  <jsp:include page="../javascript.jsp"/>
 </body>
-<form action='search'>
-  회원검색 : <input type='text' name='search'>
-  <button type='submit'>검색</button>
-</form>
+
 </html>

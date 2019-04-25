@@ -21,20 +21,19 @@
       
       <c:otherwise>
       
-      
       <form action='update' method='post'>
       
         <div class="form-group row">
           <label for="no" class="col-sm-2 col-form-label">번호</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control-plaintext" name="no" id="no" value="${lesson.no}" readonly>
+            <input type="text" class="form-control-plaintext" name="no" id="no" value="${lesson.no}" readonly/>
           </div>
         </div>
       
         <div class="form-group row">
           <label for="title" class="col-sm-2 col-form-label">수업명</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control-plaintext" name="title" id="title" value="${lesson.title}">
+            <input type="text" class="form-control" name="title" id="title" value="${lesson.title}"/>
           </div>
         </div>
         
@@ -43,34 +42,45 @@
           <div class="col-sm-10">
             <textarea class="form-control" id="contents" name='contents' rows='5'>${lesson.contents}</textarea>
           </div>
-        </div>     
+        </div>
          
-        <table border='1'>
-          
-          <tr>
-            <th>기간</th>
-            <td><input type='date' name='startDate' value='${lesson.startDate}'>~<input type='date'
-              name='endDate' value='${lesson.endDate}'></td>
-          </tr>
-          <tr>
-            <th>총수업시간</th>
-            <td><input type='number' name='totalHours' value='${lesson.totalHours}'></td>
-          </tr>
-          <tr>
-            <th>일수업시간</th>
-            <td><input type='number' name='dayHours' value='${lesson.dayHours}'></td>
-          </tr>
-        </table>
-        <p>
-          <a href='./'>강의목록</a><a href='delete/${lesson.no}'>삭제</a>
-          <button type='submit'>변경</button>
-        </p>
-        
+        <div class="form-group row">
+          <label for="date" class="col-sm-2 col-form-label">기간</label>
+          <div class="col-sm-5">
+            <p>시작일</p>
+            <input class="form-control" type='date' name='startDate' value='${lesson.startDate}'/>
+          </div>
+          <div class="col-sm-5">
+            <p>종료일</p>
+            <input class="form-control" type='date' name='endDate' value='${lesson.endDate}'/>
+          </div>
+        </div>
+         
+        <div class="form-group row">
+          <label for="totalHours" class="col-sm-2 col-form-label">총수업시간</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="totalHours" id="totalHours" value="${lesson.totalHours}"/>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="dayHours" class="col-sm-2 col-form-label">일수업시간</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="dayHours" id="dayHours" value="${lesson.dayHours}" >
+          </div>
+        </div>
+                 
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <a class="btn btn-primary" href='./'>강의목록</a>
+            <a class="btn btn-primary" href='delete/${lesson.no}'>삭제</a>
+            <button class="btn btn-primary">변경</button>
+          </div>
+        </div>         
+                 
         </form>
         
-        
       </c:otherwise>
-      
       
     </c:choose>
   </div> <!-- .container -->
