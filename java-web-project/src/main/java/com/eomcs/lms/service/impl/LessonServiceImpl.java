@@ -27,8 +27,11 @@ public class LessonServiceImpl implements LessonService {
   }
 
   @Override
-  public List<Lesson> list() {
-    return lessonDao.findAll();
+  public List<Lesson> list(int pageNo, int pageSize) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    return lessonDao.findAll(params);
   }
 
   @Override
@@ -59,5 +62,10 @@ public class LessonServiceImpl implements LessonService {
     }
 
     return lessonDao.delete(no);
+  }
+  
+  @Override
+  public int size() {
+    return lessonDao.countAll();
   }
 }
