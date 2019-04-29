@@ -37,12 +37,15 @@ var text2 = document.createTextNode("내용입니다.");
 // => appendChild(자식노드)를 사용하여 자식 태그나 노드를 붙인다.
 //    appendChild()는 자식노드(태그)를 맨 뒤에 붙인다.
 //
+alert("잠깐!");
 h1.appendChild(text);
+alert("잠깐!");
 p.appendChild(text2);
-
+alert("잠깐!");
 article.appendChild(h1);
+alert("잠깐!");
 article.appendChild(p);
-
+alert("잠깐!");
 // 새로 만든 article 태그를 section 태그의 막내 자식태그로 붙인다.
 section.appendChild(article);
 
