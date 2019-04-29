@@ -48,7 +48,7 @@ var btn2 = document.getElementById("btn2");
 //var btn2 = document.querySelector("#btn2"); // 둘 중 아무거나 사용하면 된다.
 
 btn2.onclick = function() {
-    var str = "Hello!";
+    var str = "Hello2!";
     window.alert(str);
 };
 
@@ -59,15 +59,18 @@ btn2.onclick = function() {
 //
 var btn3 = document.querySelector("#btn3");
 btn3.addEventListener("click", () => {
-    var str = "Hello!!";
+  console.log(this);
+    var str = "Hi1!!";
     window.alert(str);
 });
 btn3.addEventListener("click", () => {
-    var str = "Hello2!!";
+  console.log(this);
+    var str = "Hi2!!";
     window.alert(str);
 });
-btn3.addEventListener("click", () => {
-    var str = "Hello3!!";
+btn3.addEventListener("click", function() {
+  console.log(this);
+    var str = "Hi3!!";
     window.alert(str);
 });
 

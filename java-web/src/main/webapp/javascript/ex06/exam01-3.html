@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>이벤트 - 리스너 실행 순서</h1>
-<button id="btn1" onclick="var str='Hello'; window.alert(str);">버튼1</button><br>
+<button id="btn1" onclick="var str='Hello1'; window.alert(str);">버튼1</button><br>
 
 <script>
 "use strict"
@@ -22,7 +22,6 @@
 //    그렇게 일관성이 있어야 유지보수가 쉽워진다.
 //
 var btn1 = document.querySelector("#btn1");
-
 btn1.addEventListener("click", () => {
     var str = "Hello3";
     window.alert(str);
@@ -31,7 +30,6 @@ btn1.onclick = () => {
     var str = "Hello2";
     window.alert(str);
 };
-
 
 
 
