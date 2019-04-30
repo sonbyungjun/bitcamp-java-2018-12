@@ -26,7 +26,7 @@ var ta = document.querySelector("#ta");
 
 document.querySelector("#btn1").onclick = () => {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "../../jsp/ajaxproxy.jsp", false);
+    xhr.open("GET", "proxy.jsp", false);
     xhr.send();
     ta.value = xhr.responseText;
     

@@ -5,7 +5,7 @@
 <title>ex07</title>
 </head>
 <body>
-<h1>AJAX - readyState와 status</h1>
+<h1>AJAX - 이벤트 발생시키기</h1>
 <form>
 <input type="text" id="a"> + <input type="text" id="b">
 <button type="button" id="btn1">=</button>
@@ -36,9 +36,9 @@ document.querySelector("#btn1").onclick = () => {
           	r.value = xhr.responseText;
         	} else {
         	  alert("실행 오류 입니다!");
+        	  var e = new MouseEvent("click");
+        	  document.querySelector("#btn2").dispatchEvent(e);
         	}
-        	// 해결책?
-        	// => 다음 예제를 보라!
         }
     };
     

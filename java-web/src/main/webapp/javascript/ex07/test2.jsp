@@ -7,7 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>test1.jsp 실행</h1>
+<h1>test2.jsp 실행</h1>
+<% request.setCharacterEncoding("UTF-8"); %>
+name=${param.name}<br>
+age=${param.age}<br>
 </body>
 </html>
 <%

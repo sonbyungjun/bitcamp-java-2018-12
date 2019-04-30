@@ -30,16 +30,14 @@ var ta = document.querySelector("#ta");
 document.querySelector("#btn1").onclick = () => {
     var xhr = new XMLHttpRequest();
 
+    // 서버에서 응답이 왔을 때 호출될 메서드를 등록한다.
+    // 서버에 연결하기 전에 등록해야 한다.
+    // 즉 open()을 호출하기 전에 등록해야 한다.
     xhr.onreadystatechange = () => {
-        console.log("readyState=", xhr.readyState);
-        // 실제 우리가 관심을 두는 것은 서버가 응답을 완료했는지 여부이다.
-        // 응답이 완료되었을 때 우리는 서버가 보낸 값을 꺼내 사용할 것이다.
-        if (xhr.readyState == 4) {
-        	ta.value = xhr.responseText;
-        }
+        console.log("현재 요청 상태: ", xhr.readyState);
     };
     
-    xhr.open("GET", "../../jsp/test3.jsp", true);
+    xhr.open("GET", "test3.jsp", true);
     xhr.send();
     console.log("send() 리턴함.");
 };

@@ -7,9 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>test1.jsp 실행</h1>
+<h1>test3.jsp 실행!</h1>
 </body>
 </html>
 <%
 response.setHeader("Access-Control-Allow-Origin", "*");
+Thread.currentThread().sleep(5000);
 %>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex07</title>
+</head>
+<body>
+<h1>AJAX - 동기 요청의 한계를 해결하자!</h1>
+<button id="btn1">요청</button><br>
+<a href="http://www.google.com">구글로 이동</a><br>
+<textarea id="ta" cols="80" rows="10"></textarea>
+
+<script>
+"use strict"
+// 동기 요청의 문제점 해결
+// => 웹브라우저는 서버에 요청을 별도의 스레드에서 실행하게 하고,
+//    서버의 응답에 상관없이 즉시 다음 작업을 수행한다.
+// => 이것을 "비동기(asynchronous) 요청"이라 부른다.
+//
+var ta = document.querySelector("#ta");
+
+document.querySelector("#btn1").onclick = () => {
+    var xhr = new XMLHttpRequest();
+
+    // 비동기 요청을 하려면 3번 파라미터를 true로 설정해야 한다.
+    xhr.open("GET", "test3.jsp", true);
+    xhr.send();
+    console.log("send() 리턴함.");
+    
+    window.setTimeout(() => {
+      ta.value = xhr.responseText;
+    }, 15000);
+    
+};
+
+</script>
+</body>
+</html>
+
+
+
+
+
