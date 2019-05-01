@@ -3,14 +3,10 @@
 <html>
 <head>
   <title>home</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="${contextRootPath}/css/common.css">
+    <jsp:include page="commonCss.jsp" />
 </head>
 <body>
   <jsp:include page="header.jsp" />
-  
- 
-  
   <div class="container">
   
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
@@ -24,7 +20,6 @@
     </div>
     
   </div>
-    
   <jsp:include page="javascript.jsp"/>
 </body>
 </html>

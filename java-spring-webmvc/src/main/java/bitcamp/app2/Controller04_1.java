@@ -11,21 +11,21 @@ public class Controller04_1 {
   // http://localhost:8080/java-spring-webmvc/app2/c04_1/h1
   @GetMapping("h1")
   public String handler1() {
-    System.out.println("c04_1.hadler1() 호출");
+    System.out.println("c04_1.handler1() 호출");
     return "c04_1";
   }
   
   // http://localhost:8080/java-spring-webmvc/app2/c04_1/a/h2
   @GetMapping("a/h2")
   public String handler2() {
-    System.out.println("c04_1.hadler2() 호출");
+    System.out.println("c04_1.handler2() 호출");
     return "c04_1";
   }
   
   // http://localhost:8080/java-spring-webmvc/app2/c04_1/b/h3
   @GetMapping("b/h3")
   public String handler3() {
-    System.out.println("c04_1.hadler3() 호출");
+    System.out.println("c04_1.handler3() 호출");
     return "c04_1";
   }
 }
