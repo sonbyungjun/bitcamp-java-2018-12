@@ -1,4 +1,5 @@
 package com.eomcs.lms.web.json;
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -14,43 +15,55 @@ import com.eomcs.lms.service.BoardService;
 @RestController("json/BoardController")
 @RequestMapping("/json/board")
 public class BoardController {
-  
+
   @Autowired
   BoardService boardService;
-  
+
   @PostMapping("add")
-  public String add(Board board) {
-    boardService.add(board);
-    return "redirect:.";
-  }
-  
-  @GetMapping("delete/{no}")
-  public String delete(@PathVariable int no) {
-    if (boardService.delete(no) == 0) {
-      throw new RuntimeException("해당 게시물이 없습니다.");
+  public Object add(Board board) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      boardService.add(board);
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
     }
-    return "redirect:../";
+    return content;
   }
-  
+
+  @GetMapping("delete/{no}")
+  public Object delete(@PathVariable int no) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      if (boardService.delete(no) == 0) 
+        throw new RuntimeException("해당 게시물이 없습니다.");
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+
   @GetMapping("{no}")
-  public String detail(@PathVariable int no, Model model) {
+  public Object detail(@PathVariable int no) {
     Board board = boardService.get(no);
-    model.addAttribute("board", board);
-    return "board/detail";
+    return board;
   }
-  
+
   @GetMapping("list")
-  public void list(
+  public Object list(
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="3") int pageSize,
       Model model) {
-    
+
     if (pageSize < 3 || pageSize > 8) 
       pageSize = 3;
-    
+
     int rowsCount = boardService.size();
     int totalPage = rowsCount / pageSize;
-    
+
     if (rowsCount % pageSize > 0) 
       totalPage++;
 
@@ -58,19 +71,28 @@ public class BoardController {
       pageNo = 1;
     else if (pageNo > totalPage)
       pageNo = totalPage;
-    
+
     List<Board> boards = boardService.list(pageNo, pageSize);
-    model.addAttribute("list", boards);
-    model.addAttribute("pageNo", pageNo);
-    model.addAttribute("pageSize", pageSize);
-    model.addAttribute("totalPage", totalPage);
+    HashMap<String,Object> content = new HashMap<>();
+    content.put("list", boards);
+    content.put("pageNo", pageNo);
+    content.put("pageSize", pageSize);
+    content.put("totalPage", totalPage);
+    return content;
   }
-  
+
   @PostMapping("update")
-  public String update(Board board) {
-    if (boardService.update(board) == 0) 
-      throw new RuntimeException("해당 번호의 게시물이 없습니다.");
-    return "redirect:.";
+  public Object update(Board board) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      if (boardService.update(board) == 0) 
+        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
   }
 }
 
