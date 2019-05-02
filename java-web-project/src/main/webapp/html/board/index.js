@@ -1,23 +1,10 @@
 var pageNo = 1,
     pageSize = 3,
-    header = document.querySelector('body > header'),
     tbody = document.querySelector('tbody'),
     prevPageLi = document.querySelector('#prevPage'),
     nextPageLi = document.querySelector('#nextPage'),
     currSpan = document.querySelector('#currPage > span');
     
-// 헤더 가져오기
-(function() {
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState != 4 || xhr.status != 200) 
-      return;
-    header.innerHTML = xhr.responseText;
-    
-  };
-  xhr.open('GET', '../header.html', true);
-  xhr.send();
-})();
 
 /*
 document.body.addEventListener('loaded.header', () => {

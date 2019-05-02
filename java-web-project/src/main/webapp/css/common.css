@@ -4,10 +4,6 @@ body {
 	font-size: medium;
 }
 
-body > header {
-  min-height: 80px;
-}
-
 div.bit-photo {
 	min-height: 500px;
 	overflow: hidden;
@@ -29,12 +25,17 @@ div.containe {
 	width: 600px;
 }
 
-h1 {
+.container > h1 {
+	height: 40px;
 	/* border: 1px solid red; */
 	/* text-align: center; */
 }
 
-#bit-login-state {
+.bit-invisible {
+	display: none;
+}
+
+#bit-login-state, #bit-not-login-state {
 	margin: 0px 20px;
 }
 
