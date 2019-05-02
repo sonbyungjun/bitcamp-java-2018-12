@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>게시물 조회</title>
+  <link rel="stylesheet" href="/java-web-project/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/java-web-project/css/common.css">
+</head>
+<body>
+  <header>
+  </header>
+  <div class="container">
+    <h1>게시물 조회</h1>
+      
+    <form action='update' method='post'>
+      
+      <div class="form-group row">
+        <label for="no" class="col-sm-2 col-form-label">번호</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control-plaintext" id="no" name='no' readonly>
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label for="contents" class="col-sm-2 col-form-label">내용</label>
+        <div class="col-sm-8">
+          <textarea class="form-control" id="contents" name='contents' rows='5'></textarea>
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label for="createdDate" class="col-sm-2 col-form-label">작성일</label>
+        <div class="col-sm-8">
+          <input type="text" readonly class="form-control-plaintext" id="createdDate">
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label for="viewCount" class="col-sm-2 col-form-label">조회수</label>
+        <div class="col-sm-8">
+          <input type="text" readonly class="form-control-plaintext" id="viewCount">
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <a class="btn btn-primary" href='index.html'>목록</a>
+          <a class="btn btn-primary" href='delete/124'>삭제</a>
+          <button class="btn btn-primary" type='submit'>변경</button>
+        </div>
+      </div>
+          
+    </form>
+  </div> <!-- .container -->
+  
+<script src="/java-web-project/node_modules/jquery/dist/jquery.slim.min.js"></script>
+<script src="/java-web-project/node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="/java-web-project/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/java-web-project/modal.js"></script>
+<script src="view.js"></script>
+</body>
+</html>

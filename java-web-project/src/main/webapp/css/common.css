@@ -4,6 +4,10 @@ body {
 	font-size: medium;
 }
 
+body > header {
+  min-height: 80px;
+}
+
 div.bit-photo {
 	min-height: 500px;
 	overflow: hidden;
