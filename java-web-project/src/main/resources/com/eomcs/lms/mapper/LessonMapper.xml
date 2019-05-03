@@ -18,7 +18,7 @@
   
   <sql id="default-columns">
       lesson_id, 
-      titl, 
+      titl,
       sdt, 
       edt, 
       tot_hr

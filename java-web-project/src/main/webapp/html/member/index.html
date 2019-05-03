@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>회원 목록</title>
+  <link rel="stylesheet" href="/java-web-project/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/java-web-project/css/common.css">
+  <link rel="stylesheet" href="/java-web-project/css/header.css">
+</head>
+<body>
+  <header class="bit-main-header"></header>
+  <div class="container">
+  
+    <h1>회원 목록</h1>
+    
+    <p>
+      <a href='form' class="btn btn-primary btn-sm">회원가입</a>
+    </p>
+    
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">번호</th>
+          <th scope="col">이름</th>
+          <th scope="col">이메일</th>
+          <th scope="col">전화번호</th>
+          <th scope="col">생성일</th>
+        </tr>
+      </thead>
+      <tr>
+        <th scope="row">50</th>
+        <td><a href='50' class="alert-link">bbbbaaaa2222</a></td>
+        <td>saint2030@naver.com124124</td>
+        <td>1111</td>
+        <td>2019-04-23</td>
+      </tr>
+      </table>
+  
+    <form action='search' class="form-inline my-2 my-lg-0 justify-content-center">
+      <input name='search' class="form-control mr-sm-2" type="search" placeholder="검색" aria-label="검색">
+      <button class="btn btn-outline-success my-2 my-sm-0">검색</button>
+    </form>
+
+  </div> <!-- .container -->
+<script src="/java-web-project/node_modules/jquery/dist/jquery.slim.min.js"></script>
+<script src="/java-web-project/node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="/java-web-project/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/java-web-project/modal.js"></script>
+<script src="../header.js"></script>
+<script src="index.js"></script>
+</body>
+</html>

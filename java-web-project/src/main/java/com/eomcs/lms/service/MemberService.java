@@ -10,4 +10,5 @@ public interface MemberService {
   Member get(String email, String password);
   int update(Member member);
   int delete(int no);
+  int size();
 }

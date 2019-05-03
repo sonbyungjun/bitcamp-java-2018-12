@@ -13,6 +13,7 @@ public interface MemberDao {
   Member findByEmailPassword(Map<String,Object> paramMap);
   int update(Member member);
   int delete(int no);
+  int countAll();
 }
 
 

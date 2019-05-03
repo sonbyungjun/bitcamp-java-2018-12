@@ -5,7 +5,6 @@ var pageNo = 1,
     nextPageLi = document.querySelector('#nextPage'),
     currSpan = document.querySelector('#currPage > span');
     
-
 /*
 document.body.addEventListener('loaded.header', () => {
   loadList(1);

@@ -1,6 +1,7 @@
 package com.eomcs.lms.domain;
 import java.io.Serializable;
 import java.sql.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Lesson implements Cloneable, Serializable {
   private static final long serialVersionUID = 1L;
@@ -8,7 +9,11 @@ public class Lesson implements Cloneable, Serializable {
   private int no;
   private String title;
   private String contents;
+  
+  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
   private Date startDate;
+  
+  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
   private Date endDate;
   private int totalHours;
   private int dayHours;

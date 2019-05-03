@@ -12,6 +12,11 @@ public class MemberServiceImpl implements MemberService {
   
   MemberDao memberDao;
   
+  @Override
+  public int size() {
+    return memberDao.countAll();
+  }
+  
   public MemberServiceImpl(MemberDao memberDao) {
     this.memberDao = memberDao;
   }
