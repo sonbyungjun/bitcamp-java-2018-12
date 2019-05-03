@@ -23,13 +23,13 @@ public class MemberController {
 
   @Autowired
   MemberService memberService;
-  
+
   @Autowired
   ServletContext servletContext;
-  
+
   @PostMapping("add")
   public String add(Member member, Part photoFile) throws Exception {
-    
+
     if (photoFile.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
       String uploadDir = servletContext.getRealPath("/upload/member");
@@ -39,22 +39,29 @@ public class MemberController {
     memberService.add(member);
     return "redirect:.";
   }
-  
+
   @GetMapping("delete/{no}")
   public String delete(@PathVariable int no) throws Exception {
     if (memberService.delete(no) == 0) 
       throw new Exception("해당 번호의 회원이 없습니다.");
     return "redirect:../";
   }
-  
-  @GetMapping("{no}")
-  public String detail(@PathVariable int no, Model model) throws Exception {
-    Member member = memberService.get(no);
-    model.addAttribute("member", member);
-    return "member/detail";
+
+  @GetMapping("detail")
+  public Object detail(int no, Model model) throws Exception {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      Member member = memberService.get(no);
+      content.put("member", member);
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
   }
-  
-  @GetMapping
+
+  @GetMapping("list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="3") int pageSize) {
@@ -74,35 +81,35 @@ public class MemberController {
       pageNo = totalPage;
 
     HashMap<String,Object> content = new HashMap<>();
-    List<Member> members = memberService.list(null);
+    List<Member> members = memberService.list(null, pageNo, pageSize);
     content.put("list", members);
     content.put("pageNo", pageNo);
     content.put("pageSize", pageSize);
     content.put("totalPage", totalPage);
     return content;
   }
-  
+
   @GetMapping("search")
   public void search(String search, Model model) throws Exception {
-    List<Member> members = memberService.list(search);
+    List<Member> members = memberService.list(search, 1, 100);
     model.addAttribute("list", members);
   }
-  
+
   @PostMapping("update")
   public String update(
       Member member, Part photoFile) throws Exception {
-    
+
     if (photoFile.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
       String uploadDir = servletContext.getRealPath("/upload/member");
       photoFile.write(uploadDir + "/" + filename);
       member.setPhoto(filename);
     }
-    
+
     if (memberService.update(member) == 0) 
       throw new Exception("해당 번호의 회원이 없습니다.");
-    
+
     return "redirect:.";
   }
-  
+
 }

@@ -23,14 +23,17 @@
       tel,
       cdt
   </sql>
-  
-  <select id="findAll" resultMap="memberMap">
+ 
+  <select id="findAll" resultMap="memberMap" parameterType="map">
     select 
       <include refid="default-columns"/>
     from 
       lms_member
     order by 
-      name asc
+      member_id desc
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
   </select>
   
   <select id="findByNo" resultMap="memberMap" parameterType="int">
@@ -99,6 +102,10 @@
     where 
       email = #{email}
       and pwd = password(#{password})
+  </select>
+  
+  <select id="countAll" resultType="int">
+    select count(*) from lms_lesson
   </select>
 </mapper>
 

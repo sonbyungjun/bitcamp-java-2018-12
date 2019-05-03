@@ -5,7 +5,7 @@ import com.eomcs.lms.domain.Member;
 
 public interface MemberService {
   int add(Member member);
-  List<Member> list(String keyword);
+  List<Member> list(String keyword, int pageNo, int pageSize);
   Member get(int no);
   Member get(String email, String password);
   int update(Member member);

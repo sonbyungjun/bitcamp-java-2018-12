@@ -58,14 +58,14 @@ public class MemberController {
   
   @GetMapping
   public String list(Model model) throws Exception {
-    List<Member> members = memberService.list(null);
+    List<Member> members = memberService.list(null, 1, 100);
     model.addAttribute("list", members);
     return "member/list";
   }
   
   @GetMapping("search")
   public void search(String search, Model model) throws Exception {
-    List<Member> members = memberService.list(search);
+    List<Member> members = memberService.list(search, 1, 100);
     model.addAttribute("list", members);
   }
   

@@ -22,11 +22,15 @@ public class MemberServiceImpl implements MemberService {
   }
 
   @Override
-  public List<Member> list(String keyword) {
-    if (keyword == null)
-      return memberDao.findAll();
-    else
+  public List<Member> list(String keyword, int pageNo, int pageSize) {
+    if (keyword == null) {
+      HashMap<String,Object> params = new HashMap<>();
+      params.put("size", pageSize);
+      params.put("rowNo", (pageNo - 1) * pageSize);
+      return memberDao.findAll(params);
+    } else {
       return memberDao.findByKeyword(keyword);
+    }
   }
 
   @Override

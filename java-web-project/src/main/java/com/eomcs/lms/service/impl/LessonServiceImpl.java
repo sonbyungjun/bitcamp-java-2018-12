@@ -29,10 +29,8 @@ public class LessonServiceImpl implements LessonService {
   @Override
   public List<Lesson> list(int pageNo, int pageSize) {
     HashMap<String,Object> params = new HashMap<>();
-    //if (pageNo != 0 && pageSize != 0) {
-      params.put("size", pageSize);
-      params.put("rowNo", (pageNo - 1) * pageSize);
-    //}
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
     return lessonDao.findAll(params);
   }
 

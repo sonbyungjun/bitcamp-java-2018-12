@@ -21,8 +21,8 @@ div.bit-list {
 	padding: 30px;
 }
 
-div.containe {
-	width: 600px;
+div.container {
+	/* width: 600px; */
 }
 
 .container > h1 {
@@ -33,6 +33,10 @@ div.containe {
 
 .bit-invisible {
 	display: none;
+}
+
+#bit-page {
+	min-height: 50px;
 }
 
 #bit-login-state, #bit-not-login-state {
