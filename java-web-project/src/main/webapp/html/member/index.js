@@ -28,13 +28,13 @@ function loadList(pn) {
     }
     
     // 페이지네이션 뷰
-    var resultTag = '<li id="prevPage" class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>\n';
+    var resultTag = '<li id="prevPage" class="page-item disabled" href="#"><a class="page-link">&laquo;</a></li>\n';
     for (var i = 1; i <= obj.totalPage; i++) {
       resultTag += '<li class="page-item ' + (pn == i ? 'active' : '') + '"><a class="page-link bit-page-no" href="#" data-pageno="' + i + '">' + i + '</a></li>\n';
     }
-    resultTag += '<li id="nextPage" class="page-item "><a class="page-link" href="#"">&raquo;</a></li>\n';
-    document.querySelector('#bit-page').innerHTML = resultTag;
+    resultTag += '<li id="nextPage" class="page-item "><a class="page-link" href="#">&raquo;</a></li>\n';
     
+    document.querySelector('#bit-page').innerHTML = resultTag;
     
     if (pageNo == 1) {
       document.querySelector('#prevPage').className += ' disabled';
@@ -57,12 +57,10 @@ function loadList(pn) {
 document.body.addEventListener('loaded-list', () => {
 
   document.querySelector('#prevPage > a').onclick = (e) => {
-    e.preventDefault();
     loadList(pageNo - 1);
   };
   
   document.querySelector('#nextPage > a').onclick = (e) => {
-    e.preventDefault();
     loadList(pageNo + 1);
   };
   
