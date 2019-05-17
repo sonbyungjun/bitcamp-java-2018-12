@@ -91,7 +91,7 @@
     <servlet-name>bitcamp.ex04.Servlet05</servlet-name>
     <servlet-class>bitcamp.ex04.Servlet05</servlet-class>
     <multipart-config>
-      <max-file-size>10000000</max-file-size>
+      <max-file-size>100000000</max-file-size>
     </multipart-config>
   </servlet>
   
@@ -161,7 +161,7 @@
   
   <servlet>
     <servlet-name>upload.jsp</servlet-name>
-    <servlet-class>/fileupload/upload.jsp</servlet-class>
+    <jsp-file>/fileupload/upload.jsp</jsp-file>
     <multipart-config>
       <max-file-size>10000000</max-file-size>
     </multipart-config>

@@ -5,7 +5,7 @@
 <title>ajax 파일 업로드</title>
 <style>
 .bar {
-    height: 18px;
+    height: 2px;
     background: green;
 }
 </style>
@@ -25,16 +25,16 @@
 </pre>
 
 <input id="fileupload" type="file" name="files" 
-       data-url="../mvc/exam11_2/upload01" multiple>
+       data-url="upload.jsp" multiple>
 
 <div id="progress">
     <div class="bar" style="width: 0%;"></div>
 </div>
 
-<script src='node_modules/jquery/dist/jquery.js'></script>
-<script src="node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
-<script src="node_modules/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
-<script src="node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
+<script src='../node_modules/jquery/dist/jquery.js'></script>
+<script src="../node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="../node_modules/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
+<script src="../node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
 <script>
 "use strict"
 
