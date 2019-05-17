@@ -1,11 +1,9 @@
 var pageNo = 1,
-    pageSize = 3,
-    tbody = $('tbody'),
-    prevPageLi = $('#prevPage'),
-    nextPageLi = $('#nextPage'),
-    currSpan = $('#currPage > span'),
-    templateSrc = $('#tr-template').html(),
-    trGenerator = Handlebars.compile(templateSrc);
+pageSize = 3,
+tbody = $('tbody'),
+prevPageLi = $('#prevPage'),
+nextPageLi = $('#nextPage'),
+currSpan = $('#currPage > span');
 
 //데이터 목록 가져오기
 function loadList(pn) {
@@ -13,7 +11,15 @@ function loadList(pn) {
   $.getJSON('../../app/json/board/list?pageNo=' + pn + '&pageSize=' + pageSize, function(obj) {
     pageNo = obj.pageNo;
     tbody.html('');
-    $(trGenerator(obj)).appendTo(tbody);
+    for (data of obj.list) {
+      $('<tr>')
+      .append($('<th>').attr('scope', 'row').html(data.no))
+      .append($('<td>').append($('<a>').addClass('bit-view-link').attr('href', '#').attr('data-no', data.no).html(data.contents)))
+      .append($('<td>').html(data.createdDate))
+      .append($('<td>').html(data.viewCount))
+      .appendTo(tbody);
+    }
+
     currSpan.html(String(pageNo));
 
     if (pageNo == 1) {

@@ -159,6 +159,18 @@
     <url-pattern>/lib/hello</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>upload.jsp</servlet-name>
+    <servlet-class>/fileupload/upload.jsp</servlet-class>
+    <multipart-config>
+      <max-file-size>10000000</max-file-size>
+    </multipart-config>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>upload.jsp</servlet-name>
+    <url-pattern>/fileupload/upload.jsp</url-pattern>
+  </servlet-mapping>
   
   <session-config>
     <session-timeout>1</session-timeout>

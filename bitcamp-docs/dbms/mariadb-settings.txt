@@ -67,7 +67,7 @@ mariadb 실행
   => 다른 컴퓨터에서 실행하는 MySQL 서버에 접속할 수 없다는 것을 의미한다.
 
 원격에서만 접속할 수 있는 사용자를 만들기:
-> CREATE USER 'study'@'%' IDENTIFIED BY '1111';
+> CREATE USER 'heun'@'%' IDENTIFIED BY '1111';
   => 이 경우 study 사용자는 원력에서만 접속 가능하다.
 
 ## MySQL 사용자 목록 조회
