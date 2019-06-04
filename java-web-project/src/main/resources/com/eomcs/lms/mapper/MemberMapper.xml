@@ -60,7 +60,8 @@
     order by name asc
   </select>
   
-  <insert id="insert" parameterType="member">
+  <insert id="insert" parameterType="member" 
+    useGeneratedKeys="true" keyColumn="member_id" keyProperty="no">
     insert into lms_member(
       name,
       email,
@@ -102,6 +103,16 @@
     where 
       email = #{email}
       and pwd = password(#{password})
+  </select>
+  
+  <select id="findByEmail" resultMap="memberMap" parameterType="string">
+    select 
+      <include refid="default-columns"/>, 
+      photo
+    from 
+      lms_member
+    where 
+      email = #{value}
   </select>
   
   <select id="countAll" resultType="int">

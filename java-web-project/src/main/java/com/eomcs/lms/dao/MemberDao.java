@@ -11,6 +11,7 @@ public interface MemberDao {
   List<Member> findByKeyword(String keyword);
   Member findByNo(int no);
   Member findByEmailPassword(Map<String,Object> paramMap);
+  Member findByEmail(String email);
   int update(Member member);
   int delete(int no);
   int countAll();
