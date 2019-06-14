@@ -58,6 +58,9 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+    
+    // sms
+    compile 'com.nexmo:client:4.+'
 }
 
 // Define the main class for the application

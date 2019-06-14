@@ -3,6 +3,7 @@
  xmlns:context="http://www.springframework.org/schema/context"
  xmlns:aop="http://www.springframework.org/schema/aop"
  xmlns:mvc="http://www.springframework.org/schema/mvc"
+ xmlns:task="http://www.springframework.org/schema/task"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -11,7 +12,9 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task.xsd">
 
   <context:component-scan base-package="bitcamp.app2" />
 
@@ -44,5 +47,7 @@
    <bean class="bitcamp.app2.Controller04_1_Interceptor4" />
   </mvc:interceptor>
  </mvc:interceptors>
+ 
+  <task:annotation-driven/>
 
 </beans>

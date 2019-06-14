@@ -62,7 +62,7 @@ mariadb 실행
 > CREATE USER '사용자아이디'@'서버주소' IDENTIFIED BY '암호';
 
 로컬에서만 접속할 수 있는 사용자를 만들기:
-> CREATE USER 'study'@'localhost' IDENTIFIED BY '1111';
+> CREATE USER 'heun'@'localhost' IDENTIFIED BY '1111';
   => 이 경우 stidu 사용자는 오직 로컬(서버를 실행하는 컴퓨터)에서만 접속 가능한다.
   => 다른 컴퓨터에서 실행하는 MySQL 서버에 접속할 수 없다는 것을 의미한다.
 
@@ -80,7 +80,7 @@ mariadb에서는 default 키워드를 사용하지 않는다.
   CHARACTER SET utf8
   COLLATE utf8_general_ci;
 
-> CREATE DATABASE studydb
+> CREATE DATABASE heunheundb
   CHARACTER SET utf8
   COLLATE utf8_general_ci;
   
