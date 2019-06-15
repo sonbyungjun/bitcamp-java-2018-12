@@ -4,7 +4,7 @@
 로컬 MySQL 서버에 접속
 > mysql -u root -p
 > Enter password: 암호입력
-
+ 
 원격 MySQL 서버에 접속
 > mysql -h 서버주소 -u root -p
 > Enter password: 암호입력
